@@ -240,27 +240,6 @@ function App() {
 								)}
 							</CardContent>
 						</Card>
-
-						<Card className="py-6">
-							<CardHeader>
-								<CardTitle className="flex items-center gap-2">
-									<Mail className="w-5 h-5" />
-									Tipo de Conta
-								</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<Badge
-									variant={session?.type === "admin" ? "destructive" : "default"}
-									className="capitalize"
-								>
-									{session?.type === "admin"
-										? "Administrador"
-										: session?.type === "company"
-											? "Empresa"
-											: "Cliente"}
-								</Badge>
-							</CardContent>
-						</Card>
 					</div>
 				</div>
 			</div>

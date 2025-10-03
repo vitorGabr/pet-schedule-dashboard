@@ -1,11 +1,10 @@
-import type { ServiceResponseListOutputItemsItem } from "@/lib/http";
-import { useGetSession, useListServicesByCompany } from "@/lib/http";
-import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
-import { zodValidator } from "@tanstack/zod-adapter";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { SiteHeader } from "@/components/site-header";
+import { Button } from "@/components/ui/button";
+import type { ServiceResponseListOutputItemsItem } from "@/lib/http";
+import { useGetSession, useListServicesByCompany } from "@/lib/http";
 import { pageSearchSchema } from "@/schemas/page-search";
 import { CreateServiceModal } from "./-components/create-service-modal";
 import { DeactivateServiceModal } from "./-components/deactivate-service-modal";
@@ -15,7 +14,7 @@ import { ServicesSkeleton } from "./-components/services-skeleton";
 
 export const Route = createFileRoute("/(app)/services/")({
 	component: ServicePage,
-	validateSearch: zodValidator(pageSearchSchema),
+	validateSearch: pageSearchSchema,
 });
 
 function ServicePage() {

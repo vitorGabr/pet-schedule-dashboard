@@ -1,10 +1,9 @@
-import { useGetSession, useListStaffByCompany } from "@/lib/http";
-import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
-import { zodValidator } from "@tanstack/zod-adapter";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { SiteHeader } from "@/components/site-header";
+import { Button } from "@/components/ui/button";
+import { useGetSession, useListStaffByCompany } from "@/lib/http";
 import { staffFilterPageSchema } from "@/schemas/staff-filter-page";
 import { CreateStaffModal } from "./-components/create-staff-modal";
 import { StaffFilters } from "./-components/staff-filters";
@@ -12,7 +11,7 @@ import { StaffTable } from "./-components/staff-table";
 
 export const Route = createFileRoute("/(app)/staffs/")({
 	component: App,
-	validateSearch: zodValidator(staffFilterPageSchema),
+	validateSearch: staffFilterPageSchema,
 });
 
 function App() {

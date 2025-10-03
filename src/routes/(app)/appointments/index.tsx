@@ -1,14 +1,13 @@
-import { useGetAllCompanyAppointments, useGetSession } from "@/lib/http";
 import { createFileRoute } from "@tanstack/react-router";
-import { zodValidator } from "@tanstack/zod-adapter";
 import { SiteHeader } from "@/components/site-header";
+import { useGetAllCompanyAppointments, useGetSession } from "@/lib/http";
 import { appointmentFilterPageSchema } from "@/schemas/appointment-filter-page";
 import { AppointmentModal } from "./-components/appointment-modal";
 import { AppointmentsTable } from "./-components/appointments-table";
 
 export const Route = createFileRoute("/(app)/appointments/")({
 	component: App,
-	validateSearch: zodValidator(appointmentFilterPageSchema),
+	validateSearch: appointmentFilterPageSchema,
 });
 
 function App() {

@@ -1,4 +1,8 @@
-import { acceptInvite, getGetSessionQueryKey, useValidateInvite } from "@/lib/http";
+import {
+	acceptInvite,
+	getGetSessionQueryKey,
+	useValidateInvite,
+} from "@/lib/http";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,10 +12,15 @@ import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AlertCircle, Check, Loader2 } from "lucide-react";
 import { TextField } from "@/components/form/fields/text-field";
-import { type AcceptInviteSchema, acceptInviteSchema } from "@/schemas/accept-invite";
+import {
+	type AcceptInviteSchema,
+	acceptInviteSchema,
+} from "@/schemas/accept-invite";
 import { setCookie } from "@/utils/cookie";
 
-export const Route = createFileRoute("/invite/$token/")({ component: InvitePage });
+export const Route = createFileRoute("/invite/$token/")({
+	component: InvitePage,
+});
 
 function InvitePage() {
 	const queryClient = useQueryClient();
@@ -22,7 +31,11 @@ function InvitePage() {
 	const navigate = Route.useNavigate();
 
 	const form = useForm({
-		defaultValues: { token, password: "", confirmPassword: "" } as AcceptInviteSchema,
+		defaultValues: {
+			token,
+			password: "",
+			confirmPassword: "",
+		} as AcceptInviteSchema,
 		validators: { onChange: acceptInviteSchema },
 		onSubmit: async ({ value }) => {
 			const data = await acceptInvite(value);
@@ -37,7 +50,7 @@ function InvitePage() {
 			<div className="min-h-screen bg-background flex items-center justify-center p-4">
 				<Loader2 className="h-12 w-12 animate-spin" />
 			</div>
-		)
+		);
 	}
 
 	if (isError) {
@@ -62,7 +75,7 @@ function InvitePage() {
 					</CardContent>
 				</Card>
 			</div>
-		)
+		);
 	}
 
 	if ([!data?.isValid, data?.isExpired, data?.isUsed].some(Boolean)) {
@@ -85,17 +98,19 @@ function InvitePage() {
 					</CardContent>
 				</Card>
 			</div>
-		)
+		);
 	}
 
 	return (
-        <div className="min-h-screen bg-background">
-            {/* Header */}
-            <header className="border-b bg-card">
+		<div className="min-h-screen bg-background">
+			{/* Header */}
+			<header className="border-b bg-card">
 				<div className="container mx-auto px-4 py-4">
 					<div className="flex items-center gap-3">
 						<div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
-							<span className="text-primary-foreground font-bold text-sm">P</span>
+							<span className="text-primary-foreground font-bold text-sm">
+								P
+							</span>
 						</div>
 						<div>
 							<h1 className="font-bold text-lg">PETCARE</h1>
@@ -104,8 +119,8 @@ function InvitePage() {
 					</div>
 				</div>
 			</header>
-            {/* Main Content */}
-            <main className="container mx-auto px-4 py-8 flex items-center justify-center min-h-[calc(100vh-80px)]">
+			{/* Main Content */}
+			<main className="container mx-auto px-4 py-8 flex items-center justify-center min-h-[calc(100vh-80px)]">
 				<Card className="w-full max-w-md py-8">
 					<CardHeader className="text-center space-y-4">
 						<div className="mx-auto h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
@@ -123,11 +138,15 @@ function InvitePage() {
 						{/* Informações do Convite */}
 						<div className="space-y-4 p-4 bg-muted/50 rounded-lg">
 							<div>
-								<Label className="text-sm font-medium text-muted-foreground">Nome</Label>
+								<Label className="text-sm font-medium text-muted-foreground">
+									Nome
+								</Label>
 								<p className="font-medium">{data?.invite?.user.name}</p>
 							</div>
 							<div>
-								<Label className="text-sm font-medium text-muted-foreground">Email</Label>
+								<Label className="text-sm font-medium text-muted-foreground">
+									Email
+								</Label>
 								<p className="font-medium">{data?.invite?.user.email}</p>
 							</div>
 						</div>
@@ -135,9 +154,9 @@ function InvitePage() {
 						{/* Formulário de Senha */}
 						<form
 							onSubmit={(e) => {
-								e.preventDefault()
-								e.stopPropagation()
-								form.handleSubmit()
+								e.preventDefault();
+								e.stopPropagation();
+								form.handleSubmit();
 							}}
 							className="space-y-4"
 						>
@@ -219,7 +238,11 @@ function InvitePage() {
 							<form.Subscribe
 								selector={(state) => [state.canSubmit, state.isSubmitting]}
 								children={([canSubmit, isSubmitting]) => (
-									<Button type="submit" className="w-full" disabled={!canSubmit || isSubmitting}>
+									<Button
+										type="submit"
+										className="w-full"
+										disabled={!canSubmit || isSubmitting}
+									>
 										{isSubmitting ? (
 											<>
 												<Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -248,6 +271,6 @@ function InvitePage() {
 					</CardContent>
 				</Card>
 			</main>
-        </div>
-    )
+		</div>
+	);
 }

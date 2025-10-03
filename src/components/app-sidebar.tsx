@@ -59,7 +59,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 					<div className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
 						Em breve
 					</div>
-					<NavMain items={data.navComingSoon} activePath={activePath.pathname} />
+					<NavMain
+						items={data.navComingSoon}
+						activePath={activePath.pathname}
+					/>
 				</div>
 			</SidebarContent>
 			<SidebarFooter>

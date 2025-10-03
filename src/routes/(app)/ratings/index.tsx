@@ -1,4 +1,8 @@
-import { useGetCompanyRatingStats, useGetSession, useListCompanyRatings } from "@/lib/http";
+import {
+	useGetCompanyRatingStats,
+	useGetSession,
+	useListCompanyRatings,
+} from "@/lib/http";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,7 +13,9 @@ import { Star } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { RatingsSkeleton } from "./-components/ratings-skeleton";
 
-export const Route = createFileRoute("/(app)/ratings/")({ component: RouteComponent });
+export const Route = createFileRoute("/(app)/ratings/")({
+	component: RouteComponent,
+});
 
 function RouteComponent() {
 	const { data: session } = useGetSession();
@@ -20,7 +26,7 @@ function RouteComponent() {
 		session?.companyId!,
 		{},
 		{ query: { enabled: !!session?.companyId } },
-	)
+	);
 
 	const isLoading = ratingStats.isLoading || ratings.isLoading;
 
@@ -37,7 +43,9 @@ function RouteComponent() {
 						<Card>
 							<CardContent className="p-6">
 								<div className="flex items-center justify-between mb-6">
-									<h3 className="text-lg font-semibold text-gray-900">Avaliações dos Clientes</h3>
+									<h3 className="text-lg font-semibold text-gray-900">
+										Avaliações dos Clientes
+									</h3>
 									<Button variant="outline" size="sm">
 										Ver todas
 									</Button>
@@ -60,18 +68,24 @@ function RouteComponent() {
 												</Avatar>
 												<div className="flex-1">
 													<div className="flex items-center justify-between mb-1">
-														<h4 className="font-medium text-gray-900">{avaliacao.user?.name}</h4>
+														<h4 className="font-medium text-gray-900">
+															{avaliacao.user?.name}
+														</h4>
 														<span className="text-xs text-gray-500">
 															{format(avaliacao.createdAt, "dd/MM/yyyy")}
 														</span>
 													</div>
 													<div className="flex items-center space-x-2 mb-2">
-														<div className="flex">{renderStars(avaliacao.rating)}</div>
+														<div className="flex">
+															{renderStars(avaliacao.rating)}
+														</div>
 														<Badge variant="secondary" className="text-xs">
 															Banho e Tosa
 														</Badge>
 													</div>
-													<p className="text-sm text-gray-600">{avaliacao.comment}</p>
+													<p className="text-sm text-gray-600">
+														{avaliacao.comment}
+													</p>
 												</div>
 											</div>
 										</div>
@@ -89,9 +103,14 @@ function RouteComponent() {
 								</h3>
 								<div className="space-y-4">
 									{ratingStats.data?.distribution.map((item) => (
-										<div key={item.rating} className="flex items-center space-x-3">
+										<div
+											key={item.rating}
+											className="flex items-center space-x-3"
+										>
 											<div className="flex items-center space-x-1 w-12">
-												<span className="text-sm font-medium">{item.rating}</span>
+												<span className="text-sm font-medium">
+													{item.rating}
+												</span>
 												<Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
 											</div>
 											<div className="flex-1">
@@ -102,14 +121,18 @@ function RouteComponent() {
 													></div>
 												</div>
 											</div>
-											<span className="text-sm text-gray-600 w-8">{item.count}</span>
+											<span className="text-sm text-gray-600 w-8">
+												{item.count}
+											</span>
 										</div>
 									))}
 								</div>
 								<div className="mt-6 pt-4 border-t border-gray-200">
 									<div className="text-center">
 										<div className="text-2xl font-bold text-gray-900">4.3</div>
-										<div className="flex justify-center mb-1">{renderStars(4)}</div>
+										<div className="flex justify-center mb-1">
+											{renderStars(4)}
+										</div>
 										<div className="text-sm text-gray-600">
 											Baseado em {ratings.data?.items.length} avaliações
 										</div>
@@ -121,7 +144,7 @@ function RouteComponent() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }
 
 function renderStars(rating: number) {

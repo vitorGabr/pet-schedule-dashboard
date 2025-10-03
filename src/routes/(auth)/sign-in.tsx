@@ -24,7 +24,11 @@ export function SignIn() {
 	const queryClient = useQueryClient();
 
 	const form = useForm({
-		defaultValues: { email: "", password: "", type: "company" } as SignInRequestDto,
+		defaultValues: {
+			email: "",
+			password: "",
+			type: "company",
+		} as SignInRequestDto,
 		onSubmit: async ({ value }) => {
 			const data = await signIn(value);
 			setCookie("token", data.accessToken);
@@ -44,14 +48,16 @@ export function SignIn() {
 					<Card className="py-6">
 						<CardHeader className="text-center">
 							<CardTitle className="text-xl">Bem-vindo de volta</CardTitle>
-							<CardDescription>Faça login com seu email e senha para continuar</CardDescription>
+							<CardDescription>
+								Faça login com seu email e senha para continuar
+							</CardDescription>
 						</CardHeader>
 						<CardContent>
 							<form
 								onSubmit={(e) => {
-									e.preventDefault()
-									e.stopPropagation()
-									form.handleSubmit()
+									e.preventDefault();
+									e.stopPropagation();
+									form.handleSubmit();
 								}}
 							>
 								<div className="grid gap-6">
@@ -60,8 +66,13 @@ export function SignIn() {
 											name="email"
 											children={(field) => {
 												return (
-													<TextField field={field} label="Email" type="email" placeholder="Email" />
-												)
+													<TextField
+														field={field}
+														label="Email"
+														type="email"
+														placeholder="Email"
+													/>
+												);
 											}}
 										/>
 
@@ -78,27 +89,32 @@ export function SignIn() {
 										/>
 									</div>
 									<form.Subscribe
-											selector={(state) => [state.canSubmit, state.isSubmitting]}
-											children={([canSubmit, isSubmitting]) => (
-												<Button
-													type="submit"
-													className="w-full"
-													disabled={!canSubmit || isSubmitting}
-												>
-													{isSubmitting ? <Loader2 className="size-4 animate-spin" /> : "Entrar"}
-												</Button>
-											)}
-										/>
+										selector={(state) => [state.canSubmit, state.isSubmitting]}
+										children={([canSubmit, isSubmitting]) => (
+											<Button
+												type="submit"
+												className="w-full"
+												disabled={!canSubmit || isSubmitting}
+											>
+												{isSubmitting ? (
+													<Loader2 className="size-4 animate-spin" />
+												) : (
+													"Entrar"
+												)}
+											</Button>
+										)}
+									/>
 								</div>
 							</form>
 						</CardContent>
 					</Card>
 					<div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-						Ao entrar, você concorda com nossos <a href="/">Termos de Serviço</a> e{" "}
+						Ao entrar, você concorda com nossos{" "}
+						<a href="/">Termos de Serviço</a> e{" "}
 						<a href="/">Política de Privacidade</a>.
 					</div>
 				</div>
 			</div>
 		</div>
-	)
+	);
 }

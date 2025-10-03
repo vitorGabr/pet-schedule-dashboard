@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/card";
 import { useForm } from "@tanstack/react-form";
 import { createFileRoute } from "@tanstack/react-router";
-import { Briefcase, Building, Mail, Pencil, User } from "lucide-react";
+import { Briefcase, Building, Pencil, User } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { TextField } from "@/components/form/fields/text-field";
@@ -28,7 +28,9 @@ export const Route = createFileRoute("/(app)/my-profile/")({ component: App });
 
 function App() {
 	const [isEditing, setIsEditing] = useState(false);
-	const [imageDialogVariant, setImageDialogVariant] = useState<"avatar" | null>(null);
+	const [imageDialogVariant, setImageDialogVariant] = useState<"avatar" | null>(
+		null,
+	);
 
 	const { data: session } = useGetSession();
 	const { data: company } = useGetCompanyById(session?.companyId!, {
@@ -51,12 +53,12 @@ function App() {
 		setIsEditing(true);
 		form.setFieldValue("name", session?.name || "");
 		form.setFieldValue("email", session?.email || "");
-	}
+	};
 
 	const handleCancel = () => {
 		setIsEditing(false);
 		form.reset();
-	}
+	};
 
 	return (
 		<>
@@ -79,22 +81,27 @@ function App() {
 										</Button>
 									)}
 								</div>
-								<CardDescription>Gerencie suas informações pessoais e preferências</CardDescription>
+								<CardDescription>
+									Gerencie suas informações pessoais e preferências
+								</CardDescription>
 							</CardHeader>
 							<CardContent>
 								{isEditing ? (
 									<form
 										onSubmit={(e) => {
-											e.preventDefault()
-											e.stopPropagation()
-											form.handleSubmit()
+											e.preventDefault();
+											e.stopPropagation();
+											form.handleSubmit();
 										}}
 										className="space-y-4"
 									>
 										<div className="flex items-center space-x-4 mb-6">
 											<div className="relative group">
 												<Avatar className="w-20 h-20">
-													<AvatarImage src={session?.avatar} alt={session?.name} />
+													<AvatarImage
+														src={session?.avatar}
+														alt={session?.name}
+													/>
 													<AvatarFallback className="text-lg">
 														{session?.name?.charAt(0)}
 													</AvatarFallback>
@@ -110,7 +117,9 @@ function App() {
 												</Button>
 											</div>
 											<div>
-												<p className="text-sm text-muted-foreground">Foto do perfil</p>
+												<p className="text-sm text-muted-foreground">
+													Foto do perfil
+												</p>
 												<p className="text-xs text-muted-foreground">
 													Clique no ícone para alterar
 												</p>
@@ -121,7 +130,11 @@ function App() {
 											name="name"
 											children={(field) => (
 												<>
-													<TextField label="Nome" placeholder="Seu nome completo" field={field} />
+													<TextField
+														label="Nome"
+														placeholder="Seu nome completo"
+														field={field}
+													/>
 												</>
 											)}
 										/>
@@ -130,7 +143,11 @@ function App() {
 											name="email"
 											children={(field) => (
 												<>
-													<TextField label="Email" placeholder="Seu email" field={field} />
+													<TextField
+														label="Email"
+														placeholder="Seu email"
+														field={field}
+													/>
 												</>
 											)}
 										/>
@@ -158,24 +175,35 @@ function App() {
 									<div className="space-y-6">
 										<div className="flex items-center space-x-4">
 											<Avatar className="w-20 h-20">
-												<AvatarImage src={session?.avatar} alt={session?.name} />
+												<AvatarImage
+													src={session?.avatar}
+													alt={session?.name}
+												/>
 												<AvatarFallback className="text-lg">
 													{session?.name?.charAt(0)}
 												</AvatarFallback>
 											</Avatar>
 											<div>
-												<h3 className="text-xl font-semibold">{session?.name}</h3>
-												<p className="text-muted-foreground">{session?.email}</p>
+												<h3 className="text-xl font-semibold">
+													{session?.name}
+												</h3>
+												<p className="text-muted-foreground">
+													{session?.email}
+												</p>
 											</div>
 										</div>
 
 										<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 											<div className="space-y-2">
-												<label className="text-sm font-medium text-muted-foreground">Nome</label>
+												<label className="text-sm font-medium text-muted-foreground">
+													Nome
+												</label>
 												<p className="text-sm">{session?.name}</p>
 											</div>
 											<div className="space-y-2">
-												<label className="text-sm font-medium text-muted-foreground">Email</label>
+												<label className="text-sm font-medium text-muted-foreground">
+													Email
+												</label>
 												<p className="text-sm">{session?.email}</p>
 											</div>
 										</div>
@@ -193,20 +221,29 @@ function App() {
 									<Building className="w-5 h-5" />
 									Informações da Empresa
 								</CardTitle>
-								<CardDescription>Detalhes sobre sua empresa e cargo</CardDescription>
+								<CardDescription>
+									Detalhes sobre sua empresa e cargo
+								</CardDescription>
 							</CardHeader>
 							<CardContent className="space-y-4">
 								{company ? (
 									<>
 										<div className="space-y-2">
-											<label className="text-sm font-medium text-muted-foreground">Empresa</label>
+											<label className="text-sm font-medium text-muted-foreground">
+												Empresa
+											</label>
 											<p className="text-sm font-medium">{company.name}</p>
 										</div>
 
 										{session?.role && (
 											<div className="space-y-2">
-												<label className="text-sm font-medium text-muted-foreground">Cargo</label>
-												<Badge variant="secondary" className="flex items-center gap-1 w-fit">
+												<label className="text-sm font-medium text-muted-foreground">
+													Cargo
+												</label>
+												<Badge
+													variant="secondary"
+													className="flex items-center gap-1 w-fit"
+												>
 													<Briefcase className="w-3 h-3" />
 													{session.role}
 												</Badge>
@@ -219,7 +256,8 @@ function App() {
 													Endereço
 												</label>
 												<p className="text-sm">
-													{company.address.addressLine}, {company.address.number}
+													{company.address.addressLine},{" "}
+													{company.address.number}
 													<br />
 													{company.address.neighborhood}, {company.address.city}
 													<br />
@@ -230,13 +268,17 @@ function App() {
 
 										{company.contact && (
 											<div className="space-y-2">
-												<label className="text-sm font-medium text-muted-foreground">Contato</label>
+												<label className="text-sm font-medium text-muted-foreground">
+													Contato
+												</label>
 												<p className="text-sm">{company.contact}</p>
 											</div>
 										)}
 									</>
 								) : (
-									<p className="text-sm text-muted-foreground">Nenhuma empresa associada</p>
+									<p className="text-sm text-muted-foreground">
+										Nenhuma empresa associada
+									</p>
 								)}
 							</CardContent>
 						</Card>
@@ -252,5 +294,5 @@ function App() {
 				/>
 			)}
 		</>
-	)
+	);
 }

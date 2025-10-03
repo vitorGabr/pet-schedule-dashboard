@@ -10,9 +10,7 @@ import { HomeSkeleton } from "./-components/home-skeleton";
 import { Metrics } from "./-components/metrics";
 import { WeeklyPerformance } from "./-components/weekly-performance";
 
-export const Route = createFileRoute("/(app)/(home)/")({
-	component: HomePage,
-});
+export const Route = createFileRoute("/(app)/(home)/")({ component: HomePage });
 
 function HomePage() {
 	const { data: session } = useGetSession();
@@ -36,5 +34,5 @@ function HomePage() {
 				</div>
 			</div>
 		</>
-	)
+	);
 }

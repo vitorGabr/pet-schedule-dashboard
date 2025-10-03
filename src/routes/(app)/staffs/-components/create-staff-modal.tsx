@@ -27,7 +27,11 @@ interface CreateStaffModalProps {
 	onOpenChange: (open: boolean) => void;
 }
 
-export function CreateStaffModal({ companyId, open, onOpenChange }: CreateStaffModalProps) {
+export function CreateStaffModal({
+	companyId,
+	open,
+	onOpenChange,
+}: CreateStaffModalProps) {
 	const queryClient = useQueryClient();
 
 	const form = useForm({
@@ -36,7 +40,9 @@ export function CreateStaffModal({ companyId, open, onOpenChange }: CreateStaffM
 		onSubmit: async (values) => {
 			const response = await inviteEmployee(values.value);
 			toast.success(response.message);
-			queryClient.invalidateQueries({ queryKey: getListStaffByCompanyQueryKey(companyId) });
+			queryClient.invalidateQueries({
+				queryKey: getListStaffByCompanyQueryKey(companyId),
+			});
 			onOpenChange(false);
 		},
 	});
@@ -49,7 +55,9 @@ export function CreateStaffModal({ companyId, open, onOpenChange }: CreateStaffM
 						<div className="p-2 bg-green-100 rounded-lg">
 							<PlusIcon className="h-4 w-4 text-green-600" />
 						</div>
-						<DialogTitle className="text-xl font-semibold">Criar Novo Funcionário</DialogTitle>
+						<DialogTitle className="text-xl font-semibold">
+							Criar Novo Funcionário
+						</DialogTitle>
 					</div>
 				</DialogHeader>
 
@@ -98,7 +106,9 @@ export function CreateStaffModal({ companyId, open, onOpenChange }: CreateStaffM
 									label="Cargo"
 									placeholder="Selecione o cargo"
 									options={
-										Object.values(ListStaffByCompanyResponseDtoOutputItemsItemRole).map((role) => ({
+										Object.values(
+											ListStaffByCompanyResponseDtoOutputItemsItemRole,
+										).map((role) => ({
 											label: staffRolesResource[role],
 											value: role,
 										})) ?? []

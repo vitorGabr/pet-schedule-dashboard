@@ -27,14 +27,21 @@ export function ClientFilters({ search }: ClientFiltersProps) {
 							onChange: ({ fieldApi }) => {
 								navigate({
 									to: "/clients",
-									search: (prev) => ({ ...prev, query: fieldApi.state.value, page: 1 }),
+									search: (prev) => ({
+										...prev,
+										query: fieldApi.state.value,
+										page: 1,
+									}),
 								});
 							},
 						}}
 						children={(field) => (
 							<div className="relative">
 								<Input
-									className={cn("peer min-w-60 ps-9", Boolean(field.state.value) && "pe-9")}
+									className={cn(
+										"peer min-w-60 ps-9",
+										Boolean(field.state.value) && "pe-9",
+									)}
 									value={field.state.value}
 									onBlur={field.handleBlur}
 									name={field.name}

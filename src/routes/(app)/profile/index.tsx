@@ -13,7 +13,9 @@ import { ProfileSkeleton } from "./-components/profile-skeleton";
 export const Route = createFileRoute("/(app)/profile/")({ component: App });
 
 function App() {
-	const [imageDialogVariant, setImageDialogVariant] = useState<"logo" | "gallery" | null>(null);
+	const [imageDialogVariant, setImageDialogVariant] = useState<
+		"logo" | "gallery" | null
+	>(null);
 	const { data: session } = useGetSession();
 	const { data: company, isLoading } = useGetCompanyById(session?.companyId!, {
 		query: { enabled: !!session?.companyId },
@@ -47,19 +49,25 @@ function App() {
 									</Button>
 								</div>
 								<div className="flex-1">
-									<h2 className="text-2xl font-bold text-gray-900">{company?.name}</h2>
+									<h2 className="text-2xl font-bold text-gray-900">
+										{company?.name}
+									</h2>
 									<div className="flex items-center mt-2">
 										<Star className="w-4 h-4 text-yellow-500 mr-1" />
-										<span className="font-medium text-gray-900">{company?.ratingAverage}</span>
+										<span className="font-medium text-gray-900">
+											{company?.averageRating}
+										</span>
 										<span className="text-gray-500 ml-1">
-											({company?.ratingAverage} avaliações)
+											({company?.averageRating} avaliações)
 										</span>
 									</div>
 								</div>
 							</div>
 
 							<div className="mt-4">
-								<p className="text-gray-700 leading-relaxed">Sem descrição disponível</p>
+								<p className="text-gray-700 leading-relaxed">
+									Sem descrição disponível
+								</p>
 							</div>
 						</div>
 
@@ -73,10 +81,7 @@ function App() {
 							onRemoveImage={() => {}}
 						/>
 					</div>
-					<HoursAndStats
-						availabilities={company?.availabilities ?? []}
-						ratingAverage={company?.ratingAverage ?? 0}
-					/>
+					<HoursAndStats availabilities={company?.availabilities ?? []} />
 					{imageDialogVariant && (
 						<ImageUpload
 							onClose={() => setImageDialogVariant(null)}
@@ -87,5 +92,5 @@ function App() {
 				</div>
 			</div>
 		</>
-	)
+	);
 }

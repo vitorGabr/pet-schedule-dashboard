@@ -4,12 +4,7 @@ import { Check, type LucideIcon, Play, User, X } from "lucide-react";
 export const appointmentStatusModalOptions: Partial<
 	Record<
 		AppointmentsByCompanyResponseDtoOutputItemsItemStatus,
-		{
-			label: string;
-			color: string;
-			icon: LucideIcon;
-			description: string;
-		}
+		{ label: string; color: string; icon: LucideIcon; description: string }
 	>
 > = {
 	scheduled: {

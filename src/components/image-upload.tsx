@@ -24,7 +24,11 @@ interface ImageUploadProps {
 	companyId: string;
 }
 
-export function ImageUpload({ onClose, variant = "gallery", companyId }: ImageUploadProps) {
+export function ImageUpload({
+	onClose,
+	variant = "gallery",
+	companyId,
+}: ImageUploadProps) {
 	const queryClient = useQueryClient();
 	const form = useForm({
 		defaultValues: { companyId } as CompanyProfileImage,
@@ -33,7 +37,9 @@ export function ImageUpload({ onClose, variant = "gallery", companyId }: ImageUp
 			if (variant === "logo") {
 				await addLogoToCompany(value.companyId, { file: value.file });
 			}
-			queryClient.invalidateQueries({ queryKey: getGetCompanyByIdQueryKey(value.companyId) });
+			queryClient.invalidateQueries({
+				queryKey: getGetCompanyByIdQueryKey(value.companyId),
+			});
 			onClose();
 			toast.success("Foto adicionada à galeria");
 		},
@@ -76,10 +82,14 @@ export function ImageUpload({ onClose, variant = "gallery", companyId }: ImageUp
 											<div className="flex flex-col items-center justify-center pt-5 pb-6">
 												<Upload className="w-8 h-8 mb-2 text-gray-400" />
 												<p className="mb-2 text-sm text-gray-500">
-													<span className="font-semibold">Clique para selecionar</span> ou arraste e
-													solte
+													<span className="font-semibold">
+														Clique para selecionar
+													</span>{" "}
+													ou arraste e solte
 												</p>
-												<p className="text-xs text-gray-500">PNG, JPG ou WEBP (MAX. 2MB)</p>
+												<p className="text-xs text-gray-500">
+													PNG, JPG ou WEBP (MAX. 2MB)
+												</p>
 											</div>
 											<Input
 												id={field.name}
@@ -119,7 +129,11 @@ export function ImageUpload({ onClose, variant = "gallery", companyId }: ImageUp
 							selector={(state) => [state.isSubmitting]}
 							children={([isSubmitting]) => (
 								<div className="flex justify-end space-x-2">
-									<Button variant="outline" onClick={onClose} disabled={isSubmitting}>
+									<Button
+										variant="outline"
+										onClick={onClose}
+										disabled={isSubmitting}
+									>
 										Cancelar
 									</Button>
 									<Button type="submit" disabled={isSubmitting}>

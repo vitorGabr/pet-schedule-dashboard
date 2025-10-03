@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover";
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
 import { Filter, Search, X } from "lucide-react";
@@ -17,10 +21,15 @@ type AppointmentFiltersProps = {
 	statusSelected?: AppointmentsByCompanyResponseDtoOutputItemsItemStatus[];
 };
 
-export function AppointmentFilters({ query, statusSelected }: AppointmentFiltersProps) {
+export function AppointmentFilters({
+	query,
+	statusSelected,
+}: AppointmentFiltersProps) {
 	const navigate = useNavigate();
 	const form = useForm({
-		defaultValues: { query, status: statusSelected } as z.input<typeof appointmentFilterPageSchema>,
+		defaultValues: { query, status: statusSelected } as z.input<
+			typeof appointmentFilterPageSchema
+		>,
 		validators: { onChange: appointmentFilterPageSchema },
 	});
 
@@ -49,7 +58,9 @@ export function AppointmentFilters({ query, statusSelected }: AppointmentFilters
 									search: (prev) => ({
 										...prev,
 										query:
-											(fieldApi.state.value ?? "")?.length > 0 ? fieldApi.state.value : undefined,
+											(fieldApi.state.value ?? "")?.length > 0
+												? fieldApi.state.value
+												: undefined,
 										page: 1,
 									}),
 								});
@@ -58,7 +69,10 @@ export function AppointmentFilters({ query, statusSelected }: AppointmentFilters
 						children={(field) => (
 							<div className="relative">
 								<Input
-									className={cn("peer min-w-60 ps-9", Boolean(field.state.value) && "pe-9")}
+									className={cn(
+										"peer min-w-60 ps-9",
+										Boolean(field.state.value) && "pe-9",
+									)}
 									value={field.state.value}
 									onBlur={field.handleBlur}
 									name={field.name}
@@ -95,7 +109,9 @@ export function AppointmentFilters({ query, statusSelected }: AppointmentFilters
 									search: (prev) => ({
 										...prev,
 										status:
-											(fieldApi.state.value ?? [])?.length > 0 ? fieldApi.state.value : undefined,
+											(fieldApi.state.value ?? [])?.length > 0
+												? fieldApi.state.value
+												: undefined,
 										page: 1,
 									}),
 								});
@@ -105,7 +121,11 @@ export function AppointmentFilters({ query, statusSelected }: AppointmentFilters
 							<Popover>
 								<PopoverTrigger asChild>
 									<Button variant="outline">
-										<Filter className="-ms-1 opacity-60" size={16} aria-hidden="true" />
+										<Filter
+											className="-ms-1 opacity-60"
+											size={16}
+											aria-hidden="true"
+										/>
 										Status
 										{(field.state.value || [])?.length > 0 && (
 											<span className="bg-background text-muted-foreground/70 -me-1 inline-flex h-5 max-h-full items-center rounded border px-1 font-[inherit] text-[0.625rem] font-medium">
@@ -120,27 +140,33 @@ export function AppointmentFilters({ query, statusSelected }: AppointmentFilters
 											Filtrar por Status
 										</div>
 										<div className="space-y-2">
-											{Object.values(AppointmentsByCompanyResponseDtoOutputItemsItemStatus).map(
-												(status) => (
-													<div key={status} className="flex items-center space-x-2">
-														<Checkbox
-															id={`status-${status}`}
-															checked={field.state.value?.includes(status)}
-															onCheckedChange={() => {
-																field.handleChange(
-																	handleStatusToggle(status, field.state.value ?? []),
-																);
-															}}
-														/>
-														<Label
-															htmlFor={`status-${status}`}
-															className="text-sm font-normal cursor-pointer"
-														>
-															{appointmentStatusResource[status]}
-														</Label>
-													</div>
-												),
-											)}
+											{Object.values(
+												AppointmentsByCompanyResponseDtoOutputItemsItemStatus,
+											).map((status) => (
+												<div
+													key={status}
+													className="flex items-center space-x-2"
+												>
+													<Checkbox
+														id={`status-${status}`}
+														checked={field.state.value?.includes(status)}
+														onCheckedChange={() => {
+															field.handleChange(
+																handleStatusToggle(
+																	status,
+																	field.state.value ?? [],
+																),
+															);
+														}}
+													/>
+													<Label
+														htmlFor={`status-${status}`}
+														className="text-sm font-normal cursor-pointer"
+													>
+														{appointmentStatusResource[status]}
+													</Label>
+												</div>
+											))}
 										</div>
 									</div>
 								</PopoverContent>

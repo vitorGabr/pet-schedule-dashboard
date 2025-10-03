@@ -92,7 +92,10 @@ const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
 	({ children, className, ...props }, ref) => (
 		<div
 			ref={ref}
-			className={cn("flex items-center justify-between p-6 border-b border-border", className)}
+			className={cn(
+				"flex items-center justify-between p-6 border-b border-border",
+				className,
+			)}
 			{...props}
 		>
 			{children}
@@ -110,13 +113,18 @@ const ModalTitle = React.forwardRef<HTMLHeadingElement, ModalTitleProps>(
 );
 ModalTitle.displayName = "ModalTitle";
 
-const ModalDescription = React.forwardRef<HTMLParagraphElement, ModalDescriptionProps>(
-	({ children, className, ...props }, ref) => (
-		<p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props}>
-			{children}
-		</p>
-	),
-);
+const ModalDescription = React.forwardRef<
+	HTMLParagraphElement,
+	ModalDescriptionProps
+>(({ children, className, ...props }, ref) => (
+	<p
+		ref={ref}
+		className={cn("text-sm text-muted-foreground", className)}
+		{...props}
+	>
+		{children}
+	</p>
+));
 ModalDescription.displayName = "ModalDescription";
 
 const ModalClose = React.forwardRef<
@@ -137,4 +145,11 @@ const ModalClose = React.forwardRef<
 ));
 ModalClose.displayName = "ModalClose";
 
-export { Modal, ModalContent, ModalHeader, ModalTitle, ModalDescription, ModalClose };
+export {
+	Modal,
+	ModalContent,
+	ModalHeader,
+	ModalTitle,
+	ModalDescription,
+	ModalClose,
+};

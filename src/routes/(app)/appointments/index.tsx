@@ -17,7 +17,7 @@ function App() {
 	const { data: session } = useGetSession();
 	const { data: appointments, isLoading } = useGetAllCompanyAppointments(
 		session?.companyId!,
-		{ page, query, status: status || [] },
+		{ page, query, status: status?.join(",") },
 	);
 
 	return (
@@ -33,7 +33,10 @@ function App() {
 					status={status}
 					page={page}
 					onPageChange={(page) =>
-						navigate({ to: "/appointments", search: (prev) => ({ ...prev, page }) })
+						navigate({
+							to: "/appointments",
+							search: (prev) => ({ ...prev, page }),
+						})
 					}
 				/>
 
@@ -42,7 +45,10 @@ function App() {
 						open={!!id}
 						appointmentId={id}
 						onClose={() =>
-							navigate({ to: "/appointments", search: (prev) => ({ ...prev, id: undefined }) })
+							navigate({
+								to: "/appointments",
+								search: (prev) => ({ ...prev, id: undefined }),
+							})
 						}
 					/>
 				)}

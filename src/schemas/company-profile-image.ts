@@ -10,11 +10,9 @@ export const companyProfileImageSchema = z.object({
 				file.type === "image/png" ||
 				file.type === "image/jpeg" ||
 				file.type === "image/webp",
-			{
-				message: "Arquivo de imagem inválido",
-			},
+			{ message: "Arquivo de imagem inválido" },
 		),
-    companyId: z.string().min(1),
+	companyId: z.string().min(1),
 });
 
 export type CompanyProfileImage = z.infer<typeof companyProfileImageSchema>;

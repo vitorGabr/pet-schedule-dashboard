@@ -5,10 +5,15 @@ import type { InputHTMLAttributes } from "react";
 import { cn } from "@/utils/cn";
 import { FormErrorMessage } from "../form-error-message";
 
-type Props = { label?: string; field?: AnyFieldApi } & InputHTMLAttributes<HTMLInputElement>;
+type Props = {
+	label?: string;
+	field?: AnyFieldApi;
+} & InputHTMLAttributes<HTMLInputElement>;
 
 export function TextField({ className, label, field, ...props }: Props) {
-	const errorMessage = field?.state.meta?.errors.map((err) => err?.message).join(",");
+	const errorMessage = field?.state.meta?.errors
+		.map((err) => err?.message)
+		.join(",");
 	const name = field?.name ?? props.name;
 
 	return (

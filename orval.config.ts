@@ -5,7 +5,7 @@ export default defineConfig({
 	api: {
 		input: { target: "http://localhost:3333/swagger/json" },
 		output: {
-			workspace: "./src/http",
+			workspace: "./src/lib/http",
 			target: "./generated/endpoints",
 			schemas: "./generated/models",
 			mode: "tags-split",
@@ -17,10 +17,7 @@ export default defineConfig({
 			indexFiles: true,
 			override: {
 				mutator: { path: "../client-fetch.ts", name: "customFetch" },
-				query: {
-					useQuery: true,
-					signal: false
-				}
+				query: { useQuery: true, signal: false },
 			},
 		},
 	},
@@ -44,7 +41,7 @@ export default defineConfig({
 		},
 		output: {
 			mode: "tags-split",
-			workspace: "./src/http",
+			workspace: "./src/lib/http",
 			target: "./generated/zod",
 			client: "zod",
 			biome: true,

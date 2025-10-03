@@ -1,12 +1,12 @@
 import { deleteCookie, getCookie } from "@/utils/cookie";
 import Axios, { AxiosError, type AxiosRequestConfig } from "axios";
 import { toast } from "sonner";
+
 export const AXIOS_INSTANCE = Axios.create({
 	baseURL: import.meta.env.VITE_API_URL,
 });
 
 AXIOS_INSTANCE.interceptors.request.use((config) => {
-	config.baseURL = import.meta.env.VITE_API_URL;
 	const cookie = getCookie("token");
 	if (cookie) {
 		config.headers.Authorization = `Bearer ${cookie}`;
@@ -20,13 +20,20 @@ AXIOS_INSTANCE.interceptors.response.use(
 		const url = error.config?.url;
 		const status = error.response?.status;
 
-		if ((status === 401 || status === 403) && url && !url.includes("/auth/sign-in")) {
+		if (
+			(status === 401 || status === 403) &&
+			url &&
+			!url.includes("/auth/sign-in")
+		) {
 			deleteCookie("token");
 			window.location.href = "/sign-in";
 		}
 		if (error instanceof AxiosError) {
 			if (error.code !== "ERR_CANCELED") {
-				toast.error(error.response?.data?.message ?? "Ocorreu um erro ao fazer a requisição");
+				toast.error(
+					error.response?.data?.message ??
+						"Ocorreu um erro ao fazer a requisição",
+				);
 			}
 		}
 		return Promise.reject(error);

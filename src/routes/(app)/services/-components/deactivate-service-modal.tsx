@@ -1,5 +1,8 @@
 import type { ServiceResponseListOutputItemsItem } from "@/lib/http";
-import { getListServicesByCompanyQueryKey, useDeactivateService } from "@/lib/http";
+import {
+	getListServicesByCompanyQueryKey,
+	useDeactivateService,
+} from "@/lib/http";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -17,7 +20,10 @@ interface DeactivateServiceModalProps {
 	onClose: () => void;
 }
 
-export function DeactivateServiceModal({ service, onClose }: DeactivateServiceModalProps) {
+export function DeactivateServiceModal({
+	service,
+	onClose,
+}: DeactivateServiceModalProps) {
 	const queryClient = useQueryClient();
 	const { mutate, isPending } = useDeactivateService({
 		mutation: {
@@ -54,7 +60,9 @@ export function DeactivateServiceModal({ service, onClose }: DeactivateServiceMo
 				<div className="space-y-4">
 					<div className="rounded-lg border bg-muted/50 p-4">
 						<h4 className="font-medium text-foreground mb-2">{service.name}</h4>
-						<p className="text-sm text-muted-foreground mb-3">{service.description}</p>
+						<p className="text-sm text-muted-foreground mb-3">
+							{service.description}
+						</p>
 
 						<div className="flex items-center gap-4 text-sm">
 							<div className="flex items-center gap-1">
@@ -70,8 +78,9 @@ export function DeactivateServiceModal({ service, onClose }: DeactivateServiceMo
 
 					<div className="rounded-lg bg-orange-50 dark:bg-orange-900/10 border border-orange-200 dark:border-orange-800 p-3">
 						<p className="text-sm text-orange-800 dark:text-orange-200">
-							<strong>Atenção:</strong> Ao inativar este serviço, ele não estará mais disponível
-							para novos agendamentos. Agendamentos existentes não serão afetados.
+							<strong>Atenção:</strong> Ao inativar este serviço, ele não estará
+							mais disponível para novos agendamentos. Agendamentos existentes
+							não serão afetados.
 						</p>
 					</div>
 				</div>
@@ -87,7 +96,9 @@ export function DeactivateServiceModal({ service, onClose }: DeactivateServiceMo
 					</Button>
 					<Button
 						variant="destructive"
-						onClick={() => mutate({ id: service.id, companyId: service.companyId })}
+						onClick={() =>
+							mutate({ id: service.id, companyId: service.companyId })
+						}
 						disabled={isPending}
 						className="w-full sm:w-auto"
 					>

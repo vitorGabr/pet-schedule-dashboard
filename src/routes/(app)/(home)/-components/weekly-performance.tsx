@@ -1,8 +1,6 @@
 import type { WeeklyPerformanceResponseOutput } from "@/lib/http";
 
-type Props = {
-	performance: WeeklyPerformanceResponseOutput | undefined;
-};
+type Props = { performance: WeeklyPerformanceResponseOutput | undefined };
 
 export function WeeklyPerformance({ performance }: Props) {
 	if (!performance) return null;

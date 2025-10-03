@@ -37,12 +37,15 @@ export function AppointmentConfirmationModal({
 	const { mutate: changeStatus, isPending } = useUpdateAppointmentStatus({
 		mutation: {
 			onSuccess: () => {
-				queryClient.setQueryData(getGetAppointmentByIdQueryKey(appointmentId), (oldData: any) => {
-					if (oldData) {
-						return { ...oldData, status: nextStatus };
-					}
-					return oldData;
-				});
+				queryClient.setQueryData(
+					getGetAppointmentByIdQueryKey(appointmentId),
+					(oldData: any) => {
+						if (oldData) {
+							return { ...oldData, status: nextStatus };
+						}
+						return oldData;
+					},
+				);
 
 				queryClient.invalidateQueries({
 					queryKey: getGetAllCompanyAppointmentsQueryKey(companyId),
@@ -66,11 +69,15 @@ export function AppointmentConfirmationModal({
 				</AlertDialogHeader>
 
 				<AlertDialogDescription className="text-slate-600">
-					Tem certeza que deseja alterar o status para "{appointmentStatusResource[nextStatus]}"?
+					Tem certeza que deseja alterar o status para "
+					{appointmentStatusResource[nextStatus]}"?
 				</AlertDialogDescription>
 
 				<div className="mb-4">
-					<label htmlFor="observations" className="block text-sm font-medium text-slate-700 mb-2">
+					<label
+						htmlFor="observations"
+						className="block text-sm font-medium text-slate-700 mb-2"
+					>
 						Observações (opcional)
 					</label>
 					<textarea

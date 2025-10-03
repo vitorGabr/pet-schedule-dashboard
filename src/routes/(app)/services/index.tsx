@@ -27,9 +27,15 @@ function ServicePage() {
 		useState<ServiceResponseListOutputItemsItem | null>(null);
 
 	const { data: session } = useGetSession();
-	const { data: services, isLoading } = useListServicesByCompany(session?.companyId!, {
-		query: { enabled: !!session?.companyId, queryKey: ["services", session?.companyId] },
-	});
+	const { data: services, isLoading } = useListServicesByCompany(
+		session?.companyId!,
+		{
+			query: {
+				enabled: !!session?.companyId,
+				queryKey: ["services", session?.companyId],
+			},
+		},
+	);
 
 	if (isLoading) {
 		return <ServicesSkeleton />;
@@ -60,7 +66,10 @@ function ServicePage() {
 					<ServiceViewModal
 						serviceId={id}
 						onOpenChange={() => {
-							navigate({ to: "/services", search: (search) => ({ ...search, id: undefined }) });
+							navigate({
+								to: "/services",
+								search: (search) => ({ ...search, id: undefined }),
+							});
 						}}
 					/>
 				)}
@@ -75,5 +84,5 @@ function ServicePage() {
 				/>
 			</div>
 		</>
-	)
+	);
 }

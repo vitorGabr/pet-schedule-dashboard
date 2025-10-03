@@ -1,5 +1,9 @@
 {
-	"include": ["**/*.ts", "**/*.tsx", "../../packages/ui/src/components/table.tsx"],
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"../../packages/ui/src/components/table.tsx"
+	],
 	"compilerOptions": {
 		"target": "ES2022",
 		"jsx": "react-jsx",

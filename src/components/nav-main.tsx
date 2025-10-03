@@ -14,7 +14,12 @@ export function NavMain({
 	items,
 	activePath,
 }: {
-	items: { title: string; url: string; icon?: LucideIcon; comingSoon?: boolean }[];
+	items: {
+		title: string;
+		url: string;
+		icon?: LucideIcon;
+		comingSoon?: boolean;
+	}[];
 	activePath: string;
 }) {
 	return (

@@ -20,14 +20,8 @@ export interface CookieOptions {
  * Resultado de operações de cookie que podem falhar
  */
 export type CookieResult<T> =
-	| {
-			success: true;
-			data: T;
-	  }
-	| {
-			success: false;
-			error: string;
-	  };
+	| { success: true; data: T }
+	| { success: false; error: string };
 
 function isBrowserEnvironment(): boolean {
 	return typeof document !== "undefined" && typeof document.cookie === "string";
@@ -86,10 +80,7 @@ export function setCookie(
 		}
 
 		if (typeof value !== "string") {
-			return {
-				success: false,
-				error: "Valor do cookie deve ser uma string",
-			};
+			return { success: false, error: "Valor do cookie deve ser uma string" };
 		}
 
 		const {
@@ -124,10 +115,7 @@ export function setCookie(
 	} catch (error) {
 		const errorMessage =
 			error instanceof Error ? error.message : "Erro desconhecido";
-		return {
-			success: false,
-			error: `Erro ao definir cookie: ${errorMessage}`,
-		};
+		return { success: false, error: `Erro ao definir cookie: ${errorMessage}` };
 	}
 }
 
@@ -136,11 +124,7 @@ export function deleteCookie(
 	path: string = "/",
 	domain?: string,
 ): CookieResult<void> {
-	return setCookie(name, "", {
-		days: -1,
-		path,
-		domain,
-	});
+	return setCookie(name, "", { days: -1, path, domain });
 }
 
 export function cookieExists(name: string): boolean {
@@ -176,10 +160,7 @@ export const jsonCookie = {
 			const jsonString = JSON.stringify(value);
 			return setCookie(name, jsonString, options);
 		} catch {
-			return {
-				success: false,
-				error: "Erro ao serializar valor para JSON",
-			};
+			return { success: false, error: "Erro ao serializar valor para JSON" };
 		}
 	},
 

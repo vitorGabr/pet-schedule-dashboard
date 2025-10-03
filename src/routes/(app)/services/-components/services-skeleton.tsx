@@ -29,7 +29,10 @@ export function ServicesSkeleton() {
 			{/* Service Cards Grid */}
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{serviceCards.map((card) => (
-					<div key={card.id} className="bg-white border border-gray-200 rounded-lg p-6">
+					<div
+						key={card.id}
+						className="bg-white border border-gray-200 rounded-lg p-6"
+					>
 						<div className="flex justify-between items-start mb-4">
 							<div>
 								<Skeleton className="h-5 w-32 mb-1" />

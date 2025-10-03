@@ -1,9 +1,6 @@
 import { MapPin, Phone } from "lucide-react";
 
-type ContactInformationProps = {
-	address: string;
-	contact: string;
-};
+type ContactInformationProps = { address: string; contact: string };
 
 export function ContactInformation({
 	address,

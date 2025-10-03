@@ -10,9 +10,7 @@ import {
 import { cn } from "@/utils/cn";
 import { formatCurrency } from "@/utils/currency";
 
-type Props = {
-	metrics: DashboardMetricsResponseOutput | undefined;
-};
+type Props = { metrics: DashboardMetricsResponseOutput | undefined };
 
 export function Metrics({ metrics }: Props) {
 	if (!metrics) return null;

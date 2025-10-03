@@ -26,7 +26,11 @@ interface CreateServiceModalProps {
 	onOpenChange: (open: boolean) => void;
 }
 
-export function CreateServiceModal({ companyId, open, onOpenChange }: CreateServiceModalProps) {
+export function CreateServiceModal({
+	companyId,
+	open,
+	onOpenChange,
+}: CreateServiceModalProps) {
 	const queryClient = useQueryClient();
 	const { data: categories } = useListAllCategories();
 
@@ -35,7 +39,9 @@ export function CreateServiceModal({ companyId, open, onOpenChange }: CreateServ
 		validators: { onChange: createServiceBody },
 		onSubmit: async (values) => {
 			await createService(values.value);
-			queryClient.invalidateQueries({ queryKey: getListServicesByCompanyQueryKey(companyId) });
+			queryClient.invalidateQueries({
+				queryKey: getListServicesByCompanyQueryKey(companyId),
+			});
 			onOpenChange(false);
 		},
 	});
@@ -48,7 +54,9 @@ export function CreateServiceModal({ companyId, open, onOpenChange }: CreateServ
 						<div className="p-2 bg-green-100 rounded-lg">
 							<PlusIcon className="h-4 w-4 text-green-600" />
 						</div>
-						<DialogTitle className="text-xl font-semibold">Criar Novo Serviço</DialogTitle>
+						<DialogTitle className="text-xl font-semibold">
+							Criar Novo Serviço
+						</DialogTitle>
 					</div>
 				</DialogHeader>
 
@@ -65,7 +73,11 @@ export function CreateServiceModal({ companyId, open, onOpenChange }: CreateServ
 						name="name"
 						children={(field) => {
 							return (
-								<TextField label="Nome do Serviço" placeholder="Nome do Serviço" field={field} />
+								<TextField
+									label="Nome do Serviço"
+									placeholder="Nome do Serviço"
+									field={field}
+								/>
 							);
 						}}
 					/>
@@ -75,7 +87,11 @@ export function CreateServiceModal({ companyId, open, onOpenChange }: CreateServ
 						name="description"
 						children={(field) => {
 							return (
-								<TextField label="Descrição" placeholder="Descrição do Serviço" field={field} />
+								<TextField
+									label="Descrição"
+									placeholder="Descrição do Serviço"
+									field={field}
+								/>
 							);
 						}}
 					/>

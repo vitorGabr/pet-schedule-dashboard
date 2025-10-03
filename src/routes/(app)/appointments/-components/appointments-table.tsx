@@ -1,6 +1,6 @@
 import type {
 	AppointmentsByCompanyResponseDtoOutputItemsItem,
-	GetAllCompanyAppointmentsStatusItem,
+	AppointmentsByCompanyResponseDtoOutputItemsItemStatus,
 } from "@/lib/http";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,11 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
-import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/pagination";
+import {
+	Pagination,
+	PaginationContent,
+	PaginationItem,
+} from "@/components/ui/pagination";
 import {
 	Select,
 	SelectContent,
@@ -49,7 +53,7 @@ type AppointmentsTableProps = {
 	totalItems?: number;
 	totalPages?: number;
 	query?: string;
-	status?: GetAllCompanyAppointmentsStatusItem[];
+	status?: AppointmentsByCompanyResponseDtoOutputItemsItemStatus[];
 	page?: number;
 	onPageChange?: (page: number) => void;
 };
@@ -70,13 +74,17 @@ export function AppointmentsTable({
 
 			{isLoading && (
 				<div className="flex items-center justify-center h-64">
-					<div className="text-muted-foreground">Carregando agendamentos...</div>
+					<div className="text-muted-foreground">
+						Carregando agendamentos...
+					</div>
 				</div>
 			)}
 
 			{appointments.length === 0 && (
 				<div className="flex items-center justify-center h-64">
-					<div className="text-muted-foreground">Nenhum agendamento encontrado.</div>
+					<div className="text-muted-foreground">
+						Nenhum agendamento encontrado.
+					</div>
 				</div>
 			)}
 
@@ -109,7 +117,10 @@ export function AppointmentsTable({
 							<TableBody>
 								{appointments.length > 0 ? (
 									appointments.map((appointment) => (
-										<TableRow key={appointment.id} data-state={false && "selected"}>
+										<TableRow
+											key={appointment.id}
+											data-state={false && "selected"}
+										>
 											<TableCell>
 												<Checkbox
 													checked={false}
@@ -118,11 +129,15 @@ export function AppointmentsTable({
 												/>
 											</TableCell>
 											<TableCell>
-												<div className="font-medium">{appointment.client.name}</div>
+												<div className="font-medium">
+													{appointment.client.name}
+												</div>
 											</TableCell>
 											<TableCell>
 												<div>
-													<div className="font-medium">{appointment.animal.name}</div>
+													<div className="font-medium">
+														{appointment.animal.name}
+													</div>
 													{appointment.animal.breed && (
 														<div className="text-sm text-muted-foreground">
 															{appointment.animal.breed.name}
@@ -134,7 +149,10 @@ export function AppointmentsTable({
 											<TableCell>
 												<div>
 													<div className="font-medium">
-														{format(new Date(appointment.startDate), "dd/MM/yyyy")}
+														{format(
+															new Date(appointment.startDate),
+															"dd/MM/yyyy",
+														)}
 													</div>
 													<div className="text-sm text-muted-foreground">
 														{format(new Date(appointment.startDate), "HH:mm")} -{" "}
@@ -147,10 +165,14 @@ export function AppointmentsTable({
 													<div
 														className={cn(
 															"size-1.5 rounded-full mr-1",
-															appointment.status === "scheduled" && "bg-yellow-500",
-															appointment.status === "confirmed" && "bg-green-500",
-															appointment.status === "in_progress" && "bg-yellow-500",
-															appointment.status === "completed" && "bg-green-500",
+															appointment.status === "scheduled" &&
+																"bg-yellow-500",
+															appointment.status === "confirmed" &&
+																"bg-green-500",
+															appointment.status === "in_progress" &&
+																"bg-yellow-500",
+															appointment.status === "completed" &&
+																"bg-green-500",
 															appointment.status === "canceled" && "bg-red-500",
 															appointment.status === "no_show" && "bg-red-500",
 														)}
@@ -190,7 +212,10 @@ export function AppointmentsTable({
 								Itens por página
 							</Label>
 							<Select value={"10"}>
-								<SelectTrigger id={`page-size`} className="w-fit whitespace-nowrap">
+								<SelectTrigger
+									id={`page-size`}
+									className="w-fit whitespace-nowrap"
+								>
 									<SelectValue placeholder="Selecione o número de resultados" />
 								</SelectTrigger>
 								<SelectContent>
@@ -279,7 +304,12 @@ function RowActions({
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button size="icon" variant="ghost" className="shadow-none" aria-label="Editar agendamento">
+				<Button
+					size="icon"
+					variant="ghost"
+					className="shadow-none"
+					aria-label="Editar agendamento"
+				>
 					<MoreHorizontal size={16} aria-hidden="true" />
 				</Button>
 			</DropdownMenuTrigger>

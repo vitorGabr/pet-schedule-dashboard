@@ -1,6 +1,11 @@
 import type { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
 import { useGetAppointmentById } from "@/lib/http";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
 import { differenceInMinutes, format } from "date-fns";
 import { Calendar, MessageCircle, User } from "lucide-react";
 import { useState } from "react";
@@ -23,14 +28,18 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
 	open,
 }) => {
 	const [nextStatus, setNextStatus] =
-		useState<AppointmentsByCompanyResponseDtoOutputItemsItemStatus | null>(null);
+		useState<AppointmentsByCompanyResponseDtoOutputItemsItemStatus | null>(
+			null,
+		);
 	const { data: appointment } = useGetAppointmentById(appointmentId);
 
 	if (!appointment) return null;
 
 	const currentStatus = appointmentStatusModalOptions[appointment.status];
 
-	const handleStatusChange = (status: AppointmentsByCompanyResponseDtoOutputItemsItemStatus) => {
+	const handleStatusChange = (
+		status: AppointmentsByCompanyResponseDtoOutputItemsItemStatus,
+	) => {
 		setNextStatus(status);
 	};
 
@@ -83,10 +92,16 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
 
 						<div className="space-y-4">
 							<InfoCard title="Serviço">
-								<p className="text-slate-900 font-medium">{appointment.service.name}</p>
+								<p className="text-slate-900 font-medium">
+									{appointment.service.name}
+								</p>
 								<div className="flex justify-between items-center mt-2">
 									<span className="text-sm text-slate-600">
-										{differenceInMinutes(appointment.endDate, appointment.startDate)} minutos
+										{differenceInMinutes(
+											appointment.endDate,
+											appointment.startDate,
+										)}{" "}
+										minutos
 									</span>
 									<span className="text-lg font-bold text-slate-900">
 										{formatCurrency(appointment.price)}
@@ -112,11 +127,18 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
 					</div>
 
 					{/* Quick Actions */}
-					<QuickActions currentStatus={appointment.status} onStatusChange={handleStatusChange} />
+					<QuickActions
+						currentStatus={appointment.status}
+						onStatusChange={handleStatusChange}
+					/>
 
 					<div className="border-t border-slate-200 pt-6">
-						<h3 className="text-lg font-semibold text-slate-900 mb-2">Observações</h3>
-						<p className="text-sm text-slate-500 text-center">Nenhuma observação encontrada</p>
+						<h3 className="text-lg font-semibold text-slate-900 mb-2">
+							Observações
+						</h3>
+						<p className="text-sm text-slate-500 text-center">
+							Nenhuma observação encontrada
+						</p>
 					</div>
 				</div>
 

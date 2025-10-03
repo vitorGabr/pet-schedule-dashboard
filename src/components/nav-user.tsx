@@ -40,11 +40,15 @@ export function NavUser() {
 						>
 							<Avatar className="h-8 w-8 rounded-lg bg-primary/20 border">
 								<AvatarImage src={session?.avatar} alt={session?.name} />
-								<AvatarFallback className="rounded-lg">{session?.name?.charAt(0)}</AvatarFallback>
+								<AvatarFallback className="rounded-lg">
+									{session?.name?.charAt(0)}
+								</AvatarFallback>
 							</Avatar>
 							<div className="grid flex-1 text-left text-sm leading-tight">
 								<span className="truncate font-medium">{session?.name}</span>
-								<span className="text-muted-foreground truncate text-xs">{session?.email}</span>
+								<span className="text-muted-foreground truncate text-xs">
+									{session?.email}
+								</span>
 							</div>
 							<MoreVertical className="ml-auto size-4" />
 						</SidebarMenuButton>
@@ -63,7 +67,9 @@ export function NavUser() {
 								</Avatar>
 								<div className="grid flex-1 text-left text-sm leading-tight">
 									<span className="truncate font-medium">{session?.name}</span>
-									<span className="text-muted-foreground truncate text-xs">{session?.email}</span>
+									<span className="text-muted-foreground truncate text-xs">
+										{session?.email}
+									</span>
 								</div>
 							</div>
 						</DropdownMenuLabel>

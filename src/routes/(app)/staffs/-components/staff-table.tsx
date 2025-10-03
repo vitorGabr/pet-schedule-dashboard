@@ -1,7 +1,6 @@
 import type { ListStaffByCompanyResponseDtoOutputItemsItem } from "@/lib/http";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -10,7 +9,11 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
-import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/pagination";
+import {
+	Pagination,
+	PaginationContent,
+	PaginationItem,
+} from "@/components/ui/pagination";
 import {
 	Select,
 	SelectContent,
@@ -64,7 +67,9 @@ export function StaffTable({
 	if (!staff || staff.length === 0) {
 		return (
 			<div className="flex items-center justify-center h-64">
-				<div className="text-muted-foreground">Nenhum funcionário encontrado.</div>
+				<div className="text-muted-foreground">
+					Nenhum funcionário encontrado.
+				</div>
 			</div>
 		);
 	}
@@ -75,14 +80,6 @@ export function StaffTable({
 				<Table>
 					<TableHeader>
 						<TableRow className="hover:bg-transparent">
-							<TableHead className="w-12">
-								<Checkbox
-									checked={false}
-									ref={(_) => {}}
-									onCheckedChange={() => {}}
-									aria-label="Selecionar todos"
-								/>
-							</TableHead>
 							<TableHead>Nome</TableHead>
 							<TableHead>Email</TableHead>
 							<TableHead>Cargo</TableHead>
@@ -96,13 +93,6 @@ export function StaffTable({
 						{staff.map((staff) => (
 							<TableRow key={staff.id} data-state={false && "selected"}>
 								<TableCell>
-									<Checkbox
-										checked={false}
-										onCheckedChange={(_) => () => {}}
-										aria-label="Selecionar linha"
-									/>
-								</TableCell>
-								<TableCell>
 									<div className="font-medium">{staff.user.name}</div>
 								</TableCell>
 								<TableCell>
@@ -111,7 +101,9 @@ export function StaffTable({
 									</div>
 								</TableCell>
 								<TableCell>
-									<Badge variant={"secondary"}>{staffRolesResource[staff.role]}</Badge>
+									<Badge variant={"secondary"}>
+										{staffRolesResource[staff.role]}
+									</Badge>
 								</TableCell>
 								<TableCell>
 									<div className="font-medium">
@@ -214,11 +206,20 @@ export function StaffTable({
 	);
 }
 
-function RowActions({ staff: _staff }: { staff: ListStaffByCompanyResponseDtoOutputItemsItem }) {
+function RowActions({
+	staff: _staff,
+}: {
+	staff: ListStaffByCompanyResponseDtoOutputItemsItem;
+}) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button size="icon" variant="ghost" className="shadow-none" aria-label="Editar agendamento">
+				<Button
+					size="icon"
+					variant="ghost"
+					className="shadow-none"
+					aria-label="Editar agendamento"
+				>
 					<MoreHorizontal size={16} aria-hidden="true" />
 				</Button>
 			</DropdownMenuTrigger>

@@ -19,7 +19,9 @@ type Props = {
 } & SelectHTMLAttributes<HTMLSelectElement>;
 
 export function SelectField({ className, label, field, ...props }: Props) {
-	const errorMessage = field?.state.meta?.errors.map((err) => err?.message).join(",");
+	const errorMessage = field?.state.meta?.errors
+		.map((err) => err?.message)
+		.join(",");
 	const name = field?.name ?? props.name;
 	const value = field?.state.value ?? props.value;
 
@@ -33,9 +35,15 @@ export function SelectField({ className, label, field, ...props }: Props) {
 			>
 				{label}
 			</Label>
-			<Select value={value} onValueChange={(value) => field?.handleChange?.(value)}>
+			<Select
+				value={value}
+				onValueChange={(value) => field?.handleChange?.(value)}
+			>
 				<SelectTrigger>
-					<SelectValue placeholder={props.placeholder} onBlur={field?.handleBlur} />
+					<SelectValue
+						placeholder={props.placeholder}
+						onBlur={field?.handleBlur}
+					/>
 				</SelectTrigger>
 				<SelectContent>
 					{props.options.map((option) => (

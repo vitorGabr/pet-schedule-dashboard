@@ -1,16 +1,30 @@
 import { useGetServiceById } from "@/lib/http";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
 import { Building, Clock, Coins, Tag } from "lucide-react";
 
-type ServiceViewModalProps = { serviceId: string; onOpenChange: (open: boolean) => void };
+type ServiceViewModalProps = {
+	serviceId: string;
+	onOpenChange: (open: boolean) => void;
+};
 
-export function ServiceViewModal({ serviceId, onOpenChange }: ServiceViewModalProps) {
+export function ServiceViewModal({
+	serviceId,
+	onOpenChange,
+}: ServiceViewModalProps) {
 	const { data: service } = useGetServiceById(serviceId);
 	if (!service) return null;
 
 	const formatPrice = (price: number) => {
-		return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(price);
+		return new Intl.NumberFormat("pt-BR", {
+			style: "currency",
+			currency: "BRL",
+		}).format(price);
 	};
 
 	const formatDuration = (minutes: number) => {
@@ -30,10 +44,14 @@ export function ServiceViewModal({ serviceId, onOpenChange }: ServiceViewModalPr
 			<DialogContent className="max-w-2xl">
 				<DialogHeader>
 					<div className="flex items-center justify-between">
-						<DialogTitle className="text-xl font-semibold">{service.name}</DialogTitle>
+						<DialogTitle className="text-xl font-semibold">
+							{service.name}
+						</DialogTitle>
 						<Badge
 							variant={service.isActive ? "default" : "secondary"}
-							className={service.isActive ? "bg-green-500 hover:bg-green-600" : ""}
+							className={
+								service.isActive ? "bg-green-500 hover:bg-green-600" : ""
+							}
 						>
 							{service.isActive ? "Ativo" : "Inativo"}
 						</Badge>
@@ -44,7 +62,9 @@ export function ServiceViewModal({ serviceId, onOpenChange }: ServiceViewModalPr
 					{/* Descrição */}
 					{service.description && (
 						<div>
-							<h3 className="font-medium text-sm text-muted-foreground mb-2">Descrição</h3>
+							<h3 className="font-medium text-sm text-muted-foreground mb-2">
+								Descrição
+							</h3>
 							<p className="text-sm">{service.description}</p>
 						</div>
 					)}
@@ -67,7 +87,9 @@ export function ServiceViewModal({ serviceId, onOpenChange }: ServiceViewModalPr
 							</div>
 							<div>
 								<p className="text-sm text-muted-foreground">Duração</p>
-								<p className="font-semibold">{formatDuration(service.duration ?? 0)}</p>
+								<p className="font-semibold">
+									{formatDuration(service.duration ?? 0)}
+								</p>
 							</div>
 						</div>
 					</div>
@@ -88,11 +110,17 @@ export function ServiceViewModal({ serviceId, onOpenChange }: ServiceViewModalPr
 						<div>
 							<div className="flex items-center gap-2 mb-3">
 								<Tag className="h-4 w-4 text-muted-foreground" />
-								<h3 className="font-medium text-sm text-muted-foreground">Categorias</h3>
+								<h3 className="font-medium text-sm text-muted-foreground">
+									Categorias
+								</h3>
 							</div>
 							<div className="flex flex-wrap gap-2">
 								{service.categories.map((category) => (
-									<Badge key={category.id} variant="outline" className="text-xs">
+									<Badge
+										key={category.id}
+										variant="outline"
+										className="text-xs"
+									>
 										{category.name}
 									</Badge>
 								))}

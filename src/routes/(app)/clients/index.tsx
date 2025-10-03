@@ -17,16 +17,9 @@ function App() {
 	const { data: session } = useGetSession();
 	const { data: clients, isLoading } = useListCompanyClients(
 		session?.companyId!,
-		{
-			page,
-			search: query,
-		},
-		{
-			query: {
-				enabled: !!session?.companyId,
-			},
-		},
-	)
+		{ page, search: query },
+		{ query: { enabled: !!session?.companyId } },
+	);
 
 	return (
 		<>
@@ -52,5 +45,5 @@ function App() {
 				</div>
 			</div>
 		</>
-	)
+	);
 }

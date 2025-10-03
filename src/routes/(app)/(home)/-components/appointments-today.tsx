@@ -1,26 +1,24 @@
-import { useGetAllCompanyAppointments } from "@/lib/http";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Link } from "@tanstack/react-router";
-import { endOfDay, format, startOfDay } from "date-fns";
+import { format } from "date-fns";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { appointmentStatusResource } from "@/constants/appointment-status";
+import { useGetAllCompanyAppointments } from "@/lib/http";
 import { cn } from "@/utils/cn";
 import { formatCurrency } from "@/utils/currency";
 
 export function AppointmentsToday({ companyId }: { companyId?: string }) {
 	const { data: appointments, status } = useGetAllCompanyAppointments(
 		companyId!,
-		{
-			startDate: startOfDay(new Date()).toISOString(),
-			endDate: endOfDay(new Date()).toISOString(),
-			status: ["scheduled"],
-		},
+		{ status: ["scheduled", "confirmed", "in_progress"].join(",") },
 		{ query: { enabled: !!companyId } },
 	);
 
 	return (
 		<div className="lg:col-span-2 bg-white rounded-xl border border-slate-200/60 p-6 hover:shadow-card transition-all duration-200">
 			<div className="flex items-center justify-between mb-6">
-				<h3 className="text-lg font-semibold text-slate-900">Agendamentos de Hoje</h3>
+				<h3 className="text-lg font-semibold text-slate-900">
+					Agendamentos de Hoje
+				</h3>
 				<Link
 					to="/appointments"
 					className="text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200"
@@ -38,12 +36,20 @@ export function AppointmentsToday({ companyId }: { companyId?: string }) {
 							<div className="flex items-center space-x-4">
 								<Avatar className="w-10 h-10 border">
 									<AvatarImage src={appointment.client.avatar?.url} />
-									<AvatarFallback>{appointment.client.name.charAt(0)}</AvatarFallback>
+									<AvatarFallback>
+										{appointment.client.name.charAt(0)}
+									</AvatarFallback>
 								</Avatar>
 								<div>
-									<p className="font-medium text-slate-900">{appointment.client.name}</p>
-									<p className="text-sm text-slate-600">{appointment.animal.name}</p>
-									<p className="text-xs text-slate-500">{appointment.service.name}</p>
+									<p className="font-medium text-slate-900">
+										{appointment.client.name}
+									</p>
+									<p className="text-sm text-slate-600">
+										{appointment.animal.name}
+									</p>
+									<p className="text-xs text-slate-500">
+										{appointment.service.name}
+									</p>
 								</div>
 							</div>
 							<div className="text-right">
@@ -71,7 +77,9 @@ export function AppointmentsToday({ companyId }: { companyId?: string }) {
 				))}
 				{status === "success" && appointments?.items.length === 0 && (
 					<div className="flex items-center justify-center h-full">
-						<p className="text-sm text-slate-600">Nenhum agendamento encontrado</p>
+						<p className="text-sm text-slate-600">
+							Nenhum agendamento encontrado
+						</p>
 					</div>
 				)}
 			</div>

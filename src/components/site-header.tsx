@@ -1,9 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
-type SiteHeaderProps = {
-	title: string;
-};
+type SiteHeaderProps = { title: string };
 
 export function SiteHeader({ title }: SiteHeaderProps) {
 	return (

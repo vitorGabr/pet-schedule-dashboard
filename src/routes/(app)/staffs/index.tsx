@@ -25,7 +25,7 @@ function App() {
 		session?.companyId!,
 		{ page, query, roles: roles?.join(",") },
 		{ query: { enabled: !!session?.companyId } },
-	)
+	);
 
 	return (
 		<>
@@ -60,5 +60,5 @@ function App() {
 				)}
 			</div>
 		</>
-	)
+	);
 }

@@ -13,7 +13,9 @@ export function Gallery({ images, onAddImage, onRemoveImage }: GalleryProps) {
 	return (
 		<div className="bg-white p-6 rounded-lg border border-gray-200">
 			<div className="flex justify-between items-center mb-4">
-				<h3 className="text-lg font-semibold text-gray-900">Galeria de Fotos</h3>
+				<h3 className="text-lg font-semibold text-gray-900">
+					Galeria de Fotos
+				</h3>
 			</div>
 			<div className="grid grid-cols-3 gap-4">
 				{images?.map((image, index) => (

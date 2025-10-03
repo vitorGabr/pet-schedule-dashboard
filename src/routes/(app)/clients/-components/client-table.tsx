@@ -1,8 +1,11 @@
 import type { ListCompanyClientsResponseDtoOutputItemsItem } from "@/lib/http";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/pagination";
+import {
+	Pagination,
+	PaginationContent,
+	PaginationItem,
+} from "@/components/ui/pagination";
 import {
 	Select,
 	SelectContent,
@@ -19,7 +22,12 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { format } from "date-fns";
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
+import {
+	ChevronLeft,
+	ChevronRight,
+	ChevronsLeft,
+	ChevronsRight,
+} from "lucide-react";
 
 type ClientTableProps = {
 	clients?: ListCompanyClientsResponseDtoOutputItemsItem[];
@@ -61,14 +69,6 @@ export function ClientTable({
 				<Table>
 					<TableHeader>
 						<TableRow className="hover:bg-transparent">
-							<TableHead className="w-12">
-								<Checkbox
-									checked={false}
-									ref={(_) => {}}
-									onCheckedChange={() => {}}
-									aria-label="Selecionar todos"
-								/>
-							</TableHead>
 							<TableHead>Nome</TableHead>
 							<TableHead>Email</TableHead>
 							<TableHead>Total de Agendamentos</TableHead>
@@ -78,16 +78,7 @@ export function ClientTable({
 					<TableBody>
 						{clients?.map((client) => (
 							<TableRow key={client.id} data-state={false && "selected"}>
-								<TableCell>
-									<Checkbox
-										checked={false}
-										onCheckedChange={(_) => () => {}}
-										aria-label="Selecionar linha"
-									/>
-								</TableCell>
-								<TableCell>
-									<div className="font-medium">{client.name}</div>
-								</TableCell>
+								<TableCell>{client.name}</TableCell>
 								<TableCell>
 									<div>
 										<div className="font-medium">{client.email}</div>
@@ -96,7 +87,10 @@ export function ClientTable({
 								<TableCell>{client.appointmentsCount}</TableCell>
 								<TableCell>
 									<div className="font-medium">
-										{format(new Date(client.lastAppointmentDate || ""), "dd/MM/yyyy")}
+										{format(
+											new Date(client.lastAppointmentDate || ""),
+											"dd/MM/yyyy",
+										)}
 									</div>
 								</TableCell>
 							</TableRow>

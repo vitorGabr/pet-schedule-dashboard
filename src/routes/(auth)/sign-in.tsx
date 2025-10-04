@@ -1,5 +1,9 @@
-import type { SignInRequestDto } from "@/lib/http";
-import { getGetSessionQueryKey, signIn, signInBody } from "@/lib/http";
+import { useForm } from "@tanstack/react-form";
+import { useQueryClient } from "@tanstack/react-query";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Loader2 } from "lucide-react";
+import Logo from "@/assets/logo.png";
+import { TextField } from "@/components/form/fields/text-field";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -8,18 +12,14 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { useForm } from "@tanstack/react-form";
-import { useQueryClient } from "@tanstack/react-query";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Loader2 } from "lucide-react";
-import Logo from "@/assets/logo.png";
-import { TextField } from "@/components/form/fields/text-field";
+import type { SignInRequestDto } from "@/lib/http";
+import { getGetSessionQueryKey, signIn, signInBody } from "@/lib/http";
 import { cn } from "@/utils/cn";
 import { setCookie } from "@/utils/cookie";
 
 export const Route = createFileRoute("/(auth)/sign-in")({ component: SignIn });
 
-export function SignIn() {
+function SignIn() {
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 

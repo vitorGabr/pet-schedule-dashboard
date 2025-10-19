@@ -77,8 +77,8 @@ const apphomeIndexRoute = apphomeIndexRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof apphomeIndexRoute
   '/sign-in': typeof authSignInRoute
+  '/': typeof apphomeIndexRoute
   '/appointments': typeof appAppointmentsIndexRoute
   '/clients': typeof appClientsIndexRoute
   '/my-profile': typeof appMyProfileIndexRoute
@@ -117,8 +117,8 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/sign-in'
+    | '/'
     | '/appointments'
     | '/clients'
     | '/my-profile'
@@ -164,8 +164,8 @@ declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/(app)': {
       id: '/(app)'
-      path: '/'
-      fullPath: '/'
+      path: ''
+      fullPath: ''
       preLoaderRoute: typeof appRouteRouteImport
       parentRoute: typeof rootRouteImport
     }

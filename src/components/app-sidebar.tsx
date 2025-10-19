@@ -1,10 +1,3 @@
-import {
-	Sidebar,
-	SidebarContent,
-	SidebarFooter,
-	SidebarHeader,
-	SidebarMenu,
-} from "@/components/ui/sidebar";
 import { useLocation } from "@tanstack/react-router";
 import {
 	AreaChart,
@@ -20,9 +13,16 @@ import {
 	Users2,
 } from "lucide-react";
 import type * as React from "react";
-import Logo from "@/assets/logo.png";
+import Logo from "@/assets/logo.svg";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
+import {
+	Sidebar,
+	SidebarContent,
+	SidebarFooter,
+	SidebarHeader,
+	SidebarMenu,
+} from "@/components/ui/sidebar";
 
 const data = {
 	navMain: [

@@ -8,7 +8,8 @@
 		"test": "vitest run",
 		"format": "biome format",
 		"lint": "biome lint",
-		"check": "biome check"
+		"check": "biome check",
+		"start": "node .output/server/index.mjs"
 	},
 	"dependencies": {
 		"@clerk/localizations": "^3.26.3",

@@ -1,6 +1,6 @@
+import { PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PlusIcon } from "lucide-react";
 
 export function ServicesSkeleton() {
 	const serviceCards = [

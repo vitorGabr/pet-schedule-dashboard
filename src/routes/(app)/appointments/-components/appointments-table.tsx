@@ -1,7 +1,11 @@
-import type {
-	AppointmentsByCompanyResponseDtoOutputItemsItem,
-	AppointmentsByCompanyResponseDtoOutputItemsItemStatus,
-} from "@/lib/http";
+import { format } from "date-fns";
+import {
+	ChevronLeft,
+	ChevronRight,
+	ChevronsLeft,
+	ChevronsRight,
+	MoreHorizontal,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -35,15 +39,11 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { format } from "date-fns";
-import {
-	ChevronLeft,
-	ChevronRight,
-	ChevronsLeft,
-	ChevronsRight,
-	MoreHorizontal,
-} from "lucide-react";
 import { appointmentStatusResource } from "@/constants/appointment-status";
+import type {
+	AppointmentsByCompanyResponseDtoOutputItemsItem,
+	AppointmentsByCompanyResponseDtoOutputItemsItemStatus,
+} from "@/lib/http";
 import { cn } from "@/utils/cn";
 import { AppointmentFilters } from "./appointment-filters";
 

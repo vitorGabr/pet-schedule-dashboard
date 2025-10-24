@@ -1,10 +1,9 @@
-import {
-	type CreateServiceMutationBody,
-	createService,
-	createServiceBody,
-	getListServicesByCompanyQueryKey,
-	useListAllCategories,
-} from "@/lib/http";
+import { useForm } from "@tanstack/react-form";
+import { useQueryClient } from "@tanstack/react-query";
+import { PlusIcon } from "lucide-react";
+import { SelectField } from "@/components/form/fields/select-field";
+import { TextAreaField } from "@/components/form/fields/text-area-field";
+import { TextField } from "@/components/form/fields/text-field";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -13,12 +12,13 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { useForm } from "@tanstack/react-form";
-import { useQueryClient } from "@tanstack/react-query";
-import { PlusIcon } from "lucide-react";
-import { SelectField } from "@/components/form/fields/select-field";
-import { TextAreaField } from "@/components/form/fields/text-area-field";
-import { TextField } from "@/components/form/fields/text-field";
+import {
+	type CreateServiceMutationBody,
+	createService,
+	createServiceBody,
+	getListServicesByCompanyQueryKey,
+	useListAllCategories,
+} from "@/lib/http";
 
 interface CreateServiceModalProps {
 	companyId: string;

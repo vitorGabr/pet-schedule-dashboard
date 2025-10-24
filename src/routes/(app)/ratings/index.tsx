@@ -1,16 +1,12 @@
-import {
-	useGetCompanyRatingStats,
-	useGetSession,
-	useListCompanyRatings,
-} from "@/lib/http";
+import { createFileRoute, useRouteContext } from "@tanstack/react-router";
+import { format } from "date-fns";
+import { Star } from "lucide-react";
+import { SiteHeader } from "@/components/site-header";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { createFileRoute } from "@tanstack/react-router";
-import { format } from "date-fns";
-import { Star } from "lucide-react";
-import { SiteHeader } from "@/components/site-header";
+import { useGetCompanyRatingStats, useListCompanyRatings } from "@/lib/http";
 import { RatingsSkeleton } from "./-components/ratings-skeleton";
 
 export const Route = createFileRoute("/(app)/ratings/")({
@@ -18,15 +14,9 @@ export const Route = createFileRoute("/(app)/ratings/")({
 });
 
 function RouteComponent() {
-	const { data: session } = useGetSession();
-	const ratingStats = useGetCompanyRatingStats(session?.companyId!, {
-		query: { enabled: !!session?.companyId },
-	});
-	const ratings = useListCompanyRatings(
-		session?.companyId!,
-		{},
-		{ query: { enabled: !!session?.companyId } },
-	);
+	const { companyId } = useRouteContext({ from: "/(app)" });
+	const ratingStats = useGetCompanyRatingStats(companyId);
+	const ratings = useListCompanyRatings(companyId);
 
 	const isLoading = ratingStats.isLoading || ratings.isLoading;
 
@@ -117,7 +107,7 @@ function RouteComponent() {
 												<div className="w-full bg-gray-200 rounded-full h-2">
 													<div
 														className="bg-yellow-400 h-2 rounded-full transition-all duration-300"
-														style={{ width: "${item.count}%" }}
+														style={{ width: `${item.count}%` }}
 													></div>
 												</div>
 											</div>

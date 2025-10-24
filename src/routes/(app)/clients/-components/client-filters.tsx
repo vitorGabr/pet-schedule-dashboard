@@ -1,8 +1,8 @@
-import { Input } from "@/components/ui/input";
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
 import { Search, X } from "lucide-react";
 import type z from "zod";
+import { Input } from "@/components/ui/input";
 import { pageSearchSchema } from "@/schemas/page-search";
 import { cn } from "@/utils/cn";
 

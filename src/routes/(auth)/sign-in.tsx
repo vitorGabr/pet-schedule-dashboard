@@ -1,7 +1,8 @@
+import { useSignIn } from "@clerk/tanstack-react-start";
 import { useForm } from "@tanstack/react-form";
-import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import Logo from "@/assets/logo.svg";
 import { TextField } from "@/components/form/fields/text-field";
 import { Button } from "@/components/ui/button";
@@ -12,30 +13,49 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import type { SignInRequestDto } from "@/lib/http";
-import { getGetSessionQueryKey, signIn, signInBody } from "@/lib/http";
+import { SignInBody, signInSchema } from "@/schemas/sign-in";
 import { cn } from "@/utils/cn";
-import { setCookie } from "@/utils/cookie";
 
 export const Route = createFileRoute("/(auth)/sign-in")({ component: SignIn });
 
 function SignIn() {
+	const { setActive, signIn } = useSignIn();
 	const navigate = useNavigate();
-	const queryClient = useQueryClient();
 
 	const form = useForm({
-		defaultValues: {
-			email: "",
-			password: "",
-			type: "company",
-		} as SignInRequestDto,
+		defaultValues: { email: "", password: "" } as SignInBody,
 		onSubmit: async ({ value }) => {
-			const data = await signIn(value);
-			setCookie("token", data.accessToken);
-			queryClient.setQueryData(getGetSessionQueryKey(), data);
-			navigate({ to: "/" });
+			await signIn
+				?.create({
+					identifier: value.email,
+					password: value.password,
+					actionCompleteRedirectUrl: undefined,
+					redirectUrl: undefined,
+				})
+				.then(async (result) => {
+					if (result.status === "complete") {
+						await setActive({ session: result.createdSessionId });
+						toast.success("Login realizado com sucesso!");
+						navigate({ to: "/" });
+					}
+				})
+				.catch((error) => {
+					const errs = error.errors?.map((e: any) => e.code) as string[];
+					if (errs.length) {
+						switch (errs[0]) {
+							case "form_identifier_not_found":
+								toast.error("Email não encontrado.");
+								break;
+							case "form_invalid_password":
+								toast.error("Senha inválida.");
+								break;
+							default:
+								toast.error("Erro ao entrar. Tente novamente.");
+						}
+					}
+				});
 		},
-		validators: { onChange: signInBody },
+		validators: { onChange: signInSchema },
 	});
 
 	return (

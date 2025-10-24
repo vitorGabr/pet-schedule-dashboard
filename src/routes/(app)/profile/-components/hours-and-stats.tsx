@@ -1,6 +1,6 @@
-import type { CompanyAvailabilityListResponseDtoOutputItemsItem } from "@/lib/http";
 import { Clock } from "lucide-react";
 import { availabilityDayResource } from "@/constants/availability-day-resource";
+import type { CompanyAvailabilityListResponseDtoOutputItemsItem } from "@/lib/http";
 
 type HoursAndStatsProps = {
 	availabilities: CompanyAvailabilityListResponseDtoOutputItemsItem[];

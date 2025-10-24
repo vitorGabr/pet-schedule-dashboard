@@ -1,4 +1,10 @@
-import type { ListCompanyClientsResponseDtoOutputItemsItem } from "@/lib/http";
+import { format } from "date-fns";
+import {
+	ChevronLeft,
+	ChevronRight,
+	ChevronsLeft,
+	ChevronsRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
@@ -21,13 +27,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { format } from "date-fns";
-import {
-	ChevronLeft,
-	ChevronRight,
-	ChevronsLeft,
-	ChevronsRight,
-} from "lucide-react";
+import type { ListCompanyClientsResponseDtoOutputItemsItem } from "@/lib/http";
 
 type ClientTableProps = {
 	clients?: ListCompanyClientsResponseDtoOutputItemsItem[];

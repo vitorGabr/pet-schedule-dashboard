@@ -1,10 +1,9 @@
-import {
-	getListStaffByCompanyQueryKey,
-	type InviteEmployeeMutationBody,
-	inviteEmployee,
-	inviteEmployeeBody,
-	ListStaffByCompanyResponseDtoOutputItemsItemRole,
-} from "@/lib/http";
+import { useForm } from "@tanstack/react-form";
+import { useQueryClient } from "@tanstack/react-query";
+import { PlusIcon } from "lucide-react";
+import { toast } from "sonner";
+import { SelectField } from "@/components/form/fields/select-field";
+import { TextField } from "@/components/form/fields/text-field";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -13,22 +12,21 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { useForm } from "@tanstack/react-form";
-import { useQueryClient } from "@tanstack/react-query";
-import { PlusIcon } from "lucide-react";
-import { toast } from "sonner";
-import { SelectField } from "@/components/form/fields/select-field";
-import { TextField } from "@/components/form/fields/text-field";
 import { staffRolesResource } from "@/constants/staff-roles-resouce";
+import {
+	getListStaffByCompanyQueryKey,
+	type InviteEmployeeMutationBody,
+	inviteEmployee,
+	inviteEmployeeBody,
+	ListStaffByCompanyResponseDtoOutputItemsItemRole,
+} from "@/lib/http";
 
 interface CreateStaffModalProps {
-	companyId: string;
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 }
 
 export function CreateStaffModal({
-	companyId,
 	open,
 	onOpenChange,
 }: CreateStaffModalProps) {
@@ -41,7 +39,7 @@ export function CreateStaffModal({
 			const response = await inviteEmployee(values.value);
 			toast.success(response.message);
 			queryClient.invalidateQueries({
-				queryKey: getListStaffByCompanyQueryKey(companyId),
+				queryKey: getListStaffByCompanyQueryKey(),
 			});
 			onOpenChange(false);
 		},

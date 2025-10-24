@@ -1,4 +1,4 @@
-import { useGetServiceById } from "@/lib/http";
+import { Building, Clock, Coins, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
 	Dialog,
@@ -6,7 +6,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { Building, Clock, Coins, Tag } from "lucide-react";
+import { useGetServiceById } from "@/lib/http";
 
 type ServiceViewModalProps = {
 	serviceId: string;

@@ -49,7 +49,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<SidebarHeader>
 				<SidebarMenu>
 					<a href={"/"}>
-						<img src={Logo} alt="Logo" className="w-auto h-10 object-cover" />
+						<img src={Logo} alt="Logo" className="w-auto h-8 object-cover" />
 					</a>
 				</SidebarMenu>
 			</SidebarHeader>

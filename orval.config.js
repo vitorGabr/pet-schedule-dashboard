@@ -25,8 +25,8 @@ export default defineConfig({
 		input: {
 			target: "http://localhost:3333/swagger/json",
 			override: {
-				transformer: (openApiObject: any) => {
-					function removePattern(obj: any) {
+				transformer: (openApiObject) => {
+					function removePattern(obj) {
 						if (Array.isArray(obj)) {
 							obj.forEach(removePattern);
 						} else if (obj && typeof obj === "object") {

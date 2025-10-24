@@ -2,7 +2,8 @@
 	"include": [
 		"**/*.ts",
 		"**/*.tsx",
-		"../../packages/ui/src/components/table.tsx"
+		"../../packages/ui/src/components/table.tsx",
+		"orval.config.js"
 	],
 	"compilerOptions": {
 		"target": "ES2022",

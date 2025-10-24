@@ -1,6 +1,6 @@
-import type { GetAllCompanyAppointmentsStatusItem } from "@/lib/http";
 import { Check, Play, User, X } from "lucide-react";
 import type React from "react";
+import type { GetAllCompanyAppointmentsStatusItem } from "@/lib/http";
 import { ActionButton } from "./action-button";
 
 interface QuickActionsProps {

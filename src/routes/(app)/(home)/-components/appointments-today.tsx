@@ -8,7 +8,6 @@ import { formatCurrency } from "@/utils/currency";
 
 export function AppointmentsToday({ companyId }: { companyId?: string }) {
 	const { data: appointments, status } = useGetAllCompanyAppointments(
-		companyId!,
 		{ status: ["scheduled", "confirmed", "in_progress"].join(",") },
 		{ query: { enabled: !!companyId } },
 	);

@@ -1,10 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 import type { ServiceResponseListOutputItemsItem } from "@/lib/http";
-import { useGetSession, useListServicesByCompany } from "@/lib/http";
+import { useListServicesByCompany } from "@/lib/http";
 import { pageSearchSchema } from "@/schemas/page-search";
 import { CreateServiceModal } from "./-components/create-service-modal";
 import { DeactivateServiceModal } from "./-components/deactivate-service-modal";
@@ -18,23 +18,14 @@ export const Route = createFileRoute("/(app)/services/")({
 });
 
 function ServicePage() {
+	const { companyId } = useRouteContext({ from: "/(app)" });
 	const { id } = Route.useSearch();
 	const navigate = Route.useNavigate();
 
 	const [createServiceModalOpen, setCreateServiceModalOpen] = useState(false);
 	const [deactivateServiceSelected, setDeactivateServiceSelected] =
 		useState<ServiceResponseListOutputItemsItem | null>(null);
-
-	const { data: session } = useGetSession();
-	const { data: services, isLoading } = useListServicesByCompany(
-		session?.companyId!,
-		{
-			query: {
-				enabled: !!session?.companyId,
-				queryKey: ["services", session?.companyId],
-			},
-		},
-	);
+	const { data: services, isLoading } = useListServicesByCompany(companyId);
 
 	if (isLoading) {
 		return <ServicesSkeleton />;
@@ -75,7 +66,7 @@ function ServicePage() {
 				<CreateServiceModal
 					open={createServiceModalOpen}
 					onOpenChange={setCreateServiceModalOpen}
-					companyId={session?.companyId!}
+					companyId={companyId!}
 				/>
 				<DeactivateServiceModal
 					service={deactivateServiceSelected!}

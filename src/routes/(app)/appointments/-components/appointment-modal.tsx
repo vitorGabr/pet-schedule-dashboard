@@ -1,15 +1,15 @@
-import type { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
-import { useGetAppointmentById } from "@/lib/http";
+import { differenceInMinutes, format } from "date-fns";
+import { Calendar, MessageCircle, User } from "lucide-react";
+import { useState } from "react";
 import {
 	Dialog,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { differenceInMinutes, format } from "date-fns";
-import { Calendar, MessageCircle, User } from "lucide-react";
-import { useState } from "react";
 import { appointmentStatusModalOptions } from "@/constants/appointment-status-modal-option";
+import type { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
+import { useGetAppointmentById } from "@/lib/http";
 import { formatCurrency } from "@/utils/currency";
 import { AppointmentConfirmationModal } from "./appointment-confirmation-modal";
 import { InfoCard } from "./info-card";

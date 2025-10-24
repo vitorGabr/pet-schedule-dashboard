@@ -1,3 +1,7 @@
+import { cva, type VariantProps } from "class-variance-authority";
+import { PanelLeftIcon } from "lucide-react";
+import { Slot as SlotPrimitive } from "radix-ui";
+import * as React from "react";
 import {
 	Sheet,
 	SheetContent,
@@ -6,10 +10,6 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cva, type VariantProps } from "class-variance-authority";
-import { PanelLeftIcon } from "lucide-react";
-import { Slot as SlotPrimitive } from "radix-ui";
-import * as React from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/utils/cn";
 import { Button } from "./button";

@@ -1,4 +1,7 @@
-import { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
+import { useForm } from "@tanstack/react-form";
+import { useNavigate } from "@tanstack/react-router";
+import { Filter, Search, X } from "lucide-react";
+import type z from "zod";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -8,11 +11,8 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import { useForm } from "@tanstack/react-form";
-import { useNavigate } from "@tanstack/react-router";
-import { Filter, Search, X } from "lucide-react";
-import type z from "zod";
 import { appointmentStatusResource } from "@/constants/appointment-status";
+import { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
 import { appointmentFilterPageSchema } from "@/schemas/appointment-filter-page";
 import { cn } from "@/utils/cn";
 

@@ -34,7 +34,7 @@ function App() {
 						<StaffFilters query={query} roles={roles} />
 						<Button onClick={() => setOpenCreateStaffModal(true)}>
 							<PlusIcon className="h-4 w-4" />
-							Criar Funcionário
+							Convidar Funcionário
 						</Button>
 					</div>
 					<StaffTable

@@ -11,6 +11,5 @@ export type ListStaffByCompanyResponseDtoOutputItemsItemRole =
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ListStaffByCompanyResponseDtoOutputItemsItemRole = {
 	admin: "admin",
-	manager: "manager",
-	employee: "employee",
+	member: "member",
 } as const;

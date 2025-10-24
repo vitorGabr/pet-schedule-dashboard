@@ -10,7 +10,6 @@ import {
 	Package,
 	ShoppingCart,
 	Star,
-	Users2,
 } from "lucide-react";
 import type * as React from "react";
 import Logo from "@/assets/logo.svg";
@@ -32,7 +31,6 @@ const data = {
 		{ title: "Funcionários", url: "/staffs", icon: Folder },
 		{ title: "Avaliações", url: "/ratings", icon: Star },
 		{ title: "Perfil da Empresa", url: "/profile", icon: Building2 },
-		{ title: "Clientes", url: "/clients", icon: Users2 },
 	],
 	navComingSoon: [
 		{ title: "Estoque", url: "#", icon: Package, comingSoon: true },
@@ -52,6 +50,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 						<img src={Logo} alt="Logo" className="w-auto h-8 object-cover" />
 					</a>
 				</SidebarMenu>
+				<SidebarMenu></SidebarMenu>
 			</SidebarHeader>
 			<SidebarContent>
 				<NavMain items={data.navMain} activePath={activePath.pathname} />

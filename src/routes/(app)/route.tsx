@@ -8,12 +8,12 @@ import { getStaffByCurrentUserId } from "@/lib/http";
 const authStateFn = createServerFn({ method: "GET" }).handler(async () => {
 	const { isAuthenticated, userId } = await auth();
 	if (!isAuthenticated) {
-		throw redirect({ to: "/sign-in" });
+		throw redirect({ to: "/sign-in/$" });
 	}
 
 	const staff = await getStaffByCurrentUserId();
 	if (!staff) {
-		throw redirect({ to: "/sign-in" });
+		throw redirect({ to: "/sign-in/$" });
 	}
 
 	return { userId, companyId: staff.companyId };

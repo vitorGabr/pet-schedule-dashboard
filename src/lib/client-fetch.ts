@@ -26,7 +26,7 @@ AXIOS_INSTANCE.interceptors.response.use(
 		const status = error.response?.status;
 
 		if ([401, 403].includes(status)) {
-			throw redirect({ to: "/sign-in" });
+			throw redirect({ to: "/sign-in/$" });
 		}
 		if (error instanceof AxiosError) {
 			if (error.code !== "ERR_CANCELED") {

@@ -3,7 +3,7 @@ import { pageSearchSchema } from "@/schemas/page-search";
 
 export const staffFilterPageSchema = pageSearchSchema.extend({
 	roles: z
-		.array(z.enum(["admin", "manager", "employee"]))
+		.array(z.enum(["admin", "member"]))
 		.min(1)
 		.optional()
 		.catch(undefined),

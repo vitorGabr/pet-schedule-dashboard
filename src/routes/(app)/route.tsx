@@ -1,27 +1,32 @@
-import { auth } from "@clerk/tanstack-react-start/server";
+import { auth, clerkClient } from "@clerk/tanstack-react-start/server";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { getStaffByCurrentUserId } from "@/lib/http";
 
 const authStateFn = createServerFn({ method: "GET" }).handler(async () => {
-	const { isAuthenticated, userId } = await auth();
-	if (!isAuthenticated) {
+	const { isAuthenticated, orgId, userId } = await auth();
+	if (!isAuthenticated || !orgId || !userId)
 		throw redirect({ to: "/sign-in/$" });
+
+	const [userResult, orgResult] = await Promise.allSettled([
+		clerkClient().users.getUser(userId),
+		clerkClient().organizations.getOrganization({ organizationId: orgId }),
+	]);
+
+	if (userResult.status === "fulfilled" && orgResult.status === "fulfilled") {
+		return {
+			userId: String(userResult.value.publicMetadata?.appUserId),
+			companyId: String(orgResult.value.publicMetadata?.appCompanyId),
+		};
 	}
 
-	const staff = await getStaffByCurrentUserId();
-	if (!staff) {
-		throw redirect({ to: "/sign-in/$" });
-	}
-
-	return { userId, companyId: staff.companyId };
+	throw redirect({ to: "/waiting" });
 });
 
 export const Route = createFileRoute("/(app)")({
 	component: Layout,
-	beforeLoad: async () => await authStateFn(),
+	beforeLoad: async () => authStateFn(),
 });
 
 function Layout() {
@@ -29,7 +34,6 @@ function Layout() {
 		<SidebarProvider
 			style={
 				{
-					"--sidebar-width": "calc(var(--spacing) * 72)",
 					"--header-height": "calc(var(--spacing) * 12)",
 				} as React.CSSProperties
 			}

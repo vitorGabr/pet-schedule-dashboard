@@ -30,7 +30,7 @@ export function DeactivateServiceModal({
 			onSuccess: () => {
 				onClose();
 				queryClient.invalidateQueries({
-					queryKey: getListServicesByCompanyQueryKey(service?.companyId!),
+					queryKey: getListServicesByCompanyQueryKey(),
 				});
 			},
 		},

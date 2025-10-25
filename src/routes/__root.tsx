@@ -34,10 +34,7 @@ function RootComponent() {
 const queryClient = new QueryClient();
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
-		<ClerkProvider
-			localization={ptBR}
-			publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}
-		>
+		<ClerkProvider localization={ptBR}>
 			<QueryClientProvider client={queryClient}>
 				<html lang="pt-BR">
 					<head>

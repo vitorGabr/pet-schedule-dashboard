@@ -8,218 +8,240 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as appRouteRouteImport } from './routes/(app)/route'
-import { Route as appStaffsIndexRouteImport } from './routes/(app)/staffs/index'
-import { Route as appServicesIndexRouteImport } from './routes/(app)/services/index'
-import { Route as appRatingsIndexRouteImport } from './routes/(app)/ratings/index'
-import { Route as appProfileIndexRouteImport } from './routes/(app)/profile/index'
-import { Route as appAppointmentsIndexRouteImport } from './routes/(app)/appointments/index'
-import { Route as apphomeIndexRouteImport } from './routes/(app)/(home)/index'
-import { Route as authSignInSplatRouteImport } from './routes/(auth)/sign-in.$'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as apphomeIndexRouteImport } from "./routes/(app)/(home)/index";
+import { Route as appAppointmentsIndexRouteImport } from "./routes/(app)/appointments/index";
+import { Route as appProfileIndexRouteImport } from "./routes/(app)/profile/index";
+import { Route as appRatingsIndexRouteImport } from "./routes/(app)/ratings/index";
+import { Route as appRouteRouteImport } from "./routes/(app)/route";
+import { Route as appServicesIndexRouteImport } from "./routes/(app)/services/index";
+import { Route as appStaffsIndexRouteImport } from "./routes/(app)/staffs/index";
+import { Route as appWaitingIndexRouteImport } from "./routes/(app)/waiting/index";
+import { Route as authSignInSplatRouteImport } from "./routes/(auth)/sign-in.$";
 
 const appRouteRoute = appRouteRouteImport.update({
-  id: '/(app)',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/(app)",
+	getParentRoute: () => rootRouteImport,
+} as any);
+const appWaitingIndexRoute = appWaitingIndexRouteImport.update({
+	id: "/waiting/",
+	path: "/waiting/",
+	getParentRoute: () => appRouteRoute,
+} as any);
 const appStaffsIndexRoute = appStaffsIndexRouteImport.update({
-  id: '/staffs/',
-  path: '/staffs/',
-  getParentRoute: () => appRouteRoute,
-} as any)
+	id: "/staffs/",
+	path: "/staffs/",
+	getParentRoute: () => appRouteRoute,
+} as any);
 const appServicesIndexRoute = appServicesIndexRouteImport.update({
-  id: '/services/',
-  path: '/services/',
-  getParentRoute: () => appRouteRoute,
-} as any)
+	id: "/services/",
+	path: "/services/",
+	getParentRoute: () => appRouteRoute,
+} as any);
 const appRatingsIndexRoute = appRatingsIndexRouteImport.update({
-  id: '/ratings/',
-  path: '/ratings/',
-  getParentRoute: () => appRouteRoute,
-} as any)
+	id: "/ratings/",
+	path: "/ratings/",
+	getParentRoute: () => appRouteRoute,
+} as any);
 const appProfileIndexRoute = appProfileIndexRouteImport.update({
-  id: '/profile/',
-  path: '/profile/',
-  getParentRoute: () => appRouteRoute,
-} as any)
+	id: "/profile/",
+	path: "/profile/",
+	getParentRoute: () => appRouteRoute,
+} as any);
 const appAppointmentsIndexRoute = appAppointmentsIndexRouteImport.update({
-  id: '/appointments/',
-  path: '/appointments/',
-  getParentRoute: () => appRouteRoute,
-} as any)
+	id: "/appointments/",
+	path: "/appointments/",
+	getParentRoute: () => appRouteRoute,
+} as any);
 const apphomeIndexRoute = apphomeIndexRouteImport.update({
-  id: '/(home)/',
-  path: '/',
-  getParentRoute: () => appRouteRoute,
-} as any)
+	id: "/(home)/",
+	path: "/",
+	getParentRoute: () => appRouteRoute,
+} as any);
 const authSignInSplatRoute = authSignInSplatRouteImport.update({
-  id: '/(auth)/sign-in/$',
-  path: '/sign-in/$',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/(auth)/sign-in/$",
+	path: "/sign-in/$",
+	getParentRoute: () => rootRouteImport,
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/sign-in/$': typeof authSignInSplatRoute
-  '/': typeof apphomeIndexRoute
-  '/appointments': typeof appAppointmentsIndexRoute
-  '/profile': typeof appProfileIndexRoute
-  '/ratings': typeof appRatingsIndexRoute
-  '/services': typeof appServicesIndexRoute
-  '/staffs': typeof appStaffsIndexRoute
+	"/sign-in/$": typeof authSignInSplatRoute;
+	"/": typeof apphomeIndexRoute;
+	"/appointments": typeof appAppointmentsIndexRoute;
+	"/profile": typeof appProfileIndexRoute;
+	"/ratings": typeof appRatingsIndexRoute;
+	"/services": typeof appServicesIndexRoute;
+	"/staffs": typeof appStaffsIndexRoute;
+	"/waiting": typeof appWaitingIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/sign-in/$': typeof authSignInSplatRoute
-  '/': typeof apphomeIndexRoute
-  '/appointments': typeof appAppointmentsIndexRoute
-  '/profile': typeof appProfileIndexRoute
-  '/ratings': typeof appRatingsIndexRoute
-  '/services': typeof appServicesIndexRoute
-  '/staffs': typeof appStaffsIndexRoute
+	"/sign-in/$": typeof authSignInSplatRoute;
+	"/": typeof apphomeIndexRoute;
+	"/appointments": typeof appAppointmentsIndexRoute;
+	"/profile": typeof appProfileIndexRoute;
+	"/ratings": typeof appRatingsIndexRoute;
+	"/services": typeof appServicesIndexRoute;
+	"/staffs": typeof appStaffsIndexRoute;
+	"/waiting": typeof appWaitingIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/(app)': typeof appRouteRouteWithChildren
-  '/(auth)/sign-in/$': typeof authSignInSplatRoute
-  '/(app)/(home)/': typeof apphomeIndexRoute
-  '/(app)/appointments/': typeof appAppointmentsIndexRoute
-  '/(app)/profile/': typeof appProfileIndexRoute
-  '/(app)/ratings/': typeof appRatingsIndexRoute
-  '/(app)/services/': typeof appServicesIndexRoute
-  '/(app)/staffs/': typeof appStaffsIndexRoute
+	__root__: typeof rootRouteImport;
+	"/(app)": typeof appRouteRouteWithChildren;
+	"/(auth)/sign-in/$": typeof authSignInSplatRoute;
+	"/(app)/(home)/": typeof apphomeIndexRoute;
+	"/(app)/appointments/": typeof appAppointmentsIndexRoute;
+	"/(app)/profile/": typeof appProfileIndexRoute;
+	"/(app)/ratings/": typeof appRatingsIndexRoute;
+	"/(app)/services/": typeof appServicesIndexRoute;
+	"/(app)/staffs/": typeof appStaffsIndexRoute;
+	"/(app)/waiting/": typeof appWaitingIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/sign-in/$'
-    | '/'
-    | '/appointments'
-    | '/profile'
-    | '/ratings'
-    | '/services'
-    | '/staffs'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/sign-in/$'
-    | '/'
-    | '/appointments'
-    | '/profile'
-    | '/ratings'
-    | '/services'
-    | '/staffs'
-  id:
-    | '__root__'
-    | '/(app)'
-    | '/(auth)/sign-in/$'
-    | '/(app)/(home)/'
-    | '/(app)/appointments/'
-    | '/(app)/profile/'
-    | '/(app)/ratings/'
-    | '/(app)/services/'
-    | '/(app)/staffs/'
-  fileRoutesById: FileRoutesById
+	fileRoutesByFullPath: FileRoutesByFullPath;
+	fullPaths:
+		| "/sign-in/$"
+		| "/"
+		| "/appointments"
+		| "/profile"
+		| "/ratings"
+		| "/services"
+		| "/staffs"
+		| "/waiting";
+	fileRoutesByTo: FileRoutesByTo;
+	to:
+		| "/sign-in/$"
+		| "/"
+		| "/appointments"
+		| "/profile"
+		| "/ratings"
+		| "/services"
+		| "/staffs"
+		| "/waiting";
+	id:
+		| "__root__"
+		| "/(app)"
+		| "/(auth)/sign-in/$"
+		| "/(app)/(home)/"
+		| "/(app)/appointments/"
+		| "/(app)/profile/"
+		| "/(app)/ratings/"
+		| "/(app)/services/"
+		| "/(app)/staffs/"
+		| "/(app)/waiting/";
+	fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  appRouteRoute: typeof appRouteRouteWithChildren
-  authSignInSplatRoute: typeof authSignInSplatRoute
+	appRouteRoute: typeof appRouteRouteWithChildren;
+	authSignInSplatRoute: typeof authSignInSplatRoute;
 }
 
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/(app)': {
-      id: '/(app)'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof appRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(app)/staffs/': {
-      id: '/(app)/staffs/'
-      path: '/staffs'
-      fullPath: '/staffs'
-      preLoaderRoute: typeof appStaffsIndexRouteImport
-      parentRoute: typeof appRouteRoute
-    }
-    '/(app)/services/': {
-      id: '/(app)/services/'
-      path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof appServicesIndexRouteImport
-      parentRoute: typeof appRouteRoute
-    }
-    '/(app)/ratings/': {
-      id: '/(app)/ratings/'
-      path: '/ratings'
-      fullPath: '/ratings'
-      preLoaderRoute: typeof appRatingsIndexRouteImport
-      parentRoute: typeof appRouteRoute
-    }
-    '/(app)/profile/': {
-      id: '/(app)/profile/'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof appProfileIndexRouteImport
-      parentRoute: typeof appRouteRoute
-    }
-    '/(app)/appointments/': {
-      id: '/(app)/appointments/'
-      path: '/appointments'
-      fullPath: '/appointments'
-      preLoaderRoute: typeof appAppointmentsIndexRouteImport
-      parentRoute: typeof appRouteRoute
-    }
-    '/(app)/(home)/': {
-      id: '/(app)/(home)/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof apphomeIndexRouteImport
-      parentRoute: typeof appRouteRoute
-    }
-    '/(auth)/sign-in/$': {
-      id: '/(auth)/sign-in/$'
-      path: '/sign-in/$'
-      fullPath: '/sign-in/$'
-      preLoaderRoute: typeof authSignInSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-  }
+declare module "@tanstack/react-router" {
+	interface FileRoutesByPath {
+		"/(app)": {
+			id: "/(app)";
+			path: "";
+			fullPath: "";
+			preLoaderRoute: typeof appRouteRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/(app)/waiting/": {
+			id: "/(app)/waiting/";
+			path: "/waiting";
+			fullPath: "/waiting";
+			preLoaderRoute: typeof appWaitingIndexRouteImport;
+			parentRoute: typeof appRouteRoute;
+		};
+		"/(app)/staffs/": {
+			id: "/(app)/staffs/";
+			path: "/staffs";
+			fullPath: "/staffs";
+			preLoaderRoute: typeof appStaffsIndexRouteImport;
+			parentRoute: typeof appRouteRoute;
+		};
+		"/(app)/services/": {
+			id: "/(app)/services/";
+			path: "/services";
+			fullPath: "/services";
+			preLoaderRoute: typeof appServicesIndexRouteImport;
+			parentRoute: typeof appRouteRoute;
+		};
+		"/(app)/ratings/": {
+			id: "/(app)/ratings/";
+			path: "/ratings";
+			fullPath: "/ratings";
+			preLoaderRoute: typeof appRatingsIndexRouteImport;
+			parentRoute: typeof appRouteRoute;
+		};
+		"/(app)/profile/": {
+			id: "/(app)/profile/";
+			path: "/profile";
+			fullPath: "/profile";
+			preLoaderRoute: typeof appProfileIndexRouteImport;
+			parentRoute: typeof appRouteRoute;
+		};
+		"/(app)/appointments/": {
+			id: "/(app)/appointments/";
+			path: "/appointments";
+			fullPath: "/appointments";
+			preLoaderRoute: typeof appAppointmentsIndexRouteImport;
+			parentRoute: typeof appRouteRoute;
+		};
+		"/(app)/(home)/": {
+			id: "/(app)/(home)/";
+			path: "/";
+			fullPath: "/";
+			preLoaderRoute: typeof apphomeIndexRouteImport;
+			parentRoute: typeof appRouteRoute;
+		};
+		"/(auth)/sign-in/$": {
+			id: "/(auth)/sign-in/$";
+			path: "/sign-in/$";
+			fullPath: "/sign-in/$";
+			preLoaderRoute: typeof authSignInSplatRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+	}
 }
 
 interface appRouteRouteChildren {
-  apphomeIndexRoute: typeof apphomeIndexRoute
-  appAppointmentsIndexRoute: typeof appAppointmentsIndexRoute
-  appProfileIndexRoute: typeof appProfileIndexRoute
-  appRatingsIndexRoute: typeof appRatingsIndexRoute
-  appServicesIndexRoute: typeof appServicesIndexRoute
-  appStaffsIndexRoute: typeof appStaffsIndexRoute
+	apphomeIndexRoute: typeof apphomeIndexRoute;
+	appAppointmentsIndexRoute: typeof appAppointmentsIndexRoute;
+	appProfileIndexRoute: typeof appProfileIndexRoute;
+	appRatingsIndexRoute: typeof appRatingsIndexRoute;
+	appServicesIndexRoute: typeof appServicesIndexRoute;
+	appStaffsIndexRoute: typeof appStaffsIndexRoute;
+	appWaitingIndexRoute: typeof appWaitingIndexRoute;
 }
 
 const appRouteRouteChildren: appRouteRouteChildren = {
-  apphomeIndexRoute: apphomeIndexRoute,
-  appAppointmentsIndexRoute: appAppointmentsIndexRoute,
-  appProfileIndexRoute: appProfileIndexRoute,
-  appRatingsIndexRoute: appRatingsIndexRoute,
-  appServicesIndexRoute: appServicesIndexRoute,
-  appStaffsIndexRoute: appStaffsIndexRoute,
-}
+	apphomeIndexRoute: apphomeIndexRoute,
+	appAppointmentsIndexRoute: appAppointmentsIndexRoute,
+	appProfileIndexRoute: appProfileIndexRoute,
+	appRatingsIndexRoute: appRatingsIndexRoute,
+	appServicesIndexRoute: appServicesIndexRoute,
+	appStaffsIndexRoute: appStaffsIndexRoute,
+	appWaitingIndexRoute: appWaitingIndexRoute,
+};
 
 const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
-  appRouteRouteChildren,
-)
+	appRouteRouteChildren,
+);
 
 const rootRouteChildren: RootRouteChildren = {
-  appRouteRoute: appRouteRouteWithChildren,
-  authSignInSplatRoute: authSignInSplatRoute,
-}
+	appRouteRoute: appRouteRouteWithChildren,
+	authSignInSplatRoute: authSignInSplatRoute,
+};
 export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+	._addFileChildren(rootRouteChildren)
+	._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
+import type { getRouter } from "./router.tsx";
+import type { startInstance } from "./start.ts";
+
+declare module "@tanstack/react-start" {
+	interface Register {
+		ssr: true;
+		router: Awaited<ReturnType<typeof getRouter>>;
+		config: Awaited<ReturnType<typeof startInstance.getOptions>>;
+	}
 }

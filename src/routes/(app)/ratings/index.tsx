@@ -1,4 +1,4 @@
-import { createFileRoute, useRouteContext } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { format } from "date-fns";
 import { Star } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
@@ -14,9 +14,9 @@ export const Route = createFileRoute("/(app)/ratings/")({
 });
 
 function RouteComponent() {
-	const { companyId } = useRouteContext({ from: "/(app)" });
-	const ratingStats = useGetCompanyRatingStats(companyId);
-	const ratings = useListCompanyRatings(companyId);
+	const { companyId } = Route.useRouteContext();
+	const ratingStats = useGetCompanyRatingStats(`${companyId}`);
+	const ratings = useListCompanyRatings(`${companyId}`);
 
 	const isLoading = ratingStats.isLoading || ratings.isLoading;
 

@@ -1,4 +1,4 @@
-import { createFileRoute, useRouteContext } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Pencil, Star } from "lucide-react";
 import { useState } from "react";
 import { ImageUpload } from "@/components/image-upload";
@@ -10,18 +10,20 @@ import { Gallery } from "./-components/gallery";
 import { HoursAndStats } from "./-components/hours-and-stats";
 import { ProfileSkeleton } from "./-components/profile-skeleton";
 
+type ImageDialogVariant = "logo" | "gallery";
+
 export const Route = createFileRoute("/(app)/profile/")({ component: App });
 
 function App() {
-	const { companyId } = useRouteContext({ from: "/(app)" });
-	const [imageDialogVariant, setImageDialogVariant] = useState<
-		"logo" | "gallery" | null
-	>(null);
-	const { data: company, isLoading } = useGetCompanyById(companyId);
+	const { companyId } = Route.useRouteContext();
+	const [imageDialogVariant, setImageDialogVariant] =
+		useState<ImageDialogVariant | null>(null);
+	const { data: company, isLoading } = useGetCompanyById(`${companyId}`);
 
 	if (isLoading) {
 		return <ProfileSkeleton />;
 	}
+
 	return (
 		<>
 			<SiteHeader title="Perfil da Empresa" />
@@ -84,7 +86,7 @@ function App() {
 						<ImageUpload
 							onClose={() => setImageDialogVariant(null)}
 							variant={imageDialogVariant}
-							companyId={companyId!}
+							companyId={`${companyId}`}
 						/>
 					)}
 				</div>

@@ -1,4 +1,7 @@
-import { addLogoToCompany, getGetCompanyByIdQueryKey } from "@/lib/http";
+import { useForm } from "@tanstack/react-form";
+import { useQueryClient } from "@tanstack/react-query";
+import { Upload } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -8,10 +11,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useForm } from "@tanstack/react-form";
-import { useQueryClient } from "@tanstack/react-query";
-import { Upload } from "lucide-react";
-import { toast } from "sonner";
+import { addLogoToCompany, getGetCompanyByIdQueryKey } from "@/lib/http";
 import {
 	type CompanyProfileImage,
 	companyProfileImageSchema,
@@ -114,7 +114,6 @@ export function ImageUpload({
 							children={([file]) =>
 								file && (
 									<div className="flex justify-center">
-										{/** biome-ignore lint/performance/noImgElement: <> */}
 										<img
 											src={URL.createObjectURL(file)}
 											alt="Preview"

@@ -1,6 +1,6 @@
-import type { CompanyByIdResponseDtoOutputImagesItem } from "@/lib/http";
-import { Button } from "@/components/ui/button";
 import { Upload, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import type { CompanyByIdResponseDtoOutputImagesItem } from "@/lib/http";
 import { cn } from "@/utils/cn";
 
 type GalleryProps = {

@@ -1,10 +1,9 @@
-import {
-	getListStaffByCompanyQueryKey,
-	type InviteEmployeeMutationBody,
-	inviteEmployee,
-	inviteEmployeeBody,
-	ListStaffByCompanyResponseDtoOutputItemsItemRole,
-} from "@/lib/http";
+import { useOrganization } from "@clerk/tanstack-react-start";
+import { useForm } from "@tanstack/react-form";
+import { PlusIcon } from "lucide-react";
+import { toast } from "sonner";
+import { SelectField } from "@/components/form/fields/select-field";
+import { TextField } from "@/components/form/fields/text-field";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -13,37 +12,35 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { useForm } from "@tanstack/react-form";
-import { useQueryClient } from "@tanstack/react-query";
-import { PlusIcon } from "lucide-react";
-import { toast } from "sonner";
-import { SelectField } from "@/components/form/fields/select-field";
-import { TextField } from "@/components/form/fields/text-field";
 import { staffRolesResource } from "@/constants/staff-roles-resouce";
+import { ListStaffByCompanyResponseDtoOutputItemsItemRole } from "@/lib/http";
+import { InviteStaffSchema, inviteStaffSchema } from "@/schemas/invite-staff";
 
 interface CreateStaffModalProps {
-	companyId: string;
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 }
 
 export function CreateStaffModal({
-	companyId,
 	open,
 	onOpenChange,
 }: CreateStaffModalProps) {
-	const queryClient = useQueryClient();
+	const { organization } = useOrganization();
 
 	const form = useForm({
-		defaultValues: {} as InviteEmployeeMutationBody,
-		validators: { onChange: inviteEmployeeBody },
-		onSubmit: async (values) => {
-			const response = await inviteEmployee(values.value);
-			toast.success(response.message);
-			queryClient.invalidateQueries({
-				queryKey: getListStaffByCompanyQueryKey(companyId),
-			});
-			onOpenChange(false);
+		defaultValues: {} as InviteStaffSchema,
+		validators: { onChange: inviteStaffSchema },
+		onSubmit: async ({ value }) => {
+			try {
+				await organization?.inviteMember({
+					emailAddress: value.email,
+					role: `org:${value.role}`,
+				});
+				toast.success("Convite enviado com sucesso!");
+				onOpenChange(false);
+			} catch (_) {
+				toast.error("Erro ao enviar convite.");
+			}
 		},
 	});
 
@@ -56,7 +53,7 @@ export function CreateStaffModal({
 							<PlusIcon className="h-4 w-4 text-green-600" />
 						</div>
 						<DialogTitle className="text-xl font-semibold">
-							Criar Novo Funcionário
+							Convidar Novo Funcionário
 						</DialogTitle>
 					</div>
 				</DialogHeader>
@@ -69,21 +66,6 @@ export function CreateStaffModal({
 					}}
 					className="space-y-6"
 				>
-					{/* Nome do Serviço */}
-					<form.Field
-						name="name"
-						children={(field) => {
-							return (
-								<TextField
-									label="Nome do Funcionário"
-									placeholder="Ex: João da Silva"
-									field={field}
-								/>
-							);
-						}}
-					/>
-
-					{/* Descrição */}
 					<form.Field
 						name="email"
 						children={(field) => {

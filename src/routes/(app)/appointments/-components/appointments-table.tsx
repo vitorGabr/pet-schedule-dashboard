@@ -1,10 +1,14 @@
-import type {
-	AppointmentsByCompanyResponseDtoOutputItemsItem,
-	AppointmentsByCompanyResponseDtoOutputItemsItemStatus,
-} from "@/lib/http";
+import { useNavigate } from "@tanstack/react-router";
+import { format } from "date-fns";
+import {
+	ChevronLeft,
+	ChevronRight,
+	ChevronsLeft,
+	ChevronsRight,
+	MoreHorizontal,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -35,16 +39,13 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { format } from "date-fns";
-import {
-	ChevronLeft,
-	ChevronRight,
-	ChevronsLeft,
-	ChevronsRight,
-	MoreHorizontal,
-} from "lucide-react";
 import { appointmentStatusResource } from "@/constants/appointment-status";
+import type {
+	AppointmentsByCompanyResponseDtoOutputItemsItem,
+	AppointmentsByCompanyResponseDtoOutputItemsItemStatus,
+} from "@/lib/http";
 import { cn } from "@/utils/cn";
+import { formatCurrency } from "@/utils/currency";
 import { AppointmentFilters } from "./appointment-filters";
 
 type AppointmentsTableProps = {
@@ -68,6 +69,8 @@ export function AppointmentsTable({
 	page = 1,
 	onPageChange,
 }: AppointmentsTableProps) {
+	const nav = useNavigate();
+
 	return (
 		<div className="space-y-4">
 			<AppointmentFilters query={query} statusSelected={status} />
@@ -80,7 +83,7 @@ export function AppointmentsTable({
 				</div>
 			)}
 
-			{appointments.length === 0 && (
+			{appointments.length === 0 && !isLoading && (
 				<div className="flex items-center justify-center h-64">
 					<div className="text-muted-foreground">
 						Nenhum agendamento encontrado.
@@ -90,19 +93,10 @@ export function AppointmentsTable({
 
 			{appointments.length > 0 && (
 				<>
-					{/* Table */}
 					<div className="bg-background overflow-hidden rounded-md border">
 						<Table>
 							<TableHeader>
 								<TableRow className="hover:bg-transparent">
-									<TableHead className="w-12">
-										<Checkbox
-											checked={false}
-											ref={(_) => {}}
-											onCheckedChange={() => {}}
-											aria-label="Selecionar todos"
-										/>
-									</TableHead>
 									<TableHead>Cliente</TableHead>
 									<TableHead>Animal</TableHead>
 									<TableHead>Serviço</TableHead>
@@ -119,15 +113,14 @@ export function AppointmentsTable({
 									appointments.map((appointment) => (
 										<TableRow
 											key={appointment.id}
-											data-state={false && "selected"}
+											className="cursor-pointer"
+											onClick={() => {
+												nav({
+													to: "/appointments",
+													search: (prev) => ({ ...prev, id: appointment.id }),
+												});
+											}}
 										>
-											<TableCell>
-												<Checkbox
-													checked={false}
-													onCheckedChange={(_) => () => {}}
-													aria-label="Selecionar linha"
-												/>
-											</TableCell>
 											<TableCell>
 												<div className="font-medium">
 													{appointment.client.name}
@@ -182,10 +175,7 @@ export function AppointmentsTable({
 											</TableCell>
 											<TableCell>
 												<div className="font-medium">
-													{new Intl.NumberFormat("pt-BR", {
-														style: "currency",
-														currency: "BRL",
-													}).format(appointment.price)}
+													{formatCurrency(appointment.price / 100)}
 												</div>
 											</TableCell>
 											<TableCell>

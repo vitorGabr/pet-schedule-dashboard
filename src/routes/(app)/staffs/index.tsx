@@ -3,7 +3,7 @@ import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
-import { useGetSession, useListStaffByCompany } from "@/lib/http";
+import { useListStaffByCompany } from "@/lib/http";
 import { staffFilterPageSchema } from "@/schemas/staff-filter-page";
 import { CreateStaffModal } from "./-components/create-staff-modal";
 import { StaffFilters } from "./-components/staff-filters";
@@ -19,12 +19,11 @@ function App() {
 
 	const { page, query, roles } = Route.useSearch();
 	const navigate = Route.useNavigate();
-	const { data: session } = useGetSession();
-	const { data: staff, isLoading } = useListStaffByCompany(
-		session?.companyId!,
-		{ page, query, roles: roles?.join(",") },
-		{ query: { enabled: !!session?.companyId } },
-	);
+	const { data: staff, isLoading } = useListStaffByCompany({
+		page,
+		query,
+		roles: roles?.join(","),
+	});
 
 	return (
 		<>
@@ -35,7 +34,7 @@ function App() {
 						<StaffFilters query={query} roles={roles} />
 						<Button onClick={() => setOpenCreateStaffModal(true)}>
 							<PlusIcon className="h-4 w-4" />
-							Criar Funcionário
+							Convidar Funcionário
 						</Button>
 					</div>
 					<StaffTable
@@ -53,7 +52,6 @@ function App() {
 				{openCreateStaffModal && (
 					<CreateStaffModal
 						open={openCreateStaffModal}
-						companyId={session?.companyId!}
 						onOpenChange={setOpenCreateStaffModal}
 					/>
 				)}

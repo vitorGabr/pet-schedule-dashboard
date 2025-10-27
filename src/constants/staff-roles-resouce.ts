@@ -3,4 +3,4 @@ import type { ListStaffByCompanyResponseDtoOutputItemsItemRole } from "@/lib/htt
 export const staffRolesResource: Record<
 	ListStaffByCompanyResponseDtoOutputItemsItemRole,
 	string
-> = { admin: "Administrador", manager: "Gerente", employee: "Funcionário" };
+> = { admin: "Administrador", member: "Membro" };

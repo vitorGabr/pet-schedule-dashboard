@@ -1,8 +1,5 @@
-import type { ServiceResponseListOutputItemsItem } from "@/lib/http";
-import {
-	getListServicesByCompanyQueryKey,
-	useDeactivateService,
-} from "@/lib/http";
+import { useQueryClient } from "@tanstack/react-query";
+import { AlertTriangle, Clock, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -12,8 +9,11 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { useQueryClient } from "@tanstack/react-query";
-import { AlertTriangle, Clock, Coins } from "lucide-react";
+import type { ServiceResponseListOutputItemsItem } from "@/lib/http";
+import {
+	getListServicesByCompanyQueryKey,
+	useDeactivateService,
+} from "@/lib/http";
 
 interface DeactivateServiceModalProps {
 	service: ServiceResponseListOutputItemsItem;
@@ -30,7 +30,7 @@ export function DeactivateServiceModal({
 			onSuccess: () => {
 				onClose();
 				queryClient.invalidateQueries({
-					queryKey: getListServicesByCompanyQueryKey(service?.companyId!),
+					queryKey: getListServicesByCompanyQueryKey(),
 				});
 			},
 		},

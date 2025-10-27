@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+import type { LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
 	SidebarGroup,
@@ -6,8 +8,6 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Link } from "@tanstack/react-router";
-import type { LucideIcon } from "lucide-react";
 import { cn } from "@/utils/cn";
 
 export function NavMain({

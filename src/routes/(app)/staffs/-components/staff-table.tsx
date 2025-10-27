@@ -1,4 +1,11 @@
-import type { ListStaffByCompanyResponseDtoOutputItemsItem } from "@/lib/http";
+import { format } from "date-fns";
+import {
+	ChevronLeft,
+	ChevronRight,
+	ChevronsLeft,
+	ChevronsRight,
+	MoreHorizontal,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,15 +36,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { format } from "date-fns";
-import {
-	ChevronLeft,
-	ChevronRight,
-	ChevronsLeft,
-	ChevronsRight,
-	MoreHorizontal,
-} from "lucide-react";
 import { staffRolesResource } from "@/constants/staff-roles-resouce";
+import type { ListStaffByCompanyResponseDtoOutputItemsItem } from "@/lib/http";
 
 type StaffTableProps = {
 	staff: ListStaffByCompanyResponseDtoOutputItemsItem[];

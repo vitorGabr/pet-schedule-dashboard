@@ -10,30 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as appRouteRouteImport } from './routes/(app)/route'
-import { Route as authSignInRouteImport } from './routes/(auth)/sign-in'
-import { Route as InviteTokenIndexRouteImport } from './routes/invite/$token.index'
+import { Route as appWaitingIndexRouteImport } from './routes/(app)/waiting/index'
 import { Route as appStaffsIndexRouteImport } from './routes/(app)/staffs/index'
 import { Route as appServicesIndexRouteImport } from './routes/(app)/services/index'
 import { Route as appRatingsIndexRouteImport } from './routes/(app)/ratings/index'
 import { Route as appProfileIndexRouteImport } from './routes/(app)/profile/index'
-import { Route as appMyProfileIndexRouteImport } from './routes/(app)/my-profile/index'
-import { Route as appClientsIndexRouteImport } from './routes/(app)/clients/index'
 import { Route as appAppointmentsIndexRouteImport } from './routes/(app)/appointments/index'
 import { Route as apphomeIndexRouteImport } from './routes/(app)/(home)/index'
+import { Route as authSignInSplatRouteImport } from './routes/(auth)/sign-in.$'
 
 const appRouteRoute = appRouteRouteImport.update({
   id: '/(app)',
   getParentRoute: () => rootRouteImport,
 } as any)
-const authSignInRoute = authSignInRouteImport.update({
-  id: '/(auth)/sign-in',
-  path: '/sign-in',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InviteTokenIndexRoute = InviteTokenIndexRouteImport.update({
-  id: '/invite/$token/',
-  path: '/invite/$token/',
-  getParentRoute: () => rootRouteImport,
+const appWaitingIndexRoute = appWaitingIndexRouteImport.update({
+  id: '/waiting/',
+  path: '/waiting/',
+  getParentRoute: () => appRouteRoute,
 } as any)
 const appStaffsIndexRoute = appStaffsIndexRouteImport.update({
   id: '/staffs/',
@@ -55,16 +48,6 @@ const appProfileIndexRoute = appProfileIndexRouteImport.update({
   path: '/profile/',
   getParentRoute: () => appRouteRoute,
 } as any)
-const appMyProfileIndexRoute = appMyProfileIndexRouteImport.update({
-  id: '/my-profile/',
-  path: '/my-profile/',
-  getParentRoute: () => appRouteRoute,
-} as any)
-const appClientsIndexRoute = appClientsIndexRouteImport.update({
-  id: '/clients/',
-  path: '/clients/',
-  getParentRoute: () => appRouteRoute,
-} as any)
 const appAppointmentsIndexRoute = appAppointmentsIndexRouteImport.update({
   id: '/appointments/',
   path: '/appointments/',
@@ -75,89 +58,81 @@ const apphomeIndexRoute = apphomeIndexRouteImport.update({
   path: '/',
   getParentRoute: () => appRouteRoute,
 } as any)
+const authSignInSplatRoute = authSignInSplatRouteImport.update({
+  id: '/(auth)/sign-in/$',
+  path: '/sign-in/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/sign-in': typeof authSignInRoute
+  '/sign-in/$': typeof authSignInSplatRoute
   '/': typeof apphomeIndexRoute
   '/appointments': typeof appAppointmentsIndexRoute
-  '/clients': typeof appClientsIndexRoute
-  '/my-profile': typeof appMyProfileIndexRoute
   '/profile': typeof appProfileIndexRoute
   '/ratings': typeof appRatingsIndexRoute
   '/services': typeof appServicesIndexRoute
   '/staffs': typeof appStaffsIndexRoute
-  '/invite/$token': typeof InviteTokenIndexRoute
+  '/waiting': typeof appWaitingIndexRoute
 }
 export interface FileRoutesByTo {
-  '/sign-in': typeof authSignInRoute
+  '/sign-in/$': typeof authSignInSplatRoute
   '/': typeof apphomeIndexRoute
   '/appointments': typeof appAppointmentsIndexRoute
-  '/clients': typeof appClientsIndexRoute
-  '/my-profile': typeof appMyProfileIndexRoute
   '/profile': typeof appProfileIndexRoute
   '/ratings': typeof appRatingsIndexRoute
   '/services': typeof appServicesIndexRoute
   '/staffs': typeof appStaffsIndexRoute
-  '/invite/$token': typeof InviteTokenIndexRoute
+  '/waiting': typeof appWaitingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/(app)': typeof appRouteRouteWithChildren
-  '/(auth)/sign-in': typeof authSignInRoute
+  '/(auth)/sign-in/$': typeof authSignInSplatRoute
   '/(app)/(home)/': typeof apphomeIndexRoute
   '/(app)/appointments/': typeof appAppointmentsIndexRoute
-  '/(app)/clients/': typeof appClientsIndexRoute
-  '/(app)/my-profile/': typeof appMyProfileIndexRoute
   '/(app)/profile/': typeof appProfileIndexRoute
   '/(app)/ratings/': typeof appRatingsIndexRoute
   '/(app)/services/': typeof appServicesIndexRoute
   '/(app)/staffs/': typeof appStaffsIndexRoute
-  '/invite/$token/': typeof InviteTokenIndexRoute
+  '/(app)/waiting/': typeof appWaitingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/sign-in'
+    | '/sign-in/$'
     | '/'
     | '/appointments'
-    | '/clients'
-    | '/my-profile'
     | '/profile'
     | '/ratings'
     | '/services'
     | '/staffs'
-    | '/invite/$token'
+    | '/waiting'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/sign-in'
+    | '/sign-in/$'
     | '/'
     | '/appointments'
-    | '/clients'
-    | '/my-profile'
     | '/profile'
     | '/ratings'
     | '/services'
     | '/staffs'
-    | '/invite/$token'
+    | '/waiting'
   id:
     | '__root__'
     | '/(app)'
-    | '/(auth)/sign-in'
+    | '/(auth)/sign-in/$'
     | '/(app)/(home)/'
     | '/(app)/appointments/'
-    | '/(app)/clients/'
-    | '/(app)/my-profile/'
     | '/(app)/profile/'
     | '/(app)/ratings/'
     | '/(app)/services/'
     | '/(app)/staffs/'
-    | '/invite/$token/'
+    | '/(app)/waiting/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   appRouteRoute: typeof appRouteRouteWithChildren
-  authSignInRoute: typeof authSignInRoute
-  InviteTokenIndexRoute: typeof InviteTokenIndexRoute
+  authSignInSplatRoute: typeof authSignInSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -169,19 +144,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(auth)/sign-in': {
-      id: '/(auth)/sign-in'
-      path: '/sign-in'
-      fullPath: '/sign-in'
-      preLoaderRoute: typeof authSignInRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/invite/$token/': {
-      id: '/invite/$token/'
-      path: '/invite/$token'
-      fullPath: '/invite/$token'
-      preLoaderRoute: typeof InviteTokenIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/(app)/waiting/': {
+      id: '/(app)/waiting/'
+      path: '/waiting'
+      fullPath: '/waiting'
+      preLoaderRoute: typeof appWaitingIndexRouteImport
+      parentRoute: typeof appRouteRoute
     }
     '/(app)/staffs/': {
       id: '/(app)/staffs/'
@@ -211,20 +179,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appProfileIndexRouteImport
       parentRoute: typeof appRouteRoute
     }
-    '/(app)/my-profile/': {
-      id: '/(app)/my-profile/'
-      path: '/my-profile'
-      fullPath: '/my-profile'
-      preLoaderRoute: typeof appMyProfileIndexRouteImport
-      parentRoute: typeof appRouteRoute
-    }
-    '/(app)/clients/': {
-      id: '/(app)/clients/'
-      path: '/clients'
-      fullPath: '/clients'
-      preLoaderRoute: typeof appClientsIndexRouteImport
-      parentRoute: typeof appRouteRoute
-    }
     '/(app)/appointments/': {
       id: '/(app)/appointments/'
       path: '/appointments'
@@ -239,29 +193,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof apphomeIndexRouteImport
       parentRoute: typeof appRouteRoute
     }
+    '/(auth)/sign-in/$': {
+      id: '/(auth)/sign-in/$'
+      path: '/sign-in/$'
+      fullPath: '/sign-in/$'
+      preLoaderRoute: typeof authSignInSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface appRouteRouteChildren {
   apphomeIndexRoute: typeof apphomeIndexRoute
   appAppointmentsIndexRoute: typeof appAppointmentsIndexRoute
-  appClientsIndexRoute: typeof appClientsIndexRoute
-  appMyProfileIndexRoute: typeof appMyProfileIndexRoute
   appProfileIndexRoute: typeof appProfileIndexRoute
   appRatingsIndexRoute: typeof appRatingsIndexRoute
   appServicesIndexRoute: typeof appServicesIndexRoute
   appStaffsIndexRoute: typeof appStaffsIndexRoute
+  appWaitingIndexRoute: typeof appWaitingIndexRoute
 }
 
 const appRouteRouteChildren: appRouteRouteChildren = {
   apphomeIndexRoute: apphomeIndexRoute,
   appAppointmentsIndexRoute: appAppointmentsIndexRoute,
-  appClientsIndexRoute: appClientsIndexRoute,
-  appMyProfileIndexRoute: appMyProfileIndexRoute,
   appProfileIndexRoute: appProfileIndexRoute,
   appRatingsIndexRoute: appRatingsIndexRoute,
   appServicesIndexRoute: appServicesIndexRoute,
   appStaffsIndexRoute: appStaffsIndexRoute,
+  appWaitingIndexRoute: appWaitingIndexRoute,
 }
 
 const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
@@ -270,9 +229,18 @@ const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   appRouteRoute: appRouteRouteWithChildren,
-  authSignInRoute: authSignInRoute,
-  InviteTokenIndexRoute: InviteTokenIndexRoute,
+  authSignInSplatRoute: authSignInSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

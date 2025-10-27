@@ -1,29 +1,29 @@
-import { useGetCompanyById, useGetSession } from "@/lib/http";
-import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 import { Pencil, Star } from "lucide-react";
 import { useState } from "react";
 import { ImageUpload } from "@/components/image-upload";
 import { SiteHeader } from "@/components/site-header";
+import { Button } from "@/components/ui/button";
+import { useGetCompanyById } from "@/lib/http";
 import { ContactInformation } from "./-components/contact-information";
 import { Gallery } from "./-components/gallery";
 import { HoursAndStats } from "./-components/hours-and-stats";
 import { ProfileSkeleton } from "./-components/profile-skeleton";
 
+type ImageDialogVariant = "logo" | "gallery";
+
 export const Route = createFileRoute("/(app)/profile/")({ component: App });
 
 function App() {
-	const [imageDialogVariant, setImageDialogVariant] = useState<
-		"logo" | "gallery" | null
-	>(null);
-	const { data: session } = useGetSession();
-	const { data: company, isLoading } = useGetCompanyById(session?.companyId!, {
-		query: { enabled: !!session?.companyId },
-	});
+	const { companyId } = Route.useRouteContext();
+	const [imageDialogVariant, setImageDialogVariant] =
+		useState<ImageDialogVariant | null>(null);
+	const { data: company, isLoading } = useGetCompanyById(`${companyId}`);
 
 	if (isLoading) {
 		return <ProfileSkeleton />;
 	}
+
 	return (
 		<>
 			<SiteHeader title="Perfil da Empresa" />
@@ -86,7 +86,7 @@ function App() {
 						<ImageUpload
 							onClose={() => setImageDialogVariant(null)}
 							variant={imageDialogVariant}
-							companyId={session?.companyId!}
+							companyId={`${companyId}`}
 						/>
 					)}
 				</div>

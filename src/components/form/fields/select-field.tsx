@@ -1,3 +1,5 @@
+import type { AnyFieldApi } from "@tanstack/react-form";
+import type { SelectHTMLAttributes } from "react";
 import { Label } from "@/components/ui/label";
 import {
 	Select,
@@ -6,8 +8,6 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import type { AnyFieldApi } from "@tanstack/react-form";
-import type { SelectHTMLAttributes } from "react";
 import { cn } from "@/utils/cn";
 import { FormErrorMessage } from "../form-error-message";
 

@@ -1,4 +1,3 @@
-import type { DashboardMetricsResponseOutput } from "@/lib/http";
 import {
 	Calendar,
 	Coins,
@@ -7,6 +6,7 @@ import {
 	TrendingUp,
 	Users,
 } from "lucide-react";
+import type { DashboardMetricsResponseOutput } from "@/lib/http";
 import { cn } from "@/utils/cn";
 import { formatCurrency } from "@/utils/currency";
 

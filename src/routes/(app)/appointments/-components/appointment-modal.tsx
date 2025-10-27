@@ -1,20 +1,22 @@
-import type { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
-import { useGetAppointmentById } from "@/lib/http";
+import { differenceInMinutes, format } from "date-fns";
+import { Calendar, MessageCircle, User } from "lucide-react";
+import { useState } from "react";
 import {
 	Dialog,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { differenceInMinutes, format } from "date-fns";
-import { Calendar, MessageCircle, User } from "lucide-react";
-import { useState } from "react";
 import { appointmentStatusModalOptions } from "@/constants/appointment-status-modal-option";
+import type { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
+import { useGetAppointmentById } from "@/lib/http";
 import { formatCurrency } from "@/utils/currency";
 import { AppointmentConfirmationModal } from "./appointment-confirmation-modal";
 import { InfoCard } from "./info-card";
 import { InfoSection } from "./info-section";
 import { QuickActions } from "./quick-actions";
+
+type NextStatus = AppointmentsByCompanyResponseDtoOutputItemsItemStatus;
 
 interface AppointmentModalProps {
 	appointmentId: string;
@@ -22,26 +24,18 @@ interface AppointmentModalProps {
 	open: boolean;
 }
 
-export const AppointmentModal: React.FC<AppointmentModalProps> = ({
+export const AppointmentModal = ({
 	appointmentId,
 	onClose,
 	open,
-}) => {
-	const [nextStatus, setNextStatus] =
-		useState<AppointmentsByCompanyResponseDtoOutputItemsItemStatus | null>(
-			null,
-		);
+}: AppointmentModalProps) => {
+	const [nextStatus, setNextStatus] = useState<NextStatus | null>(null);
 	const { data: appointment } = useGetAppointmentById(appointmentId);
 
 	if (!appointment) return null;
 
-	const currentStatus = appointmentStatusModalOptions[appointment.status];
-
-	const handleStatusChange = (
-		status: AppointmentsByCompanyResponseDtoOutputItemsItemStatus,
-	) => {
-		setNextStatus(status);
-	};
+	const currentStatus = appointmentStatusModalOptions[appointment?.status];
+	const handleStatusChange = (status: NextStatus) => setNextStatus(status);
 
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
@@ -104,7 +98,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
 										minutos
 									</span>
 									<span className="text-lg font-bold text-slate-900">
-										{formatCurrency(appointment.price)}
+										{formatCurrency(appointment.price / 100)}
 									</span>
 								</div>
 							</InfoCard>

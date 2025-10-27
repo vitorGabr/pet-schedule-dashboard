@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.2.5/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.3.0/schema.json",
 	"vcs": {
 		"enabled": false,
 		"clientKind": "git",
@@ -13,6 +13,11 @@
 		"lineWidth": 80,
 		"indentStyle": "tab",
 		"indentWidth": 2
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
 	},
 	"linter": {
 		"enabled": true,

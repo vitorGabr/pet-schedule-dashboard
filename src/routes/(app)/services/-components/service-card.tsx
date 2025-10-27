@@ -43,7 +43,7 @@ export function ServiceCard({
 				<div className="flex justify-between items-center flex-1">
 					<div>
 						<p className="text-lg font-bold text-gray-900">
-							{formatCurrency(service.price)}
+							{formatCurrency(service.price/100)}
 						</p>
 						<p className="text-sm text-gray-500">{service.duration} minutos</p>
 					</div>

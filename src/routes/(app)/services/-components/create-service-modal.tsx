@@ -37,8 +37,8 @@ export function CreateServiceModal({
 	const form = useForm({
 		defaultValues: {} as CreateServiceMutationBody,
 		validators: { onChange: createServiceBody },
-		onSubmit: async (values) => {
-			await createService(values.value);
+		onSubmit: async ({ value }) => {
+			await createService({ ...value, price: value.price * 100 });
 			queryClient.invalidateQueries({
 				queryKey: getListServicesByCompanyQueryKey(companyId),
 			});

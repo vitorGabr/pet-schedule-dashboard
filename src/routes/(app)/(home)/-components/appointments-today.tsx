@@ -6,11 +6,10 @@ import { useGetAllCompanyAppointments } from "@/lib/http";
 import { cn } from "@/utils/cn";
 import { formatCurrency } from "@/utils/currency";
 
-export function AppointmentsToday({ companyId }: { companyId?: string }) {
-	const { data: appointments, status } = useGetAllCompanyAppointments(
-		{ status: ["scheduled", "confirmed", "in_progress"].join(",") },
-		{ query: { enabled: !!companyId } },
-	);
+export function AppointmentsToday() {
+	const { data: appointments, status } = useGetAllCompanyAppointments({
+		status: ["scheduled", "confirmed", "in_progress"].join(","),
+	});
 
 	return (
 		<div className="lg:col-span-2 bg-white rounded-xl border border-slate-200/60 p-6 hover:shadow-card transition-all duration-200">
@@ -56,7 +55,7 @@ export function AppointmentsToday({ companyId }: { companyId?: string }) {
 									{format(appointment.startDate, "dd/MM/yyyy HH:mm")}
 								</p>
 								<p className="text-sm font-medium text-slate-600">
-									{formatCurrency(appointment.price)}
+									{formatCurrency(appointment.price / 100)}
 								</p>
 								<span
 									className={cn(
@@ -74,7 +73,7 @@ export function AppointmentsToday({ companyId }: { companyId?: string }) {
 						</div>
 					</Link>
 				))}
-				{status === "success" && appointments?.items.length === 0 && (
+				{status === "success" && !appointments.items.length && (
 					<div className="flex items-center justify-center h-full">
 						<p className="text-sm text-slate-600">
 							Nenhum agendamento encontrado

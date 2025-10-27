@@ -7,6 +7,7 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { useGetServiceById } from "@/lib/http";
+import { formatCurrency } from "@/utils/currency";
 
 type ServiceViewModalProps = {
 	serviceId: string;
@@ -19,13 +20,6 @@ export function ServiceViewModal({
 }: ServiceViewModalProps) {
 	const { data: service } = useGetServiceById(serviceId);
 	if (!service) return null;
-
-	const formatPrice = (price: number) => {
-		return new Intl.NumberFormat("pt-BR", {
-			style: "currency",
-			currency: "BRL",
-		}).format(price);
-	};
 
 	const formatDuration = (minutes: number) => {
 		if (minutes < 60) {
@@ -77,7 +71,7 @@ export function ServiceViewModal({
 							</div>
 							<div>
 								<p className="text-sm text-muted-foreground">Preço</p>
-								<p className="font-semibold">{formatPrice(service.price)}</p>
+								<p className="font-semibold">{formatCurrency(service.price/100)}</p>
 							</div>
 						</div>
 

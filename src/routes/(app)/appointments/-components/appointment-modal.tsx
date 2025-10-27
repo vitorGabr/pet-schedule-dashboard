@@ -16,6 +16,8 @@ import { InfoCard } from "./info-card";
 import { InfoSection } from "./info-section";
 import { QuickActions } from "./quick-actions";
 
+type NextStatus = AppointmentsByCompanyResponseDtoOutputItemsItemStatus;
+
 interface AppointmentModalProps {
 	appointmentId: string;
 	onClose: () => void;
@@ -27,21 +29,14 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
 	onClose,
 	open,
 }) => {
-	const [nextStatus, setNextStatus] =
-		useState<AppointmentsByCompanyResponseDtoOutputItemsItemStatus | null>(
-			null,
-		);
+	const [nextStatus, setNextStatus] = useState<NextStatus | null>(null);
 	const { data: appointment } = useGetAppointmentById(appointmentId);
 
 	if (!appointment) return null;
 
-	const currentStatus = appointmentStatusModalOptions[appointment.status];
+	const currentStatus = appointmentStatusModalOptions[appointment?.status];
+	const handleStatusChange = (status: NextStatus) => setNextStatus(status);
 
-	const handleStatusChange = (
-		status: AppointmentsByCompanyResponseDtoOutputItemsItemStatus,
-	) => {
-		setNextStatus(status);
-	};
 
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
@@ -104,7 +99,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
 										minutos
 									</span>
 									<span className="text-lg font-bold text-slate-900">
-										{formatCurrency(appointment.price)}
+										{formatCurrency(appointment.price / 100)}
 									</span>
 								</div>
 							</InfoCard>

@@ -1,11 +1,11 @@
 import { Check, Play, User, X } from "lucide-react";
 import type React from "react";
-import type { GetAllCompanyAppointmentsStatusItem } from "@/lib/http";
+import type { AppointmentByIdResponseDtoOutputStatus } from "@/lib/http";
 import { ActionButton } from "./action-button";
 
 interface QuickActionsProps {
-	currentStatus: GetAllCompanyAppointmentsStatusItem;
-	onStatusChange: (status: GetAllCompanyAppointmentsStatusItem) => void;
+	currentStatus: AppointmentByIdResponseDtoOutputStatus;
+	onStatusChange: (status: AppointmentByIdResponseDtoOutputStatus) => void;
 }
 
 export const QuickActions: React.FC<QuickActionsProps> = ({

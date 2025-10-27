@@ -29,7 +29,6 @@ interface AppointmentConfirmationModalProps {
 export function AppointmentConfirmationModal({
 	nextStatus,
 	appointmentId,
-	companyId,
 	onClose,
 	open,
 }: AppointmentConfirmationModalProps) {
@@ -48,7 +47,7 @@ export function AppointmentConfirmationModal({
 				);
 
 				queryClient.invalidateQueries({
-					queryKey: getGetAllCompanyAppointmentsQueryKey(companyId),
+					queryKey: getGetAllCompanyAppointmentsQueryKey(),
 				});
 
 				onClose();

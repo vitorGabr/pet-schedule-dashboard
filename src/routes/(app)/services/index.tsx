@@ -8,6 +8,7 @@ import { useListServicesByCompany } from "@/lib/http";
 import { pageSearchSchema } from "@/schemas/page-search";
 import { CreateServiceModal } from "./-components/create-service-modal";
 import { DeactivateServiceModal } from "./-components/deactivate-service-modal";
+import { EmptyServices } from "./-components/empty-services";
 import { ServiceCard } from "./-components/service-card";
 import { ServiceViewModal } from "./-components/service-view-modal";
 import { ServicesSkeleton } from "./-components/services-skeleton";
@@ -34,45 +35,54 @@ function ServicePage() {
 	return (
 		<>
 			<SiteHeader title="Serviços" />
-			<div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 px-4">
-				<div className="flex justify-end">
-					<Button onClick={() => setCreateServiceModalOpen(true)}>
-						<PlusIcon className="h-4 w-4" />
-						Criar Serviço
-					</Button>
-				</div>
+			{!services?.items.length ? (
+				<EmptyServices
+					onCreateService={() => setCreateServiceModalOpen(true)}
+				/>
+			) : (
+				<div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 px-4">
+					<div className="flex justify-end">
+						<Button onClick={() => setCreateServiceModalOpen(true)}>
+							<PlusIcon className="h-4 w-4" />
+							Criar Serviço
+						</Button>
+					</div>
 
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-					{services?.items.map((service) => (
-						<ServiceCard
-							key={service.id}
-							service={service}
-							onDeactivateService={() => setDeactivateServiceSelected(service)}
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+						{services?.items.map((service) => (
+							<ServiceCard
+								key={service.id}
+								service={service}
+								onDeactivateService={() =>
+									setDeactivateServiceSelected(service)
+								}
+							/>
+						))}
+					</div>
+
+					{id && (
+						<ServiceViewModal
+							serviceId={id}
+							onOpenChange={() => {
+								navigate({
+									to: "/services",
+									search: (search) => ({ ...search, id: undefined }),
+								});
+							}}
 						/>
-					))}
-				</div>
+					)}
 
-				{id && (
-					<ServiceViewModal
-						serviceId={id}
-						onOpenChange={() => {
-							navigate({
-								to: "/services",
-								search: (search) => ({ ...search, id: undefined }),
-							});
-						}}
+					<DeactivateServiceModal
+						service={deactivateServiceSelected!}
+						onClose={() => setDeactivateServiceSelected(null)}
 					/>
-				)}
-				<CreateServiceModal
-					open={createServiceModalOpen}
-					onOpenChange={setCreateServiceModalOpen}
-					companyId={companyId!}
-				/>
-				<DeactivateServiceModal
-					service={deactivateServiceSelected!}
-					onClose={() => setDeactivateServiceSelected(null)}
-				/>
-			</div>
+				</div>
+			)}
+			<CreateServiceModal
+				open={createServiceModalOpen}
+				onOpenChange={setCreateServiceModalOpen}
+				companyId={companyId!}
+			/>
 		</>
 	);
 }

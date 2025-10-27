@@ -24,11 +24,11 @@ interface AppointmentModalProps {
 	open: boolean;
 }
 
-export const AppointmentModal: React.FC<AppointmentModalProps> = ({
+export const AppointmentModal = ({
 	appointmentId,
 	onClose,
 	open,
-}) => {
+}: AppointmentModalProps) => {
 	const [nextStatus, setNextStatus] = useState<NextStatus | null>(null);
 	const { data: appointment } = useGetAppointmentById(appointmentId);
 
@@ -36,7 +36,6 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
 
 	const currentStatus = appointmentStatusModalOptions[appointment?.status];
 	const handleStatusChange = (status: NextStatus) => setNextStatus(status);
-
 
 	return (
 		<Dialog open={open} onOpenChange={onClose}>

@@ -1,4 +1,4 @@
-import { createFileRoute, useRouteContext } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { SiteHeader } from "@/components/site-header";
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/(app)/services/")({
 });
 
 function ServicePage() {
-	const { companyId } = useRouteContext({ from: "/(app)" });
+	const { companyId } = Route.useRouteContext();
 	const { id } = Route.useSearch();
 	const navigate = Route.useNavigate();
 

@@ -71,7 +71,9 @@ export function ServiceViewModal({
 							</div>
 							<div>
 								<p className="text-sm text-muted-foreground">Preço</p>
-								<p className="font-semibold">{formatCurrency(service.price/100)}</p>
+								<p className="font-semibold">
+									{formatCurrency(service.price / 100)}
+								</p>
 							</div>
 						</div>
 

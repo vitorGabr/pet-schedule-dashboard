@@ -12,12 +12,12 @@ export const Route = createFileRoute("/(app)/appointments/")({
 
 function App() {
 	const { page, id, query, status } = Route.useSearch();
+	const { companyId } = Route.useRouteContext();
 	const navigate = Route.useNavigate();
-	const { data: appointments, isLoading } = useGetAllCompanyAppointments({
-		page,
-		query,
-		status: status?.join(","),
-	});
+	const { data: appointments, isLoading } = useGetAllCompanyAppointments(
+		companyId,
+		{ page, query, status: status?.join(",") },
+	);
 
 	return (
 		<>

@@ -1,21 +1,23 @@
 import { Link } from "@tanstack/react-router";
 import { format } from "date-fns";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { appointmentStatusResource } from "@/constants/appointment-status";
 import { useGetAllCompanyAppointments } from "@/lib/http";
 import { cn } from "@/utils/cn";
 import { formatCurrency } from "@/utils/currency";
 
-export function AppointmentsToday() {
-	const { data: appointments, status } = useGetAllCompanyAppointments({
-		status: ["scheduled", "confirmed", "in_progress"].join(","),
-	});
+export function AppointmentsToday({ companyId }: { companyId: string }) {
+	const { data: appointments, status } = useGetAllCompanyAppointments(
+		companyId,
+		{ status: ["scheduled", "confirmed", "in_progress"].join(",") },
+	);
 
 	return (
 		<div className="lg:col-span-2 bg-white rounded-xl border border-slate-200/60 p-6 hover:shadow-card transition-all duration-200">
 			<div className="flex items-center justify-between mb-6">
 				<h3 className="text-lg font-semibold text-slate-900">
-					Agendamentos de Hoje
+					Últimos agendamentos
 				</h3>
 				<Link
 					to="/appointments"
@@ -57,18 +59,20 @@ export function AppointmentsToday() {
 								<p className="text-sm font-medium text-slate-600">
 									{formatCurrency(appointment.price / 100)}
 								</p>
-								<span
-									className={cn(
-										"inline-block px-2 py-1 rounded-full text-xs font-medium",
-										"bg-yellow-50 text-yellow-700 border border-yellow-200",
-										{
-											"bg-success-50 text-success-700 border border-success-200":
-												appointment.status === "confirmed",
-										},
-									)}
-								>
+								<Badge variant={"secondary"}>
+									<div
+										className={cn(
+											"size-1.5 rounded-full mr-1",
+											appointment.status === "scheduled" && "bg-yellow-500",
+											appointment.status === "confirmed" && "bg-green-500",
+											appointment.status === "in_progress" && "bg-yellow-500",
+											appointment.status === "completed" && "bg-green-500",
+											appointment.status === "canceled" && "bg-red-500",
+											appointment.status === "no_show" && "bg-red-500",
+										)}
+									/>
 									{appointmentStatusResource[appointment.status]}
-								</span>
+								</Badge>
 							</div>
 						</div>
 					</Link>

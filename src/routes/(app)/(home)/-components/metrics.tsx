@@ -28,7 +28,7 @@ export function Metrics({ metrics }: Props) {
 			/>
 			<ItemMetrics
 				title="Faturamento Mensal"
-				value={formatCurrency(metrics.monthlyRevenue.amount)}
+				value={formatCurrency(metrics.monthlyRevenue.amount / 100)}
 				change={metrics.monthlyRevenue.changePercentage}
 				trend={metrics.monthlyRevenue.changePercentage > 0 ? "up" : "down"}
 				icon={<Coins />}

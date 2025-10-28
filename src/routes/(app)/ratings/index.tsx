@@ -15,8 +15,8 @@ export const Route = createFileRoute("/(app)/ratings/")({
 
 function RouteComponent() {
 	const { companyId } = Route.useRouteContext();
-	const ratingStats = useGetCompanyRatingStats(`${companyId}`);
-	const ratings = useListCompanyRatings(`${companyId}`);
+	const ratingStats = useGetCompanyRatingStats(companyId);
+	const ratings = useListCompanyRatings(companyId);
 
 	const isLoading = ratingStats.isLoading || ratings.isLoading;
 

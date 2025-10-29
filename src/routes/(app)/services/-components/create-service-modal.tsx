@@ -38,7 +38,7 @@ export function CreateServiceModal({
 		defaultValues: {} as CreateServiceMutationBody,
 		validators: { onChange: createServiceBody },
 		onSubmit: async ({ value }) => {
-			await createService({ ...value, price: value.price * 100 });
+			await createService(companyId, { ...value, price: value.price * 100 });
 			queryClient.invalidateQueries({
 				queryKey: getListServicesByCompanyQueryKey(companyId),
 			});

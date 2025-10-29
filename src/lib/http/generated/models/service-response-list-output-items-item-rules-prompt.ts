@@ -5,8 +5,4 @@
  * OpenAPI spec version: 1.0
  */
 
-export type AppointmentsByCompanyResponseDtoOutputItemsItemClient = {
-	id: string;
-	name: string;
-	avatarUrl?: string;
-};
+export type ServiceResponseListOutputItemsItemRulesPrompt = string | null;

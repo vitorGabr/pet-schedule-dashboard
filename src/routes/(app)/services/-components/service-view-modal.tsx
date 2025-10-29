@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { useGetServiceById } from "@/lib/http";
 import { formatCurrency } from "@/utils/currency";
+import { formatDuration, intervalToDuration } from "date-fns";
 
 type ServiceViewModalProps = {
 	serviceId: string;
@@ -20,18 +21,6 @@ export function ServiceViewModal({
 }: ServiceViewModalProps) {
 	const { data: service } = useGetServiceById(serviceId);
 	if (!service) return null;
-
-	const formatDuration = (minutes: number) => {
-		if (minutes < 60) {
-			return `${minutes} minutos`;
-		}
-		const hours = Math.floor(minutes / 60);
-		const remainingMinutes = minutes % 60;
-		if (remainingMinutes === 0) {
-			return `${hours} ${hours === 1 ? "hora" : "horas"}`;
-		}
-		return `${hours}h ${remainingMinutes}min`;
-	};
 
 	return (
 		<Dialog open={true} onOpenChange={onOpenChange}>
@@ -84,7 +73,12 @@ export function ServiceViewModal({
 							<div>
 								<p className="text-sm text-muted-foreground">Duração</p>
 								<p className="font-semibold">
-									{formatDuration(service.duration ?? 0)}
+									{formatDuration(
+										intervalToDuration({
+											start: 0,
+											end: service.duration * 60 * 1000,
+										}),
+									)}
 								</p>
 							</div>
 						</div>
@@ -123,6 +117,17 @@ export function ServiceViewModal({
 							</div>
 						</div>
 					)}
+
+					<div>
+						<h3 className="font-medium text-sm text-muted-foreground mb-2">
+							Regras
+						</h3>
+						<div className="p-3 bg-muted/50 rounded-lg">
+							<pre className="text-xs text-muted-foreground whitespace-pre-wrap">
+								{service.rulesPrompt ?? "Nenhuma regra definida."}
+							</pre>
+						</div>
+					</div>
 
 					{/* Detalhes adicionais */}
 					{service.details && (

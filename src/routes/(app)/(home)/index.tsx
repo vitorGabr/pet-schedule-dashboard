@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { useGetDashboardMetrics, useGetWeeklyPerformance } from "@/lib/http";
 import { AppointmentsToday } from "./-components/appointments-today";
@@ -9,7 +9,7 @@ import { WeeklyPerformance } from "./-components/weekly-performance";
 export const Route = createFileRoute("/(app)/(home)/")({ component: HomePage });
 
 function HomePage() {
-	const { companyId } = Route.useRouteContext();
+	const { companyId } = useRouteContext({from: "/(app)/(home)/" });
 	const metrics = useGetDashboardMetrics(companyId);
 	const weeklyPerformance = useGetWeeklyPerformance(companyId);
 

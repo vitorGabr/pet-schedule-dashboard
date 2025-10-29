@@ -14,20 +14,15 @@ export const listServicesByCompanyParams = zod.object({
 });
 
 /**
- * @summary Inativar serviço da empresa
- */
-export const deactivateServiceParams = zod.object({
-	id: zod.string(),
-	companyId: zod.string(),
-});
-
-/**
  * @summary Criar serviço
  */
+export const createServiceParams = zod.object({ companyId: zod.string() });
 
 export const createServiceBodyPriceMin = 0;
 
 export const createServiceBodyDurationMin = 0;
+
+export const createServiceBodyRequiresPaymentDefault = false;
 
 export const createServiceBody = zod.object({
 	name: zod.string().min(1),
@@ -36,6 +31,15 @@ export const createServiceBody = zod.object({
 	duration: zod.number().min(createServiceBodyDurationMin),
 	rules: zod.string().optional(),
 	categoryId: zod.string().optional(),
+	requiresPayment: zod.boolean().optional(),
+});
+
+/**
+ * @summary Inativar serviço da empresa
+ */
+export const deactivateServiceParams = zod.object({
+	id: zod.string(),
+	companyId: zod.string(),
 });
 
 /**

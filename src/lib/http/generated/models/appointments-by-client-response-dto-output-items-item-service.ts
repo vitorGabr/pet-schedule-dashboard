@@ -6,6 +6,8 @@
  */
 import type { AppointmentsByClientResponseDtoOutputItemsItemServiceDescription } from "./appointments-by-client-response-dto-output-items-item-service-description";
 import type { AppointmentsByClientResponseDtoOutputItemsItemServiceDetails } from "./appointments-by-client-response-dto-output-items-item-service-details";
+import type { AppointmentsByClientResponseDtoOutputItemsItemServiceRules } from "./appointments-by-client-response-dto-output-items-item-service-rules";
+import type { AppointmentsByClientResponseDtoOutputItemsItemServiceRulesPrompt } from "./appointments-by-client-response-dto-output-items-item-service-rules-prompt";
 
 export type AppointmentsByClientResponseDtoOutputItemsItemService = {
 	id: string;
@@ -16,4 +18,6 @@ export type AppointmentsByClientResponseDtoOutputItemsItemService = {
 	duration: number;
 	companyId: string;
 	details?: AppointmentsByClientResponseDtoOutputItemsItemServiceDetails;
+	rulesPrompt?: AppointmentsByClientResponseDtoOutputItemsItemServiceRulesPrompt;
+	rules?: AppointmentsByClientResponseDtoOutputItemsItemServiceRules;
 };

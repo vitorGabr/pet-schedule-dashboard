@@ -16,4 +16,5 @@ export interface CreateServiceRequestDto {
 	duration: number;
 	rules?: string;
 	categoryId?: string;
+	requiresPayment?: boolean;
 }

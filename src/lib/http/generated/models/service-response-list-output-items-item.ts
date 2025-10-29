@@ -6,6 +6,8 @@
  */
 import type { ServiceResponseListOutputItemsItemDescription } from "./service-response-list-output-items-item-description";
 import type { ServiceResponseListOutputItemsItemDetails } from "./service-response-list-output-items-item-details";
+import type { ServiceResponseListOutputItemsItemRules } from "./service-response-list-output-items-item-rules";
+import type { ServiceResponseListOutputItemsItemRulesPrompt } from "./service-response-list-output-items-item-rules-prompt";
 
 export type ServiceResponseListOutputItemsItem = {
 	id: string;
@@ -16,4 +18,6 @@ export type ServiceResponseListOutputItemsItem = {
 	duration: number;
 	companyId: string;
 	details?: ServiceResponseListOutputItemsItemDetails;
+	rulesPrompt?: ServiceResponseListOutputItemsItemRulesPrompt;
+	rules?: ServiceResponseListOutputItemsItemRules;
 };

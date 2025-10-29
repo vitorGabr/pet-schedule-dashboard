@@ -9,6 +9,8 @@ import type { ServiceDetailsResponseOutputCategoriesItem } from "./service-detai
 import type { ServiceDetailsResponseOutputCompany } from "./service-details-response-output-company";
 import type { ServiceDetailsResponseOutputDescription } from "./service-details-response-output-description";
 import type { ServiceDetailsResponseOutputDetails } from "./service-details-response-output-details";
+import type { ServiceDetailsResponseOutputRules } from "./service-details-response-output-rules";
+import type { ServiceDetailsResponseOutputRulesPrompt } from "./service-details-response-output-rules-prompt";
 
 export interface ServiceDetailsResponseOutput {
 	id: string;
@@ -19,6 +21,8 @@ export interface ServiceDetailsResponseOutput {
 	duration: number;
 	companyId: string;
 	details?: ServiceDetailsResponseOutputDetails;
+	rulesPrompt?: ServiceDetailsResponseOutputRulesPrompt;
+	rules?: ServiceDetailsResponseOutputRules;
 	company: ServiceDetailsResponseOutputCompany;
 	categories: ServiceDetailsResponseOutputCategoriesItem[];
 }

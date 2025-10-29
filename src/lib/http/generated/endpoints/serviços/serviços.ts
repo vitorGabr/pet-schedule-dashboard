@@ -199,6 +199,96 @@ export function useListServicesByCompany<
 }
 
 /**
+ * @summary Criar serviço
+ */
+export const createService = (
+	companyId: string,
+	createServiceRequestDto: BodyType<CreateServiceRequestDto>,
+	options?: SecondParameter<typeof customFetch>,
+) => {
+	return customFetch<void>(
+		{
+			url: `/services/company/${companyId}`,
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			data: createServiceRequestDto,
+		},
+		options,
+	);
+};
+
+export const getCreateServiceMutationOptions = <
+	TError = ErrorType<unknown>,
+	TContext = unknown,
+>(options?: {
+	mutation?: UseMutationOptions<
+		Awaited<ReturnType<typeof createService>>,
+		TError,
+		{ companyId: string; data: BodyType<CreateServiceRequestDto> },
+		TContext
+	>;
+	request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+	Awaited<ReturnType<typeof createService>>,
+	TError,
+	{ companyId: string; data: BodyType<CreateServiceRequestDto> },
+	TContext
+> => {
+	const mutationKey = ["createService"];
+	const { mutation: mutationOptions, request: requestOptions } = options
+		? options.mutation &&
+			"mutationKey" in options.mutation &&
+			options.mutation.mutationKey
+			? options
+			: { ...options, mutation: { ...options.mutation, mutationKey } }
+		: { mutation: { mutationKey }, request: undefined };
+
+	const mutationFn: MutationFunction<
+		Awaited<ReturnType<typeof createService>>,
+		{ companyId: string; data: BodyType<CreateServiceRequestDto> }
+	> = (props) => {
+		const { companyId, data } = props ?? {};
+
+		return createService(companyId, data, requestOptions);
+	};
+
+	return { mutationFn, ...mutationOptions };
+};
+
+export type CreateServiceMutationResult = NonNullable<
+	Awaited<ReturnType<typeof createService>>
+>;
+export type CreateServiceMutationBody = BodyType<CreateServiceRequestDto>;
+export type CreateServiceMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Criar serviço
+ */
+export const useCreateService = <
+	TError = ErrorType<unknown>,
+	TContext = unknown,
+>(
+	options?: {
+		mutation?: UseMutationOptions<
+			Awaited<ReturnType<typeof createService>>,
+			TError,
+			{ companyId: string; data: BodyType<CreateServiceRequestDto> },
+			TContext
+		>;
+		request?: SecondParameter<typeof customFetch>;
+	},
+	queryClient?: QueryClient,
+): UseMutationResult<
+	Awaited<ReturnType<typeof createService>>,
+	TError,
+	{ companyId: string; data: BodyType<CreateServiceRequestDto> },
+	TContext
+> => {
+	const mutationOptions = getCreateServiceMutationOptions(options);
+
+	return useMutation(mutationOptions, queryClient);
+};
+/**
  * @summary Inativar serviço da empresa
  */
 export const deactivateService = (
@@ -280,95 +370,6 @@ export const useDeactivateService = <
 	TContext
 > => {
 	const mutationOptions = getDeactivateServiceMutationOptions(options);
-
-	return useMutation(mutationOptions, queryClient);
-};
-/**
- * @summary Criar serviço
- */
-export const createService = (
-	createServiceRequestDto: BodyType<CreateServiceRequestDto>,
-	options?: SecondParameter<typeof customFetch>,
-) => {
-	return customFetch<void>(
-		{
-			url: `/services`,
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			data: createServiceRequestDto,
-		},
-		options,
-	);
-};
-
-export const getCreateServiceMutationOptions = <
-	TError = ErrorType<unknown>,
-	TContext = unknown,
->(options?: {
-	mutation?: UseMutationOptions<
-		Awaited<ReturnType<typeof createService>>,
-		TError,
-		{ data: BodyType<CreateServiceRequestDto> },
-		TContext
-	>;
-	request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-	Awaited<ReturnType<typeof createService>>,
-	TError,
-	{ data: BodyType<CreateServiceRequestDto> },
-	TContext
-> => {
-	const mutationKey = ["createService"];
-	const { mutation: mutationOptions, request: requestOptions } = options
-		? options.mutation &&
-			"mutationKey" in options.mutation &&
-			options.mutation.mutationKey
-			? options
-			: { ...options, mutation: { ...options.mutation, mutationKey } }
-		: { mutation: { mutationKey }, request: undefined };
-
-	const mutationFn: MutationFunction<
-		Awaited<ReturnType<typeof createService>>,
-		{ data: BodyType<CreateServiceRequestDto> }
-	> = (props) => {
-		const { data } = props ?? {};
-
-		return createService(data, requestOptions);
-	};
-
-	return { mutationFn, ...mutationOptions };
-};
-
-export type CreateServiceMutationResult = NonNullable<
-	Awaited<ReturnType<typeof createService>>
->;
-export type CreateServiceMutationBody = BodyType<CreateServiceRequestDto>;
-export type CreateServiceMutationError = ErrorType<unknown>;
-
-/**
- * @summary Criar serviço
- */
-export const useCreateService = <
-	TError = ErrorType<unknown>,
-	TContext = unknown,
->(
-	options?: {
-		mutation?: UseMutationOptions<
-			Awaited<ReturnType<typeof createService>>,
-			TError,
-			{ data: BodyType<CreateServiceRequestDto> },
-			TContext
-		>;
-		request?: SecondParameter<typeof customFetch>;
-	},
-	queryClient?: QueryClient,
-): UseMutationResult<
-	Awaited<ReturnType<typeof createService>>,
-	TError,
-	{ data: BodyType<CreateServiceRequestDto> },
-	TContext
-> => {
-	const mutationOptions = getCreateServiceMutationOptions(options);
 
 	return useMutation(mutationOptions, queryClient);
 };

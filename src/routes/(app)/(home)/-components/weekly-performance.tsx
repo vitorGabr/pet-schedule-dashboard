@@ -34,7 +34,7 @@ export function WeeklyPerformance({ performance }: Props) {
 					<span className="text-xs text-slate-500">
 						{Number.isNaN(appointmentsPercentage)
 							? 0
-							: appointmentsPercentage.toFixed(2)}
+							: appointmentsPercentage.toFixed(1)}
 						% da meta
 					</span>
 				</div>
@@ -45,7 +45,7 @@ export function WeeklyPerformance({ performance }: Props) {
 							Taxa de Conversão
 						</span>
 						<span className="text-sm font-bold text-slate-900">
-							{performance.conversionRate.changePercentage.toFixed(2)}%
+							{performance.conversionRate.changePercentage.toFixed(1)}%
 						</span>
 					</div>
 					<div className="w-full bg-slate-100 rounded-full h-2">
@@ -57,7 +57,7 @@ export function WeeklyPerformance({ performance }: Props) {
 						></div>
 					</div>
 					<span className="text-xs text-success-600">
-						↑ {performance.conversionRate.changePercentage.toFixed(2)}% vs
+						↑ {performance.conversionRate.changePercentage.toFixed(1)}% vs
 						semana anterior
 					</span>
 				</div>

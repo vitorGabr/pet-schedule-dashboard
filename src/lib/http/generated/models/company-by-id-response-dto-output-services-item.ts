@@ -6,6 +6,8 @@
  */
 import type { CompanyByIdResponseDtoOutputServicesItemDescription } from "./company-by-id-response-dto-output-services-item-description";
 import type { CompanyByIdResponseDtoOutputServicesItemDetails } from "./company-by-id-response-dto-output-services-item-details";
+import type { CompanyByIdResponseDtoOutputServicesItemRules } from "./company-by-id-response-dto-output-services-item-rules";
+import type { CompanyByIdResponseDtoOutputServicesItemRulesPrompt } from "./company-by-id-response-dto-output-services-item-rules-prompt";
 
 export type CompanyByIdResponseDtoOutputServicesItem = {
 	id: string;
@@ -16,4 +18,6 @@ export type CompanyByIdResponseDtoOutputServicesItem = {
 	duration: number;
 	companyId: string;
 	details?: CompanyByIdResponseDtoOutputServicesItemDetails;
+	rulesPrompt?: CompanyByIdResponseDtoOutputServicesItemRulesPrompt;
+	rules?: CompanyByIdResponseDtoOutputServicesItemRules;
 };

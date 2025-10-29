@@ -1,5 +1,5 @@
 import { Check, type LucideIcon, Play, User, X } from "lucide-react";
-import type { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
+import { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http/generated/models";
 
 export const appointmentStatusModalOptions: Partial<
 	Record<

@@ -9,7 +9,7 @@ import { WeeklyPerformance } from "./-components/weekly-performance";
 export const Route = createFileRoute("/(app)/(home)/")({ component: HomePage });
 
 function HomePage() {
-	const { companyId } = useRouteContext({from: "/(app)/(home)/" });
+	const { companyId } = useRouteContext({ from: "/(app)/(home)/" });
 	const metrics = useGetDashboardMetrics(companyId);
 	const weeklyPerformance = useGetWeeklyPerformance(companyId);
 

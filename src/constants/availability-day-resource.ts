@@ -1,4 +1,4 @@
-import type { CompanyAvailabilityListResponseDtoOutputItemsItemDay } from "@/lib/http";
+import { CompanyAvailabilityListResponseDtoOutputItemsItemDay } from "@/lib/http/generated/models";
 
 export const availabilityDayResource = {
 	sunday: "Domingo",

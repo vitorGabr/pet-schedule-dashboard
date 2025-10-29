@@ -1,4 +1,4 @@
-import type { WeeklyPerformanceResponseOutput } from "@/lib/http";
+import { WeeklyPerformanceResponseOutput } from "@/lib/http/generated/models";
 
 type Props = { performance: WeeklyPerformanceResponseOutput | undefined };
 
@@ -50,7 +50,7 @@ export function WeeklyPerformance({ performance }: Props) {
 					</div>
 					<div className="w-full bg-slate-100 rounded-full h-2">
 						<div
-							className="bg-gradient-to-r from-success-500 to-success-600 h-2 rounded-full transition-all duration-300"
+							className="bg-linear-to-r from-success-500 to-success-600 h-2 rounded-full transition-all duration-300"
 							style={{
 								width: `${performance.conversionRate.changePercentage}%`,
 							}}
@@ -73,7 +73,7 @@ export function WeeklyPerformance({ performance }: Props) {
 					</div>
 					<div className="w-full bg-slate-100 rounded-full h-2">
 						<div
-							className="bg-gradient-to-r from-yellow-400 to-yellow-500 h-2 rounded-full transition-all duration-300"
+							className="bg-linear-to-r from-yellow-400 to-yellow-500 h-2 rounded-full transition-all duration-300"
 							style={{ width: `${performance.satisfaction.rating * 20}%` }}
 						></div>
 					</div>

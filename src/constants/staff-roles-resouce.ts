@@ -1,4 +1,4 @@
-import type { ListStaffByCompanyResponseDtoOutputItemsItemRole } from "@/lib/http";
+import { ListStaffByCompanyResponseDtoOutputItemsItemRole } from "@/lib/http/generated/models";
 
 export const staffRolesResource: Record<
 	ListStaffByCompanyResponseDtoOutputItemsItemRole,

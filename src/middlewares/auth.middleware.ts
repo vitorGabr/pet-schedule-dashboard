@@ -6,7 +6,7 @@ export const authMiddleware = createServerFn().handler(async () => {
 	const { isAuthenticated, orgId, sessionId, userId } = await auth();
 	const client = clerkClient();
 	if (!isAuthenticated || !orgId || !userId) {
-		if(sessionId){
+		if (sessionId) {
 			await client.sessions.revokeSession(sessionId);
 		}
 		throw redirect({ to: "/sign-in/$" });

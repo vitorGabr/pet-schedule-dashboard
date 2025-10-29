@@ -6,7 +6,7 @@ import {
 	TrendingUp,
 	Users,
 } from "lucide-react";
-import type { DashboardMetricsResponseOutput } from "@/lib/http";
+import { DashboardMetricsResponseOutput } from "@/lib/http/generated/models";
 import { cn } from "@/utils/cn";
 import { formatCurrency } from "@/utils/currency";
 

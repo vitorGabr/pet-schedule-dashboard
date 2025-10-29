@@ -12,7 +12,7 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { appointmentStatusResource } from "@/constants/appointment-status";
-import { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
+import { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http/generated/models";
 import { appointmentFilterPageSchema } from "@/schemas/appointment-filter-page";
 import { cn } from "@/utils/cn";
 

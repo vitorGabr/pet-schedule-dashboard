@@ -1,6 +1,6 @@
 import { Check, Play, User, X } from "lucide-react";
 import type React from "react";
-import type { AppointmentByIdResponseDtoOutputStatus } from "@/lib/http";
+import { AppointmentByIdResponseDtoOutputStatus } from "@/lib/http/generated/models";
 import { ActionButton } from "./action-button";
 
 interface QuickActionsProps {

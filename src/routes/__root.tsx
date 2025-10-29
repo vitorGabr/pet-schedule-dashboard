@@ -7,10 +7,10 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { setDefaultOptions } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { Toaster } from "@/components/ui/sonner";
 import appCss from "../style.css?url";
-import { ptBR } from 'date-fns/locale';
-import { setDefaultOptions } from 'date-fns';
 
 setDefaultOptions({ locale: ptBR });
 

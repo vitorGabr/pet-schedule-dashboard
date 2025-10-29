@@ -2,7 +2,7 @@ import Axios, { AxiosError, type AxiosRequestConfig } from "axios";
 import { signOut } from "@/utils/sign-out";
 
 export const AXIOS_INSTANCE = Axios.create({
-	baseURL: import.meta.env.VITE_API_URL,
+	baseURL: "import.meta.env.VITE_API_URL",
 	withCredentials: true,
 });
 

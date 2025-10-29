@@ -5,7 +5,7 @@ import { authMiddleware } from "@/middlewares/auth.middleware";
 
 export const Route = createFileRoute("/(app)")({
 	component: Layout,
-	beforeLoad: () => authMiddleware()
+	beforeLoad: () => authMiddleware(),
 });
 
 function Layout() {

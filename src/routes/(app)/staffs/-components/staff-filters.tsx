@@ -12,7 +12,7 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { staffRolesResource } from "@/constants/staff-roles-resouce";
-import { ListStaffByCompanyResponseDtoOutputItemsItemRole } from "@/lib/http";
+import { ListStaffByCompanyResponseDtoOutputItemsItemRole } from "@/lib/http/generated/models";
 import { staffFilterPageSchema } from "@/schemas/staff-filter-page";
 import { cn } from "@/utils/cn";
 

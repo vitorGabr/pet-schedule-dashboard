@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Eye, Trash } from "lucide-react";
-import type { ServiceResponseListOutputItemsItem } from "@/lib/http";
+import { ServiceResponseListOutputItemsItem } from "@/lib/http/generated/models";
 import { formatCurrency } from "@/utils/currency";
 
 interface ServiceCardProps {

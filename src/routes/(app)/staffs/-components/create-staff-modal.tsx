@@ -13,7 +13,7 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { staffRolesResource } from "@/constants/staff-roles-resouce";
-import { ListStaffByCompanyResponseDtoOutputItemsItemRole } from "@/lib/http";
+import { ListStaffByCompanyResponseDtoOutputItemsItemRole } from "@/lib/http/generated/models";
 import { InviteStaffSchema, inviteStaffSchema } from "@/schemas/invite-staff";
 
 interface CreateStaffModalProps {

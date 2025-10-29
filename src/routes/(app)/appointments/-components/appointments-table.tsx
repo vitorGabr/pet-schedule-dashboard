@@ -31,10 +31,10 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { appointmentStatusResource } from "@/constants/appointment-status";
-import type {
+import {
 	AppointmentsByCompanyResponseDtoOutputItemsItem,
 	AppointmentsByCompanyResponseDtoOutputItemsItemStatus,
-} from "@/lib/http";
+} from "@/lib/http/generated/models";
 import { cn } from "@/utils/cn";
 import { formatCurrency } from "@/utils/currency";
 import { AppointmentFilters } from "./appointment-filters";

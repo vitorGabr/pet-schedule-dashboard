@@ -37,7 +37,7 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { staffRolesResource } from "@/constants/staff-roles-resouce";
-import type { ListStaffByCompanyResponseDtoOutputItemsItem } from "@/lib/http";
+import { ListStaffByCompanyResponseDtoOutputItemsItem } from "@/lib/http/generated/models";
 
 type StaffTableProps = {
 	staff: ListStaffByCompanyResponseDtoOutputItemsItem[];

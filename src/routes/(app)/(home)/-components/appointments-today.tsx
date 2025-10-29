@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { appointmentStatusResource } from "@/constants/appointment-status";
-import { useGetAllCompanyAppointments } from "@/lib/http";
+import { useGetAllCompanyAppointments } from "@/lib/http/generated/endpoints/agendamentos/agendamentos";
 import { cn } from "@/utils/cn";
 import { formatCurrency } from "@/utils/currency";
 
@@ -35,7 +35,7 @@ export function AppointmentsToday({ companyId }: { companyId: string }) {
 						>
 							<div className="flex items-center space-x-4">
 								<Avatar className="w-10 h-10 border">
-									<AvatarImage src={appointment.client.avatar?.url} />
+									<AvatarImage src={appointment.client.avatarUrl} />
 									<AvatarFallback>
 										{appointment.client.name.charAt(0)}
 									</AvatarFallback>

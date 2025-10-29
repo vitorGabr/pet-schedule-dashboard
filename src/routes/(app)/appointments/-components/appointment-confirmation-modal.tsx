@@ -12,12 +12,12 @@ import {
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { appointmentStatusResource } from "@/constants/appointment-status";
-import type { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
 import {
 	getGetAllCompanyAppointmentsQueryKey,
 	getGetAppointmentByIdQueryKey,
 	useUpdateAppointmentStatus,
-} from "@/lib/http";
+} from "@/lib/http/generated/endpoints/agendamentos/agendamentos";
+import { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http/generated/models";
 
 interface AppointmentConfirmationModalProps {
 	nextStatus: AppointmentsByCompanyResponseDtoOutputItemsItemStatus;

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
-import { useGetAllCompanyAppointments } from "@/lib/http";
+import { useGetAllCompanyAppointments } from "@/lib/http/generated/endpoints/agendamentos/agendamentos";
 import { appointmentFilterPageSchema } from "@/schemas/appointment-filter-page";
 import { AppointmentModal } from "./-components/appointment-modal";
 import { AppointmentsTable } from "./-components/appointments-table";

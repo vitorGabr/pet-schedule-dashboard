@@ -1,3 +1,4 @@
+import { formatDuration, intervalToDuration } from "date-fns";
 import { Building, Clock, Coins, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -6,9 +7,8 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { useGetServiceById } from "@/lib/http";
+import { useGetServiceById } from "@/lib/http/generated/endpoints/serviços/serviços";
 import { formatCurrency } from "@/utils/currency";
-import { formatDuration, intervalToDuration } from "date-fns";
 
 type ServiceViewModalProps = {
 	serviceId: string;

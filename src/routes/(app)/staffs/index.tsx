@@ -3,7 +3,7 @@ import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
-import { useListStaffByCompany } from "@/lib/http";
+import { useListStaffByCompany } from "@/lib/http/generated/endpoints/colaboradores/colaboradores";
 import { staffFilterPageSchema } from "@/schemas/staff-filter-page";
 import { CreateStaffModal } from "./-components/create-staff-modal";
 import { StaffFilters } from "./-components/staff-filters";

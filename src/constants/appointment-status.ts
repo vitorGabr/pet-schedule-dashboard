@@ -1,4 +1,4 @@
-import type { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
+import { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http/generated/models";
 
 export const appointmentStatusResource = {
 	confirmed: "Confirmado",

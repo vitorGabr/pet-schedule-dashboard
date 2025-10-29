@@ -6,7 +6,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useGetCompanyRatingStats, useListCompanyRatings } from "@/lib/http";
+import {
+	useGetCompanyRatingStats,
+	useListCompanyRatings,
+} from "@/lib/http/generated/endpoints/avaliações/avaliações";
 import { RatingsSkeleton } from "./-components/ratings-skeleton";
 
 export const Route = createFileRoute("/(app)/ratings/")({

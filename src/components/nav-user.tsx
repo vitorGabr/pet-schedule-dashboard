@@ -15,11 +15,17 @@ import {
 	SidebarMenuItem,
 	useSidebar,
 } from "@/components/ui/sidebar";
+import { Skeleton } from "./ui/skeleton";
 
 export function NavUser() {
 	const { signOut } = useAuth();
-	const { user } = useUser();
+	const { user, isLoaded } = useUser();
 	const { isMobile } = useSidebar();
+
+	if (!isLoaded) return <Skeleton className="h-10 w-full rounded-lg" />;
+	const userName = `${user?.firstName ?? ""} ${user?.lastName ?? ""}`;
+	const userEmail = user?.primaryEmailAddress?.emailAddress ?? "";
+	const userImage = user?.imageUrl ?? "";
 
 	return (
 		<SidebarMenu>
@@ -31,15 +37,15 @@ export function NavUser() {
 							className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
 						>
 							<Avatar className="h-8 w-8 rounded-lg">
-								<AvatarImage src={user?.imageUrl} alt={user?.firstName ?? ""} />
+								<AvatarImage src={userImage} alt={userName} />
 								<AvatarFallback className="rounded-lg">
-									{user?.firstName?.[0]}
+									{userName.charAt(0)}
 								</AvatarFallback>
 							</Avatar>
 							<div className="grid flex-1 text-left text-sm leading-tight">
-								<span className="truncate font-medium">{`${user?.firstName ?? ""} ${user?.lastName ?? ""}`}</span>
+								<span className="truncate font-medium">{userName}</span>
 								<span className="text-muted-foreground truncate text-xs">
-									{user?.primaryEmailAddress?.emailAddress}
+									{userEmail}
 								</span>
 							</div>
 							<EllipsisVertical className="ml-auto size-4" />

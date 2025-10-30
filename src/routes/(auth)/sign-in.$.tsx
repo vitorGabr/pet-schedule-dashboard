@@ -1,10 +1,8 @@
-import { useSignIn } from "@clerk/tanstack-react-start";
 import { useForm } from "@tanstack/react-form";
 import { createFileRoute } from "@tanstack/react-router";
-import { Loader2 } from "lucide-react";
-import { toast } from "sonner";
-import Logo from "@/assets/logo.png";
-import { TextField } from "@/components/form/fields/text-field";
+import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
+import { useState } from "react";
+import Logo from "@/assets/logo.svg";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -13,31 +11,36 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import {
+	Field,
+	FieldError,
+	FieldGroup,
+	FieldLabel,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import {
+	InputGroup,
+	InputGroupAddon,
+	InputGroupButton,
+	InputGroupInput,
+} from "@/components/ui/input-group";
+import { useMakeSignIn } from "@/hooks/use-make-sign-in";
+import { loggingMiddleware } from "@/middlewares/login.middeware";
 import { SignInBody, signInSchema } from "@/schemas/sign-in";
 import { cn } from "@/utils/cn";
 
 export const Route = createFileRoute("/(auth)/sign-in/$")({
 	component: SignIn,
+	server: { middleware: [loggingMiddleware] },
 });
 
-export function SignIn() {
-	const { signIn, setActive } = useSignIn();
+function SignIn() {
+	const [showPassword, setShowPassword] = useState(false);
+	const { make } = useMakeSignIn();
 
 	const form = useForm({
 		defaultValues: { email: "", password: "" } as SignInBody,
-		onSubmit: async ({ value }) => {
-			await signIn
-				?.create({ identifier: value.email, password: value.password })
-				.then(async (result) => {
-					if (result.status === "complete") {
-						await setActive?.({ session: result.createdSessionId, redirectUrl: "/" });
-					}
-				})
-				.catch((error) => {
-					console.error("Sign-in error:", error);
-					toast.error("Erro ao entrar. Verifique suas credenciais.");
-				});
-		},
+		onSubmit: async ({ value }) => make(value),
 		validators: { onChange: signInSchema },
 	});
 
@@ -45,7 +48,7 @@ export function SignIn() {
 		<div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
 			<div className="flex w-full max-w-sm flex-col gap-6">
 				<a href="/" className="flex items-center gap-2 self-center font-medium">
-					<img src={Logo} alt="Logo" className="w-auto h-16 object-cover" />
+					<img src={Logo} alt="Logo" className="w-auto h-12 object-cover" />
 				</a>
 				<div className={cn("flex flex-col gap-6")}>
 					<Card className="py-6">
@@ -62,52 +65,89 @@ export function SignIn() {
 									e.stopPropagation();
 									form.handleSubmit();
 								}}
+								className="space-y-6"
 							>
-								<div className="grid gap-6">
-									<div className="grid gap-2">
-										<form.Field
-											name="email"
-											children={(field) => {
-												return (
-													<TextField
-														field={field}
-														label="Email"
-														type="email"
-														placeholder="Email"
+								<FieldGroup className="gap-1">
+									<form.Field
+										name="email"
+										children={(field) => {
+											const isInvalid =
+												field.state.meta.isTouched && !field.state.meta.isValid;
+											return (
+												<Field data-invalid={isInvalid}>
+													<FieldLabel htmlFor={field.name}>Email</FieldLabel>
+													<Input
+														id={field.name}
+														name={field.name}
+														value={field.state.value}
+														onBlur={field.handleBlur}
+														onChange={(e) => field.handleChange(e.target.value)}
+														aria-invalid={isInvalid}
+														placeholder="Entre com seu email"
 													/>
-												);
-											}}
-										/>
-
-										<form.Field
-											name="password"
-											children={(field) => (
-												<TextField
-													label="Senha"
-													type="password"
-													placeholder="Senha"
-													field={field}
-												/>
-											)}
-										/>
-									</div>
-									<form.Subscribe
-										selector={(state) => [state.canSubmit, state.isSubmitting]}
-										children={([canSubmit, isSubmitting]) => (
-											<Button
-												type="submit"
-												className="w-full"
-												disabled={!canSubmit || isSubmitting}
-											>
-												{isSubmitting ? (
-													<Loader2 className="size-4 animate-spin" />
-												) : (
-													"Entrar"
-												)}
-											</Button>
-										)}
+													{isInvalid && (
+														<FieldError errors={field.state.meta.errors} />
+													)}
+												</Field>
+											);
+										}}
 									/>
-								</div>
+									<form.Field
+										name="password"
+										children={(field) => {
+											const isInvalid =
+												field.state.meta.isTouched && !field.state.meta.isValid;
+											return (
+												<Field data-invalid={isInvalid}>
+													<FieldLabel htmlFor={field.name}>Senha</FieldLabel>
+													<InputGroup>
+														<InputGroupInput
+															id={field.name}
+															name={field.name}
+															value={field.state.value}
+															onBlur={field.handleBlur}
+															onChange={(e) =>
+																field.handleChange(e.target.value)
+															}
+															aria-invalid={isInvalid}
+															placeholder="Entre com sua senha"
+															type={showPassword ? "text" : "password"}
+														/>
+														<InputGroupAddon align="inline-end">
+															<InputGroupButton
+																variant="ghost"
+																aria-label="Info"
+																size="icon-xs"
+																onClick={() => setShowPassword(!showPassword)}
+															>
+																{!showPassword ? <EyeIcon /> : <EyeOffIcon />}
+															</InputGroupButton>
+														</InputGroupAddon>
+													</InputGroup>
+													{isInvalid && (
+														<FieldError errors={field.state.meta.errors} />
+													)}
+												</Field>
+											);
+										}}
+									/>
+								</FieldGroup>
+								<form.Subscribe
+									selector={(state) => [state.canSubmit, state.isSubmitting]}
+									children={([canSubmit, isSubmitting]) => (
+										<Button
+											type="submit"
+											className="w-full"
+											disabled={!canSubmit || isSubmitting}
+										>
+											{isSubmitting ? (
+												<Loader2 className="size-4 animate-spin" />
+											) : (
+												"Entrar"
+											)}
+										</Button>
+									)}
+								/>
 							</form>
 						</CardContent>
 					</Card>

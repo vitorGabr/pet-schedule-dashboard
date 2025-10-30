@@ -8,8 +8,8 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { appointmentStatusModalOptions } from "@/constants/appointment-status-modal-option";
-import type { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
-import { useGetAppointmentById } from "@/lib/http";
+import { useGetAppointmentById } from "@/lib/http/generated/endpoints/agendamentos/agendamentos";
+import { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http/generated/models";
 import { formatCurrency } from "@/utils/currency";
 import { AppointmentConfirmationModal } from "./appointment-confirmation-modal";
 import { InfoCard } from "./info-card";

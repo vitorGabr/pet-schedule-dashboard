@@ -6,7 +6,7 @@ import {
 	TrendingUp,
 	Users,
 } from "lucide-react";
-import type { DashboardMetricsResponseOutput } from "@/lib/http";
+import { DashboardMetricsResponseOutput } from "@/lib/http/generated/models";
 import { cn } from "@/utils/cn";
 import { formatCurrency } from "@/utils/currency";
 
@@ -28,7 +28,7 @@ export function Metrics({ metrics }: Props) {
 			/>
 			<ItemMetrics
 				title="Faturamento Mensal"
-				value={formatCurrency(metrics.monthlyRevenue.amount)}
+				value={formatCurrency(metrics.monthlyRevenue.amount / 100)}
 				change={metrics.monthlyRevenue.changePercentage}
 				trend={metrics.monthlyRevenue.changePercentage > 0 ? "up" : "down"}
 				icon={<Coins />}

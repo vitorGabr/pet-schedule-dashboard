@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ImageUpload } from "@/components/image-upload";
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
-import { useGetCompanyById } from "@/lib/http";
+import { useGetCompanyById } from "@/lib/http/generated/endpoints/empresas/empresas";
 import { ContactInformation } from "./-components/contact-information";
 import { Gallery } from "./-components/gallery";
 import { HoursAndStats } from "./-components/hours-and-stats";

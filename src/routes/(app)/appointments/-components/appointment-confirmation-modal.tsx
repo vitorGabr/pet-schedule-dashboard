@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouteContext } from "@tanstack/react-router";
 import { AlertTriangle } from "lucide-react";
 import {
 	AlertDialog,
@@ -11,12 +12,12 @@ import {
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { appointmentStatusResource } from "@/constants/appointment-status";
-import type { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
 import {
 	getGetAllCompanyAppointmentsQueryKey,
 	getGetAppointmentByIdQueryKey,
 	useUpdateAppointmentStatus,
-} from "@/lib/http";
+} from "@/lib/http/generated/endpoints/agendamentos/agendamentos";
+import { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http/generated/models";
 
 interface AppointmentConfirmationModalProps {
 	nextStatus: AppointmentsByCompanyResponseDtoOutputItemsItemStatus;
@@ -32,7 +33,9 @@ export function AppointmentConfirmationModal({
 	onClose,
 	open,
 }: AppointmentConfirmationModalProps) {
+	const { companyId } = useRouteContext({ from: "/(app)" });
 	const queryClient = useQueryClient();
+
 	const { mutate: changeStatus, isPending } = useUpdateAppointmentStatus({
 		mutation: {
 			onSuccess: () => {
@@ -47,7 +50,7 @@ export function AppointmentConfirmationModal({
 				);
 
 				queryClient.invalidateQueries({
-					queryKey: getGetAllCompanyAppointmentsQueryKey(),
+					queryKey: getGetAllCompanyAppointmentsQueryKey(companyId),
 				});
 
 				onClose();

@@ -1,32 +1,11 @@
-import { auth, clerkClient } from "@clerk/tanstack-react-start/server";
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-
-const authStateFn = createServerFn({ method: "GET" }).handler(async () => {
-	const { isAuthenticated, orgId, userId } = await auth();
-	if (!isAuthenticated || !orgId || !userId)
-		throw redirect({ to: "/sign-in/$" });
-
-	const [userResult, orgResult] = await Promise.allSettled([
-		clerkClient().users.getUser(userId),
-		clerkClient().organizations.getOrganization({ organizationId: orgId }),
-	]);
-
-	if (userResult.status === "fulfilled" && orgResult.status === "fulfilled") {
-		return {
-			userId: String(userResult.value.publicMetadata?.appUserId),
-			companyId: String(orgResult.value.publicMetadata?.appCompanyId),
-		};
-	}
-
-	throw redirect({ to: "/waiting" });
-});
+import { authMiddleware } from "@/middlewares/auth.middleware";
 
 export const Route = createFileRoute("/(app)")({
 	component: Layout,
-	beforeLoad: async () => authStateFn(),
+	beforeLoad: () => authMiddleware(),
 });
 
 function Layout() {

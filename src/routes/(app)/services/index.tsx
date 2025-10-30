@@ -1,10 +1,10 @@
-import { createFileRoute, useRouteContext } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
-import type { ServiceResponseListOutputItemsItem } from "@/lib/http";
-import { useListServicesByCompany } from "@/lib/http";
+import { useListServicesByCompany } from "@/lib/http/generated/endpoints/serviços/serviços";
+import { ServiceResponseListOutputItemsItem } from "@/lib/http/generated/models";
 import { pageSearchSchema } from "@/schemas/page-search";
 import { CreateServiceModal } from "./-components/create-service-modal";
 import { DeactivateServiceModal } from "./-components/deactivate-service-modal";
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/(app)/services/")({
 });
 
 function ServicePage() {
-	const { companyId } = useRouteContext({ from: "/(app)" });
+	const { companyId } = Route.useRouteContext();
 	const { id } = Route.useSearch();
 	const navigate = Route.useNavigate();
 

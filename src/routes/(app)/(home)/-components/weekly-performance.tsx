@@ -1,4 +1,4 @@
-import type { WeeklyPerformanceResponseOutput } from "@/lib/http";
+import { WeeklyPerformanceResponseOutput } from "@/lib/http/generated/models";
 
 type Props = { performance: WeeklyPerformanceResponseOutput | undefined };
 
@@ -34,7 +34,7 @@ export function WeeklyPerformance({ performance }: Props) {
 					<span className="text-xs text-slate-500">
 						{Number.isNaN(appointmentsPercentage)
 							? 0
-							: appointmentsPercentage.toFixed(2)}
+							: appointmentsPercentage.toFixed(1)}
 						% da meta
 					</span>
 				</div>
@@ -45,19 +45,19 @@ export function WeeklyPerformance({ performance }: Props) {
 							Taxa de Conversão
 						</span>
 						<span className="text-sm font-bold text-slate-900">
-							{performance.conversionRate.changePercentage.toFixed(2)}%
+							{performance.conversionRate.changePercentage.toFixed(1)}%
 						</span>
 					</div>
 					<div className="w-full bg-slate-100 rounded-full h-2">
 						<div
-							className="bg-gradient-to-r from-success-500 to-success-600 h-2 rounded-full transition-all duration-300"
+							className="bg-linear-to-r from-success-500 to-success-600 h-2 rounded-full transition-all duration-300"
 							style={{
 								width: `${performance.conversionRate.changePercentage}%`,
 							}}
 						></div>
 					</div>
 					<span className="text-xs text-success-600">
-						↑ {performance.conversionRate.changePercentage.toFixed(2)}% vs
+						↑ {performance.conversionRate.changePercentage.toFixed(1)}% vs
 						semana anterior
 					</span>
 				</div>
@@ -73,7 +73,7 @@ export function WeeklyPerformance({ performance }: Props) {
 					</div>
 					<div className="w-full bg-slate-100 rounded-full h-2">
 						<div
-							className="bg-gradient-to-r from-yellow-400 to-yellow-500 h-2 rounded-full transition-all duration-300"
+							className="bg-linear-to-r from-yellow-400 to-yellow-500 h-2 rounded-full transition-all duration-300"
 							style={{ width: `${performance.satisfaction.rating * 20}%` }}
 						></div>
 					</div>

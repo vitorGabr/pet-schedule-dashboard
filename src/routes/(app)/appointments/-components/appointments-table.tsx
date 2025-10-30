@@ -5,19 +5,10 @@ import {
 	ChevronRight,
 	ChevronsLeft,
 	ChevronsRight,
-	MoreHorizontal,
 } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuGroup,
-	DropdownMenuItem,
-	DropdownMenuSeparator,
-	DropdownMenuShortcut,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
 import {
 	Pagination,
@@ -40,10 +31,10 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { appointmentStatusResource } from "@/constants/appointment-status";
-import type {
+import {
 	AppointmentsByCompanyResponseDtoOutputItemsItem,
 	AppointmentsByCompanyResponseDtoOutputItemsItemStatus,
-} from "@/lib/http";
+} from "@/lib/http/generated/models";
 import { cn } from "@/utils/cn";
 import { formatCurrency } from "@/utils/currency";
 import { AppointmentFilters } from "./appointment-filters";
@@ -97,15 +88,15 @@ export function AppointmentsTable({
 						<Table>
 							<TableHeader>
 								<TableRow className="hover:bg-transparent">
+									<TableHead>
+										<span className="sr-only">Avatar</span>
+									</TableHead>
 									<TableHead>Cliente</TableHead>
 									<TableHead>Animal</TableHead>
 									<TableHead>Serviço</TableHead>
 									<TableHead>Data/Hora</TableHead>
 									<TableHead>Status</TableHead>
 									<TableHead>Preço</TableHead>
-									<TableHead className="w-16">
-										<span className="sr-only">Ações</span>
-									</TableHead>
 								</TableRow>
 							</TableHeader>
 							<TableBody>
@@ -121,6 +112,17 @@ export function AppointmentsTable({
 												});
 											}}
 										>
+											<TableCell>
+												<Avatar className="size-10">
+													<AvatarImage
+														src={appointment.client.avatarUrl}
+														alt={appointment.client.name}
+													/>
+													<AvatarFallback className="text-sm uppercase">
+														{appointment.client.name.substring(0, 2)}
+													</AvatarFallback>
+												</Avatar>
+											</TableCell>
 											<TableCell>
 												<div className="font-medium">
 													{appointment.client.name}
@@ -177,9 +179,6 @@ export function AppointmentsTable({
 												<div className="font-medium">
 													{formatCurrency(appointment.price / 100)}
 												</div>
-											</TableCell>
-											<TableCell>
-												<RowActions appointment={appointment} />
 											</TableCell>
 										</TableRow>
 									))
@@ -283,54 +282,5 @@ export function AppointmentsTable({
 				</>
 			)}
 		</div>
-	);
-}
-
-function RowActions({
-	appointment: _appointment,
-}: {
-	appointment: AppointmentsByCompanyResponseDtoOutputItemsItem;
-}) {
-	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<Button
-					size="icon"
-					variant="ghost"
-					className="shadow-none"
-					aria-label="Editar agendamento"
-				>
-					<MoreHorizontal size={16} aria-hidden="true" />
-				</Button>
-			</DropdownMenuTrigger>
-			<DropdownMenuContent align="end">
-				<DropdownMenuGroup>
-					<DropdownMenuItem>
-						<span>Editar</span>
-						<DropdownMenuShortcut>⌘E</DropdownMenuShortcut>
-					</DropdownMenuItem>
-					<DropdownMenuItem>
-						<span>Duplicar</span>
-						<DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
-					</DropdownMenuItem>
-				</DropdownMenuGroup>
-				<DropdownMenuSeparator />
-				<DropdownMenuGroup>
-					<DropdownMenuItem>
-						<span>Confirmar</span>
-						<DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
-					</DropdownMenuItem>
-					<DropdownMenuItem>
-						<span>Cancelar</span>
-						<DropdownMenuShortcut>⌘X</DropdownMenuShortcut>
-					</DropdownMenuItem>
-				</DropdownMenuGroup>
-				<DropdownMenuSeparator />
-				<DropdownMenuItem className="text-destructive focus:text-destructive">
-					<span>Excluir</span>
-					<DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-				</DropdownMenuItem>
-			</DropdownMenuContent>
-		</DropdownMenu>
 	);
 }

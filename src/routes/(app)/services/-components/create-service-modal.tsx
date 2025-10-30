@@ -12,13 +12,12 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { useListAllCategories } from "@/lib/http/generated/endpoints/categorias/categorias";
 import {
-	type CreateServiceMutationBody,
 	createService,
-	createServiceBody,
 	getListServicesByCompanyQueryKey,
-	useListAllCategories,
-} from "@/lib/http";
+} from "@/lib/http/generated/endpoints/serviços/serviços";
+import { CreateServiceBody, createServiceBody } from "@/schemas/create-service";
 
 interface CreateServiceModalProps {
 	companyId: string;
@@ -35,10 +34,10 @@ export function CreateServiceModal({
 	const { data: categories } = useListAllCategories();
 
 	const form = useForm({
-		defaultValues: {} as CreateServiceMutationBody,
+		defaultValues: {} as CreateServiceBody,
 		validators: { onChange: createServiceBody },
 		onSubmit: async ({ value }) => {
-			await createService({ ...value, price: value.price * 100 });
+			await createService(companyId, { ...value, price: value.price * 100 });
 			queryClient.invalidateQueries({
 				queryKey: getListServicesByCompanyQueryKey(companyId),
 			});

@@ -1,5 +1,5 @@
 import z from "zod";
-import { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http";
+import { AppointmentsByCompanyResponseDtoOutputItemsItemStatus } from "@/lib/http/generated/models";
 import { pageSearchSchema } from "@/schemas/page-search";
 
 export const appointmentFilterPageSchema = pageSearchSchema.extend({

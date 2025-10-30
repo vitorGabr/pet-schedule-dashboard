@@ -9,11 +9,11 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import type { ServiceResponseListOutputItemsItem } from "@/lib/http";
 import {
 	getListServicesByCompanyQueryKey,
 	useDeactivateService,
-} from "@/lib/http";
+} from "@/lib/http/generated/endpoints/serviços/serviços";
+import { ServiceResponseListOutputItemsItem } from "@/lib/http/generated/models";
 
 interface DeactivateServiceModalProps {
 	service: ServiceResponseListOutputItemsItem;

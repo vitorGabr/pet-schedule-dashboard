@@ -5,7 +5,7 @@ import { createMiddleware } from "@tanstack/react-start";
 export const loggingMiddleware = createMiddleware().server(async ({ next }) => {
 	const { isAuthenticated } = await auth();
 	if (isAuthenticated) {
-		throw redirect({ to: "/" });
+		//throw redirect({ to: "/" });
 	}
 	return next();
 });

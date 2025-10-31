@@ -17,6 +17,7 @@ export const useMakeSignIn = () => {
 				}
 			})
 			.catch((error) => {
+alert(error)
 				console.error("Sign-in error:", error);
 				toast.error("Erro ao entrar. Verifique suas credenciais.");
 			});

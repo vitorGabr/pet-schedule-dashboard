@@ -7,9 +7,9 @@ export const authMiddleware = createServerFn().handler(async () => {
 	const client = clerkClient();
 	if (!isAuthenticated || !orgId || !userId) {
 		if (sessionId) {
-			//await client.sessions.revokeSession(sessionId);
+			await client.sessions.revokeSession(sessionId);
 		}
-		//throw redirect({ to: "/sign-in/$" });
+		throw redirect({ to: "/sign-in/$" });
 	}
 
 	const [userResult, orgResult] = await Promise.allSettled([

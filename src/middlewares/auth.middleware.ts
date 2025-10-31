@@ -5,7 +5,7 @@ import { createServerFn } from "@tanstack/react-start";
 export const authMiddleware = createServerFn().handler(async () => {
 	const { isAuthenticated, orgId, sessionId, userId } = await auth();
 	const client = clerkClient();
-	if (!isAuthenticated || !orgId || !userId) {
+	if (!isAuthenticated || /*!orgId || */!userId) {
 		if (sessionId) {
 			await client.sessions.revokeSession(sessionId);
 		}

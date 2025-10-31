@@ -15,8 +15,8 @@ AXIOS_INSTANCE.interceptors.response.use(
 	async (error) => {
 		const status = error.response?.status;
 		if ([401, 403].includes(status)) {
-			await signOut();
-			history.replaceState(null, "", "/sign-in");
+			//await signOut();
+			//history.replaceState(null, "", "/sign-in");
 		}
 		return Promise.reject(error);
 	},

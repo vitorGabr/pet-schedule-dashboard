@@ -22,7 +22,6 @@ function HomePage() {
 	return (
 		<>
 			<SiteHeader title="Início" />
-{metrics.error}
 			<div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 px-4">
 				<Metrics metrics={metrics.data} />
 				<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

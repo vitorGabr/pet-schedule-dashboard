@@ -2,7 +2,7 @@ import Axios, { AxiosError, type AxiosRequestConfig } from "axios";
 import { signOut } from "@/utils/sign-out";
 
 export const AXIOS_INSTANCE = Axios.create({
-	baseURL: "import.meta.env.VITE_API_URL",
+	baseURL: import.meta.env.VITE_API_URL,
 	withCredentials: true,
 });
 
@@ -15,8 +15,8 @@ AXIOS_INSTANCE.interceptors.response.use(
 	async (error) => {
 		const status = error.response?.status;
 		if ([401, 403].includes(status)) {
-			//await signOut();
-			//history.replaceState(null, "", "/sign-in");
+			await signOut();
+			history.replaceState(null, "", "/sign-in");
 		}
 		return Promise.reject(error);
 	},

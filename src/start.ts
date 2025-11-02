@@ -5,7 +5,7 @@ export const startInstance = createStart(() => {
 	return {
 		requestMiddleware: [
 			clerkMiddleware({
-				//authorizedParties: [`${process.env.VITE_DOMAIN_ORIGIN}`],
+				authorizedParties: [`${process.env.VITE_DOMAIN_ORIGIN}`],
 			}),
 		],
 	};

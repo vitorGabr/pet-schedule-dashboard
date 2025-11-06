@@ -5,7 +5,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface CreateServiceRequestDto {
+export interface UpdateServiceRequestDto {
 	/** @minLength 1 */
 	name: string;
 	/** @minLength 1 */

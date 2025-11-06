@@ -1,6 +1,6 @@
 import { useForm } from "@tanstack/react-form";
 import { useQueryClient } from "@tanstack/react-query";
-import { PlusIcon } from "lucide-react";
+import { Pencil, PlusIcon } from "lucide-react";
 import { SelectField } from "@/components/form/fields/select-field";
 import { TextAreaField } from "@/components/form/fields/text-area-field";
 import { TextField } from "@/components/form/fields/text-field";
@@ -16,28 +16,47 @@ import { useListAllCategories } from "@/lib/http/generated/endpoints/categorias/
 import {
 	createService,
 	getListServicesByCompanyQueryKey,
+	updateService,
 } from "@/lib/http/generated/endpoints/serviços/serviços";
+import { ServiceResponseListOutputItemsItem } from "@/lib/http/generated/models";
 import { CreateServiceBody, createServiceBody } from "@/schemas/create-service";
 
-interface CreateServiceModalProps {
+interface ServiceFormModalProps {
 	companyId: string;
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
+	service?: ServiceResponseListOutputItemsItem;
 }
 
-export function CreateServiceModal({
+export function ServiceFormModal({
 	companyId,
 	open,
 	onOpenChange,
-}: CreateServiceModalProps) {
+	service,
+}: ServiceFormModalProps) {
 	const queryClient = useQueryClient();
 	const { data: categories } = useListAllCategories();
+	const isEditing = !!service;
 
 	const form = useForm({
-		defaultValues: {} as CreateServiceBody,
+		defaultValues: service
+			? {
+					name: service.name,
+					description: service.description ?? "",
+					categoryId: "",
+					duration: service.duration,
+					price: service.price / 100,
+					rules: service.rulesPrompt ?? "",
+				}
+			: ({} as CreateServiceBody),
 		validators: { onChange: createServiceBody },
 		onSubmit: async ({ value }) => {
-			await createService(companyId, { ...value, price: value.price * 100 });
+			const payload = { ...value, price: value.price * 100 };
+			if (isEditing) {
+				await updateService(service.id, companyId, payload);
+			} else {
+				await createService(companyId, payload);
+			}
 			queryClient.invalidateQueries({
 				queryKey: getListServicesByCompanyQueryKey(companyId),
 			});
@@ -50,11 +69,17 @@ export function CreateServiceModal({
 			<DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
 				<DialogHeader>
 					<div className="flex items-center gap-2">
-						<div className="p-2 bg-green-100 rounded-lg">
-							<PlusIcon className="h-4 w-4 text-green-600" />
+						<div
+							className={`p-2 ${isEditing ? "bg-blue-100" : "bg-green-100"} rounded-lg`}
+						>
+							{isEditing ? (
+								<Pencil className="h-4 w-4 text-blue-600" />
+							) : (
+								<PlusIcon className="h-4 w-4 text-green-600" />
+							)}
 						</div>
 						<DialogTitle className="text-xl font-semibold">
-							Criar Novo Serviço
+							{isEditing ? "Editar Serviço" : "Criar Novo Serviço"}
 						</DialogTitle>
 					</div>
 				</DialogHeader>
@@ -174,9 +199,19 @@ export function CreateServiceModal({
 									<Button
 										type="submit"
 										disabled={isPending}
-										className="bg-green-600 hover:bg-green-700"
+										className={
+											isEditing
+												? "bg-blue-600 hover:bg-blue-700"
+												: "bg-green-600 hover:bg-green-700"
+										}
 									>
-										{isPending ? "Criando..." : "Criar Serviço"}
+										{isPending
+											? isEditing
+												? "Atualizando..."
+												: "Criando..."
+											: isEditing
+												? "Atualizar Serviço"
+												: "Criar Serviço"}
 									</Button>
 								</>
 							)}

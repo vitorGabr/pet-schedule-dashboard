@@ -14,7 +14,7 @@ function HomePage() {
 	const weeklyPerformance = useGetWeeklyPerformance(companyId);
 
 	const isLoading = metrics.isLoading || weeklyPerformance.isLoading;
-	
+
 	if (isLoading) {
 		return <HomeSkeleton />;
 	}

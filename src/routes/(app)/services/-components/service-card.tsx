@@ -1,16 +1,18 @@
 import { Link } from "@tanstack/react-router";
-import { Eye, Trash } from "lucide-react";
+import { Eye, Pencil, Trash } from "lucide-react";
 import { ServiceResponseListOutputItemsItem } from "@/lib/http/generated/models";
 import { formatCurrency } from "@/utils/currency";
 
 interface ServiceCardProps {
 	service: ServiceResponseListOutputItemsItem;
 	onDeactivateService: () => void;
+	onEditService: () => void;
 }
 
 export function ServiceCard({
 	service,
 	onDeactivateService,
+	onEditService,
 }: ServiceCardProps) {
 	return (
 		<Link to={`/services`} search={{ id: service.id }}>
@@ -24,9 +26,20 @@ export function ServiceCard({
 							<Eye className="w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors" />
 							<button
 								type="button"
+								className="text-gray-400 hover:text-blue-600 transition-colors"
+								onClick={(e) => {
+									e.preventDefault();
+									e.stopPropagation();
+									onEditService();
+								}}
+							>
+								<Pencil className="w-4 h-4" />
+							</button>
+							<button
+								type="button"
 								className="text-gray-400 disabled:text-gray-400 hover:disabled:text-gray-400 hover:text-red-600"
 								onClick={(e) => {
-									e.preventDefault(); // 🔑 evita que o Link seja acionado
+									e.preventDefault();
 									e.stopPropagation();
 									onDeactivateService();
 								}}

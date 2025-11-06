@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { useListServicesByCompany } from "@/lib/http/generated/endpoints/serviços/serviços";
 import { ServiceResponseListOutputItemsItem } from "@/lib/http/generated/models";
 import { pageSearchSchema } from "@/schemas/page-search";
-import { CreateServiceModal } from "./-components/create-service-modal";
 import { DeactivateServiceModal } from "./-components/deactivate-service-modal";
 import { EmptyServices } from "./-components/empty-services";
 import { ServiceCard } from "./-components/service-card";
+import { ServiceFormModal } from "./-components/service-form-modal";
 import { ServiceViewModal } from "./-components/service-view-modal";
 import { ServicesSkeleton } from "./-components/services-skeleton";
 
@@ -24,6 +24,8 @@ function ServicePage() {
 	const navigate = Route.useNavigate();
 
 	const [createServiceModalOpen, setCreateServiceModalOpen] = useState(false);
+	const [serviceToEdit, setServiceToEdit] =
+		useState<ServiceResponseListOutputItemsItem | null>(null);
 	const [deactivateServiceSelected, setDeactivateServiceSelected] =
 		useState<ServiceResponseListOutputItemsItem | null>(null);
 	const { data: services, isLoading } = useListServicesByCompany(companyId);
@@ -56,6 +58,7 @@ function ServicePage() {
 								onDeactivateService={() =>
 									setDeactivateServiceSelected(service)
 								}
+								onEditService={() => setServiceToEdit(service)}
 							/>
 						))}
 					</div>
@@ -78,10 +81,14 @@ function ServicePage() {
 					/>
 				</div>
 			)}
-			<CreateServiceModal
-				open={createServiceModalOpen}
-				onOpenChange={setCreateServiceModalOpen}
+			<ServiceFormModal
+				open={createServiceModalOpen || !!serviceToEdit}
+				onOpenChange={(open) => {
+					setCreateServiceModalOpen(open);
+					if (!open) setServiceToEdit(null);
+				}}
 				companyId={companyId!}
+				service={serviceToEdit ?? undefined}
 			/>
 		</>
 	);

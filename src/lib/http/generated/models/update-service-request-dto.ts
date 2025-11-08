@@ -7,14 +7,15 @@
 
 export interface UpdateServiceRequestDto {
 	/** @minLength 1 */
-	name: string;
+	name?: string;
 	/** @minLength 1 */
-	description: string;
+	description?: string;
 	/** @minimum 0 */
-	price: number;
+	price?: number;
 	/** @minimum 0 */
-	duration: number;
+	duration?: number;
 	rules?: string;
 	categoryId?: string;
 	requiresPayment?: boolean;
+	isActive?: boolean;
 }

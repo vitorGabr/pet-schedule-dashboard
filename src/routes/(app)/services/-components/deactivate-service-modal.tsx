@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouteContext } from "@tanstack/react-router";
 import { AlertTriangle, Clock, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,12 +12,13 @@ import {
 } from "@/components/ui/dialog";
 import {
 	getListServicesByCompanyQueryKey,
-	useDeactivateService,
+	useUpdateService,
 } from "@/lib/http/generated/endpoints/serviços/serviços";
 import { ServiceResponseListOutputItemsItem } from "@/lib/http/generated/models";
+import { formatCurrency } from "@/utils/currency";
 
 interface DeactivateServiceModalProps {
-	service: ServiceResponseListOutputItemsItem;
+	service?: ServiceResponseListOutputItemsItem;
 	onClose: () => void;
 }
 
@@ -24,13 +26,14 @@ export function DeactivateServiceModal({
 	service,
 	onClose,
 }: DeactivateServiceModalProps) {
+	const { companyId } = useRouteContext({ from: "/(app)" });
 	const queryClient = useQueryClient();
-	const { mutate, isPending } = useDeactivateService({
+	const { mutate, isPending } = useUpdateService({
 		mutation: {
 			onSuccess: () => {
 				onClose();
 				queryClient.invalidateQueries({
-					queryKey: getListServicesByCompanyQueryKey(),
+					queryKey: getListServicesByCompanyQueryKey(companyId),
 				});
 			},
 		},
@@ -39,7 +42,7 @@ export function DeactivateServiceModal({
 	if (!service) return null;
 
 	return (
-		<Dialog open={true} onOpenChange={onClose}>
+		<Dialog open={!!service} onOpenChange={onClose}>
 			<DialogContent className="sm:max-w-md">
 				<DialogHeader className="space-y-4">
 					<div className="flex items-center gap-3">
@@ -67,7 +70,9 @@ export function DeactivateServiceModal({
 						<div className="flex items-center gap-4 text-sm">
 							<div className="flex items-center gap-1">
 								<Coins className="h-4 w-4 text-green-600" />
-								<span className="font-medium">{service.price}</span>
+								<span className="font-medium">
+									{formatCurrency(service.price / 100)}
+								</span>
 							</div>
 							<div className="flex items-center gap-1">
 								<Clock className="h-4 w-4 text-blue-600" />
@@ -97,7 +102,11 @@ export function DeactivateServiceModal({
 					<Button
 						variant="destructive"
 						onClick={() =>
-							mutate({ id: service.id, companyId: service.companyId })
+							mutate({
+								id: service.id,
+								companyId: service.companyId,
+								data: { isActive: false },
+							})
 						}
 						disabled={isPending}
 						className="w-full sm:w-auto"

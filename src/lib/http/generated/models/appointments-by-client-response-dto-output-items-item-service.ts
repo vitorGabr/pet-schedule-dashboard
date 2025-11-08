@@ -20,4 +20,5 @@ export type AppointmentsByClientResponseDtoOutputItemsItemService = {
 	details?: AppointmentsByClientResponseDtoOutputItemsItemServiceDetails;
 	rulesPrompt?: AppointmentsByClientResponseDtoOutputItemsItemServiceRulesPrompt;
 	rules?: AppointmentsByClientResponseDtoOutputItemsItemServiceRules;
+	categoryIds: string[];
 };

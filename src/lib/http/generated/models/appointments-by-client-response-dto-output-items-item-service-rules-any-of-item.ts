@@ -4,11 +4,13 @@
  * API de Cuidados com Animais
  * OpenAPI spec version: 1.0
  */
-import type { AppointmentsByClientResponseDtoOutputItemsItemServiceRulesAnyOfItemCharacteristic } from "./appointments-by-client-response-dto-output-items-item-service-rules-any-of-item-characteristic";
-import type { AppointmentsByClientResponseDtoOutputItemsItemServiceRulesAnyOfItemOptionsItem } from "./appointments-by-client-response-dto-output-items-item-service-rules-any-of-item-options-item";
+import type { AppointmentsByClientResponseDtoOutputItemsItemServiceRulesAnyOfItemAnyOf } from "./appointments-by-client-response-dto-output-items-item-service-rules-any-of-item-any-of";
+import type { AppointmentsByClientResponseDtoOutputItemsItemServiceRulesAnyOfItemAnyOfFive } from "./appointments-by-client-response-dto-output-items-item-service-rules-any-of-item-any-of-five";
+import type { AppointmentsByClientResponseDtoOutputItemsItemServiceRulesAnyOfItemAnyOfNine } from "./appointments-by-client-response-dto-output-items-item-service-rules-any-of-item-any-of-nine";
+import type { AppointmentsByClientResponseDtoOutputItemsItemServiceRulesAnyOfItemAnyOfOnethree } from "./appointments-by-client-response-dto-output-items-item-service-rules-any-of-item-any-of-onethree";
 
 export type AppointmentsByClientResponseDtoOutputItemsItemServiceRulesAnyOfItem =
-	{
-		characteristic: AppointmentsByClientResponseDtoOutputItemsItemServiceRulesAnyOfItemCharacteristic;
-		options: AppointmentsByClientResponseDtoOutputItemsItemServiceRulesAnyOfItemOptionsItem[];
-	};
+	| AppointmentsByClientResponseDtoOutputItemsItemServiceRulesAnyOfItemAnyOf
+	| AppointmentsByClientResponseDtoOutputItemsItemServiceRulesAnyOfItemAnyOfFive
+	| AppointmentsByClientResponseDtoOutputItemsItemServiceRulesAnyOfItemAnyOfNine
+	| AppointmentsByClientResponseDtoOutputItemsItemServiceRulesAnyOfItemAnyOfOnethree;

@@ -4,10 +4,13 @@
  * API de Cuidados com Animais
  * OpenAPI spec version: 1.0
  */
-import type { ServiceDetailsResponseOutputRulesAnyOfItemCharacteristic } from "./service-details-response-output-rules-any-of-item-characteristic";
-import type { ServiceDetailsResponseOutputRulesAnyOfItemOptionsItem } from "./service-details-response-output-rules-any-of-item-options-item";
+import type { ServiceDetailsResponseOutputRulesAnyOfItemAnyOf } from "./service-details-response-output-rules-any-of-item-any-of";
+import type { ServiceDetailsResponseOutputRulesAnyOfItemAnyOfFive } from "./service-details-response-output-rules-any-of-item-any-of-five";
+import type { ServiceDetailsResponseOutputRulesAnyOfItemAnyOfNine } from "./service-details-response-output-rules-any-of-item-any-of-nine";
+import type { ServiceDetailsResponseOutputRulesAnyOfItemAnyOfOnethree } from "./service-details-response-output-rules-any-of-item-any-of-onethree";
 
-export type ServiceDetailsResponseOutputRulesAnyOfItem = {
-	characteristic: ServiceDetailsResponseOutputRulesAnyOfItemCharacteristic;
-	options: ServiceDetailsResponseOutputRulesAnyOfItemOptionsItem[];
-};
+export type ServiceDetailsResponseOutputRulesAnyOfItem =
+	| ServiceDetailsResponseOutputRulesAnyOfItemAnyOf
+	| ServiceDetailsResponseOutputRulesAnyOfItemAnyOfFive
+	| ServiceDetailsResponseOutputRulesAnyOfItemAnyOfNine
+	| ServiceDetailsResponseOutputRulesAnyOfItemAnyOfOnethree;

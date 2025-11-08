@@ -6,12 +6,17 @@ import { Button } from "@/components/ui/button";
 import { useListServicesByCompany } from "@/lib/http/generated/endpoints/serviços/serviços";
 import { ServiceResponseListOutputItemsItem } from "@/lib/http/generated/models";
 import { pageSearchSchema } from "@/schemas/page-search";
+import { ActivateServiceModal } from "./-components/activate-service-modal";
 import { DeactivateServiceModal } from "./-components/deactivate-service-modal";
 import { EmptyServices } from "./-components/empty-services";
 import { ServiceCard } from "./-components/service-card";
 import { ServiceFormModal } from "./-components/service-form-modal";
-import { ServiceViewModal } from "./-components/service-view-modal";
 import { ServicesSkeleton } from "./-components/services-skeleton";
+
+type Service = ServiceResponseListOutputItemsItem;
+type Action =
+	| { type: "edit" | "deactivate" | "activate"; service: Service }
+	| { type: "create" };
 
 export const Route = createFileRoute("/(app)/services/")({
 	component: ServicePage,
@@ -20,31 +25,20 @@ export const Route = createFileRoute("/(app)/services/")({
 
 function ServicePage() {
 	const { companyId } = Route.useRouteContext();
-	const { id } = Route.useSearch();
-	const navigate = Route.useNavigate();
-
-	const [createServiceModalOpen, setCreateServiceModalOpen] = useState(false);
-	const [serviceToEdit, setServiceToEdit] =
-		useState<ServiceResponseListOutputItemsItem | null>(null);
-	const [deactivateServiceSelected, setDeactivateServiceSelected] =
-		useState<ServiceResponseListOutputItemsItem | null>(null);
+	const [action, setAction] = useState<Action | null>(null);
 	const { data: services, isLoading } = useListServicesByCompany(companyId);
 
-	if (isLoading) {
-		return <ServicesSkeleton />;
-	}
+	if (isLoading) return <ServicesSkeleton />;
 
 	return (
 		<>
 			<SiteHeader title="Serviços" />
 			{!services?.items.length ? (
-				<EmptyServices
-					onCreateService={() => setCreateServiceModalOpen(true)}
-				/>
+				<EmptyServices onCreateService={() => setAction({ type: "create" })} />
 			) : (
 				<div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 px-4">
 					<div className="flex justify-end">
-						<Button onClick={() => setCreateServiceModalOpen(true)}>
+						<Button onClick={() => setAction({ type: "create" })}>
 							<PlusIcon className="h-4 w-4" />
 							Criar Serviço
 						</Button>
@@ -55,40 +49,25 @@ function ServicePage() {
 							<ServiceCard
 								key={service.id}
 								service={service}
-								onDeactivateService={() =>
-									setDeactivateServiceSelected(service)
-								}
-								onEditService={() => setServiceToEdit(service)}
+								onAction={(type) => setAction({ type, service })}
 							/>
 						))}
 					</div>
-
-					{id && (
-						<ServiceViewModal
-							serviceId={id}
-							onOpenChange={() => {
-								navigate({
-									to: "/services",
-									search: (search) => ({ ...search, id: undefined }),
-								});
-							}}
-						/>
-					)}
-
-					<DeactivateServiceModal
-						service={deactivateServiceSelected!}
-						onClose={() => setDeactivateServiceSelected(null)}
-					/>
 				</div>
 			)}
 			<ServiceFormModal
-				open={createServiceModalOpen || !!serviceToEdit}
-				onOpenChange={(open) => {
-					setCreateServiceModalOpen(open);
-					if (!open) setServiceToEdit(null);
-				}}
+				onOpenChange={() => setAction(null)}
 				companyId={companyId!}
-				service={serviceToEdit ?? undefined}
+				open={["create", "edit"].includes(action?.type || "")}
+				service={action?.type === "edit" ? action.service : undefined}
+			/>
+			<DeactivateServiceModal
+				service={action?.type === "deactivate" ? action.service : undefined}
+				onClose={() => setAction(null)}
+			/>
+			<ActivateServiceModal
+				service={action?.type === "activate" ? action.service : undefined}
+				onClose={() => setAction(null)}
 			/>
 		</>
 	);

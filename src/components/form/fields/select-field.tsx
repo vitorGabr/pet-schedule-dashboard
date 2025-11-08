@@ -26,7 +26,7 @@ export function SelectField({ className, label, field, ...props }: Props) {
 	const value = field?.state.value ?? props.value;
 
 	return (
-		<div className="space-y-2">
+		<div className="space-y-2 w-full">
 			<Label
 				data-slot="form-label"
 				data-error={!!errorMessage}
@@ -39,7 +39,7 @@ export function SelectField({ className, label, field, ...props }: Props) {
 				value={value}
 				onValueChange={(value) => field?.handleChange?.(value)}
 			>
-				<SelectTrigger>
+				<SelectTrigger className="w-full">
 					<SelectValue
 						placeholder={props.placeholder}
 						onBlur={field?.handleBlur}

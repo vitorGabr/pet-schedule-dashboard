@@ -20,4 +20,5 @@ export type ServiceResponseListOutputItemsItem = {
 	details?: ServiceResponseListOutputItemsItemDetails;
 	rulesPrompt?: ServiceResponseListOutputItemsItemRulesPrompt;
 	rules?: ServiceResponseListOutputItemsItemRules;
+	categoryIds: string[];
 };

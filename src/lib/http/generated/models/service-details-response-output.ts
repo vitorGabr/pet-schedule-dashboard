@@ -23,6 +23,7 @@ export interface ServiceDetailsResponseOutput {
 	details?: ServiceDetailsResponseOutputDetails;
 	rulesPrompt?: ServiceDetailsResponseOutputRulesPrompt;
 	rules?: ServiceDetailsResponseOutputRules;
+	categoryIds: string[];
 	company: ServiceDetailsResponseOutputCompany;
 	categories: ServiceDetailsResponseOutputCategoriesItem[];
 }

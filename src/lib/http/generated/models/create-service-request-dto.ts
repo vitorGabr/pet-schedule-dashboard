@@ -15,6 +15,6 @@ export interface CreateServiceRequestDto {
 	/** @minimum 0 */
 	duration: number;
 	rules?: string;
-	categoryId?: string;
+	categoryId: string;
 	requiresPayment?: boolean;
 }

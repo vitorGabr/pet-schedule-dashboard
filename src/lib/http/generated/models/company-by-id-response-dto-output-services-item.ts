@@ -20,4 +20,5 @@ export type CompanyByIdResponseDtoOutputServicesItem = {
 	details?: CompanyByIdResponseDtoOutputServicesItemDetails;
 	rulesPrompt?: CompanyByIdResponseDtoOutputServicesItemRulesPrompt;
 	rules?: CompanyByIdResponseDtoOutputServicesItemRules;
+	categoryIds: string[];
 };

@@ -4,10 +4,13 @@
  * API de Cuidados com Animais
  * OpenAPI spec version: 1.0
  */
-import type { CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItemCharacteristic } from "./company-by-id-response-dto-output-services-item-rules-any-of-item-characteristic";
-import type { CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItemOptionsItem } from "./company-by-id-response-dto-output-services-item-rules-any-of-item-options-item";
+import type { CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItemAnyOf } from "./company-by-id-response-dto-output-services-item-rules-any-of-item-any-of";
+import type { CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItemAnyOfFive } from "./company-by-id-response-dto-output-services-item-rules-any-of-item-any-of-five";
+import type { CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItemAnyOfNine } from "./company-by-id-response-dto-output-services-item-rules-any-of-item-any-of-nine";
+import type { CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItemAnyOfOnethree } from "./company-by-id-response-dto-output-services-item-rules-any-of-item-any-of-onethree";
 
-export type CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItem = {
-	characteristic: CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItemCharacteristic;
-	options: CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItemOptionsItem[];
-};
+export type CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItem =
+	| CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItemAnyOf
+	| CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItemAnyOfFive
+	| CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItemAnyOfNine
+	| CompanyByIdResponseDtoOutputServicesItemRulesAnyOfItemAnyOfOnethree;

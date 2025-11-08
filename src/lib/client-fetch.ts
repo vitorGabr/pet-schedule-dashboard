@@ -1,18 +1,9 @@
 import Axios, { AxiosError, type AxiosRequestConfig } from "axios";
-import { getServerCookie } from "@/utils/get-server-cookie";
 import { signOut } from "@/utils/sign-out";
 
 export const AXIOS_INSTANCE = Axios.create({
 	baseURL: import.meta.env.VITE_API_URL,
 	withCredentials: true,
-});
-
-AXIOS_INSTANCE.interceptors.request.use(async (config) => {
-	const token = await getServerCookie();
-	if (token) {
-		config.headers.Authorization = `Bearer ${token}`;
-	}
-	return config;
 });
 
 AXIOS_INSTANCE.interceptors.response.use(

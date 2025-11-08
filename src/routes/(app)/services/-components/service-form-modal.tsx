@@ -14,6 +14,14 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import {
+	Field,
+	FieldContent,
+	FieldDescription,
+	FieldError,
+	FieldLabel,
+} from "@/components/ui/field";
+import { Switch } from "@/components/ui/switch";
 import { useListAllCategories } from "@/lib/http/generated/endpoints/categorias/categorias";
 import {
 	createService,
@@ -81,16 +89,16 @@ export function ServiceFormModal({
 	const onClose = () => {
 		form.reset();
 		onOpenChange(false);
-	}
+	};
 
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
 			<DialogContent className="max-w-2xl px-0 py-0 gap-0">
 				<DialogHeader className="px-4 border-b py-4 flex flex-row items-center gap-2">
 					<div
-						className={`p-2 ${isEditing ? "bg-blue-100" : "bg-green-100"} rounded-lg`}
+						className={`p-2 bg-green-100 rounded-lg`}
 					>
-						<Pencil className="h-4 w-4 text-blue-600" />
+						<Pencil className="h-4 w-4 text-green-600" />
 					</div>
 					<DialogTitle className="text-xl font-semibold">
 						{isEditing ? "Editar Serviço" : "Criar Novo Serviço"}
@@ -184,6 +192,8 @@ export function ServiceFormModal({
 						/>
 					</div>
 
+					
+
 					{/* Regras */}
 					<form.Field
 						name="rules"
@@ -197,6 +207,38 @@ export function ServiceFormModal({
 							);
 						}}
 					/>
+
+					<form.Field
+						name="requiresPayment"
+						children={(field) => {
+							const isInvalid =
+								field.state.meta.isTouched && !field.state.meta.isValid;
+							return (
+								<Field orientation="horizontal" data-invalid={isInvalid}>
+									<FieldContent>
+										<FieldLabel htmlFor="form-tanstack-switch-twoFactor">
+											Requer Pagamento
+										</FieldLabel>
+										<FieldDescription>
+											Ative o pagamento para este serviço. Ao ativar, os
+											clientes serão obrigados a pagar antes de agendar.
+										</FieldDescription>
+										{isInvalid && (
+											<FieldError errors={field.state.meta.errors} />
+										)}
+									</FieldContent>
+									<Switch
+										id="form-tanstack-switch-twoFactor"
+										name={field.name}
+										checked={field.state.value}
+										onCheckedChange={field.handleChange}
+										aria-invalid={isInvalid}
+									/>
+								</Field>
+							);
+						}}
+					/>
+					
 				</form>
 				<DialogFooter className="gap-2 border-t py-3 px-4">
 					<form.Subscribe

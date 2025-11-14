@@ -25,12 +25,14 @@ import {
 	InputGroupInput,
 } from "@/components/ui/input-group";
 import { useMakeSignIn } from "@/hooks/use-make-sign-in";
+import { loginMiddleware } from "@/middlewares/login.middeware";
 import { SignInBody, signInSchema } from "@/schemas/sign-in";
 import { cn } from "@/utils/cn";
 
 export const Route = createFileRoute("/(auth)/sign-in/$")({
 	component: SignIn,
-});
+	beforeLoad: () => loginMiddleware()
+})
 
 function SignIn() {
 	const [showPassword, setShowPassword] = useState(false);

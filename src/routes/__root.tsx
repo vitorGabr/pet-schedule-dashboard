@@ -6,7 +6,6 @@ import {
 	Outlet,
 	Scripts,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { setDefaultOptions } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import * as React from "react";
@@ -46,7 +45,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					</head>
 					<body>
 						{children}
-						<TanStackRouterDevtools position="bottom-right" />
 						<Scripts />
 						<Toaster />
 					</body>

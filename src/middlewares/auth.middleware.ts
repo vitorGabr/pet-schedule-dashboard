@@ -15,9 +15,9 @@ export const authMiddleware = createServerFn({ method: "POST" }).handler(
 		});
 		if (organizations.totalCount === 0) {
 			if (sessionId) {
-				await client.sessions.revokeSession(sessionId);
+				//await client.sessions.revokeSession(sessionId);
 			}
-			throw redirect({ to: "/sign-in/$" });
+			//throw redirect({ to: "/sign-in/$" });
 		}
 
 		const userResult = await client.users.getUser(userId);

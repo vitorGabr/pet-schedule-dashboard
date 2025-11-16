@@ -2,7 +2,7 @@ import { auth, clerkClient } from "@clerk/tanstack-react-start/server";
 import { redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 
-export const authMiddleware = createServerFn({ method: "POST" }).handler(
+export const authMiddleware = createServerFn().handler(
 	async () => {
 		const { isAuthenticated, sessionId, userId } = await auth();
 		const client = clerkClient();
@@ -15,9 +15,9 @@ export const authMiddleware = createServerFn({ method: "POST" }).handler(
 		});
 		if (organizations.totalCount === 0) {
 			if (sessionId) {
-				//await client.sessions.revokeSession(sessionId);
+				await client.sessions.revokeSession(sessionId);
 			}
-			//throw redirect({ to: "/sign-in/$" });
+			throw redirect({ to: "/sign-in/$" });
 		}
 
 		const userResult = await client.users.getUser(userId);

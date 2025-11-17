@@ -95,9 +95,7 @@ export function ServiceFormModal({
 		<Dialog open={open} onOpenChange={onClose}>
 			<DialogContent className="max-w-2xl px-0 py-0 gap-0">
 				<DialogHeader className="px-4 border-b py-4 flex flex-row items-center gap-2">
-					<div
-						className={`p-2 bg-green-100 rounded-lg`}
-					>
+					<div className={`p-2 bg-green-100 rounded-lg`}>
 						<Pencil className="h-4 w-4 text-green-600" />
 					</div>
 					<DialogTitle className="text-xl font-semibold">
@@ -192,8 +190,6 @@ export function ServiceFormModal({
 						/>
 					</div>
 
-					
-
 					{/* Regras */}
 					<form.Field
 						name="rules"
@@ -238,7 +234,6 @@ export function ServiceFormModal({
 							);
 						}}
 					/>
-					
 				</form>
 				<DialogFooter className="gap-2 border-t py-3 px-4">
 					<form.Subscribe

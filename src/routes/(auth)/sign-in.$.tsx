@@ -31,8 +31,8 @@ import { cn } from "@/utils/cn";
 
 export const Route = createFileRoute("/(auth)/sign-in/$")({
 	component: SignIn,
-	beforeLoad: () => loginMiddleware()
-})
+	beforeLoad: () => loginMiddleware(),
+});
 
 function SignIn() {
 	const [showPassword, setShowPassword] = useState(false);

@@ -14,4 +14,6 @@ export default defineConfig({
 		tailwindcss(),
 		tsConfigPaths({ projects: ["./tsconfig.json"] }),
 	],
+	nitro: {},
+	optimizeDeps: { include: ["@clerk/tanstack-react-start", "cookie"] },
 });

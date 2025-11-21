@@ -12,7 +12,7 @@
 		"start": "node .output/server/index.mjs"
 	},
 	"dependencies": {
-		"@clerk/localizations": "^3.28.2",
+		"@clerk/localizations": "^3.28.3",
 		"@radix-ui/react-switch": "^1.2.6",
 		"@tailwindcss/vite": "^4.1.17",
 		"@tanstack/react-form": "^1.25.0",
@@ -25,7 +25,7 @@
 		"lucide-react": "^0.554.0",
 		"next-themes": "^0.4.6",
 		"nitro": "^3.0.1-alpha.1",
-		"orval": "^7.16.0",
+		"orval": "^7.16.1",
 		"radix-ui": "^1.4.3",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
@@ -33,13 +33,13 @@
 		"tailwind-merge": "^3.4.0",
 		"vite-tsconfig-paths": "^5.1.4",
 		"zod": "^4.1.12",
-		"@clerk/tanstack-react-start": "^0.27.3",
+		"@clerk/tanstack-react-start": "^0.27.4",
 		"@tanstack/react-router": "1.139.0",
 		"@tanstack/react-router-devtools": "1.139.0",
 		"@tanstack/react-start": "1.139.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.3.6",
+		"@biomejs/biome": "2.3.7",
 		"@tailwindcss/postcss": "^4",
 		"@types/node": "^24",
 		"@types/react": "^19.2.6",

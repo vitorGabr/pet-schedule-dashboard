@@ -85,7 +85,7 @@ function ItemMetrics(data: {
 				<p className="text-2xl font-bold text-slate-900 mb-1">{data.value}</p>
 				<p className="text-sm font-medium text-slate-600 mb-2">{data.title}</p>
 				<div className="flex items-center justify-between">
-					<span
+					{/*<span
 						className={`inline-flex items-center text-sm font-medium ${
 							data.trend === "up" ? "text-success-600" : "text-red-600"
 						}`}
@@ -96,7 +96,7 @@ function ItemMetrics(data: {
 							<TrendingDown className="w-4 h-4 mr-1" />
 						)}
 						{data.change.toFixed(2)}%
-					</span>
+					</span>*/}
 					<span className="text-xs text-slate-500">{data.subtitle}</span>
 				</div>
 			</div>

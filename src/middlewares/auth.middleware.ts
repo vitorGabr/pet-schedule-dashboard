@@ -12,9 +12,10 @@ export const authMiddleware = createServerFn().handler(async () => {
 	const organizations = await client.users.getOrganizationMembershipList({
 		userId,
 	});
+
 	const companyId =
-		organizations.data[0].organization.publicMetadata?.appCompanyId;
-	if (organizations.totalCount === 0 || !companyId) {
+		organizations.data[0]?.organization?.publicMetadata?.appCompanyId;
+	if (!companyId) {
 		if (sessionId) {
 			await client.sessions.revokeSession(sessionId);
 		}

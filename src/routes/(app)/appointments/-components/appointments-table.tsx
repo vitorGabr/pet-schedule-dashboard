@@ -30,6 +30,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { TableSkeleton } from "@/components/ui/table-skeleton";
 import { appointmentStatusResource } from "@/constants/appointment-status";
 import {
 	AppointmentsByCompanyResponseDtoOutputItemsItem,
@@ -67,11 +68,18 @@ export function AppointmentsTable({
 			<AppointmentFilters query={query} statusSelected={status} />
 
 			{isLoading && (
-				<div className="flex items-center justify-center h-64">
-					<div className="text-muted-foreground">
-						Carregando agendamentos...
-					</div>
-				</div>
+				<TableSkeleton
+					rows={10}
+					columns={[
+						{ width: "w-12", hasAvatar: true },
+						{ width: "w-40" },
+						{ width: "w-40", hasSubtitle: true },
+						{ width: "w-28" },
+						{ width: "w-32" },
+						{ width: "w-24" },
+						{ width: "w-20" },
+					]}
+				/>
 			)}
 
 			{appointments.length === 0 && !isLoading && (

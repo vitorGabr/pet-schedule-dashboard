@@ -36,6 +36,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { TableSkeleton } from "@/components/ui/table-skeleton";
 import { staffRolesResource } from "@/constants/staff-roles-resouce";
 import { ListStaffByCompanyResponseDtoOutputItemsItem } from "@/lib/http/generated/models";
 
@@ -58,9 +59,16 @@ export function StaffTable({
 }: StaffTableProps) {
 	if (isLoading) {
 		return (
-			<div className="flex items-center justify-center h-64">
-				<div className="text-muted-foreground">Carregando funcionários...</div>
-			</div>
+			<TableSkeleton
+				rows={10}
+				columns={[
+					{ skeletonWidth: "w-48" },
+					{ skeletonWidth: "w-64" },
+					{ skeletonWidth: "w-32" },
+					{ skeletonWidth: "w-40" },
+					{ skeletonWidth: "w-24" },
+				]}
+			/>
 		);
 	}
 

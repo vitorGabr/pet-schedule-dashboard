@@ -8,10 +8,16 @@ export const appointmentStatusModalOptions: Partial<
 	>
 > = {
 	scheduled: {
+		label: "Agendado",
+		color: "bg-blue-100 text-blue-800 border-blue-200",
+		icon: Check,
+		description: "Agendamento realizado aguardando confirmação",
+	},
+	confirmed: {
 		label: "Confirmado",
 		color: "bg-blue-100 text-blue-800 border-blue-200",
 		icon: Check,
-		description: "Agendamento confirmado pelo cliente",
+		description: "Agendamento aguardando início do serviço",
 	},
 	in_progress: {
 		label: "Em Andamento",

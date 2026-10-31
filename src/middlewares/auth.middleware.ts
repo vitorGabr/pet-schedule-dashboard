@@ -9,9 +9,12 @@ export const authMiddleware = createServerFn().handler(async () => {
 		throw redirect({ to: "/sign-in/$" });
 	}
 
-	const organizations = await client.users.getOrganizationMembershipList({
-		userId,
-	});
+	// These Clerk lookups are independent. Run them together to reduce
+	// the time spent waiting for the access check on navigation.
+	const [organizations, userResult] = await Promise.all([
+		client.users.getOrganizationMembershipList({ userId }),
+		client.users.getUser(userId),
+	]);
 
 	const companyId =
 		organizations.data[0]?.organization?.publicMetadata?.appCompanyId;
@@ -22,7 +25,6 @@ export const authMiddleware = createServerFn().handler(async () => {
 		throw redirect({ to: "/sign-in/$" });
 	}
 
-	const userResult = await client.users.getUser(userId);
 	if (userResult) {
 		return {
 			userId: String(userResult.publicMetadata?.appUserId),
